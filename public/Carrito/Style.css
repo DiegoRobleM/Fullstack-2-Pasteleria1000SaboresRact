@@ -1,0 +1,6 @@
+.imagen-carrito {
+    width: 120px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 5px;
+}

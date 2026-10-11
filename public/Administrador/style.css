@@ -1,0 +1,40 @@
+body {
+  background-color: #fff5e1;
+}
+
+.titulo-admin {
+  color: #2c180e;
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 700;
+}
+
+.admin-card {
+  background-color: #fffef6;
+  border: 1px solid #c8beac;
+  border-radius: 16px;
+  color: #3f2b09;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.icono-admin {
+  color: #5c3d2e;
+  font-size: 2rem;
+}
+
+#seccion-consultas {
+  scroll-margin-top: 20px;
+}
+
+#seccion-consultas .table-responsive {
+  background-color: #fffef6;
+  border: 1px solid #c8beac;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.celda-consulta {
+  min-width: 280px;
+  max-width: 480px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}

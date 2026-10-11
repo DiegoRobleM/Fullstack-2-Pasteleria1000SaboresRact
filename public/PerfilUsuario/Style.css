@@ -1,0 +1,50 @@
+.contenedor-Perfil {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 15px;
+  min-height: 80vh;
+}
+.tarjeta-perfil {
+    width: 100%;
+    max-width: 650px;
+}
+
+.tarjeta-perfil .contenedor-dentro{
+    background-color: #e9e1d1;
+    padding: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.tarjeta-perfil .contenedor-dentro .img-Perfil {
+    margin-right: 10px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.titulo-Perfil {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #2c180e;
+    margin: 0;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    width: 300px;
+    margin: 10px auto;
+    text-align: center;
+    color: #3f2b09;
+    background-color: #dae2ec;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

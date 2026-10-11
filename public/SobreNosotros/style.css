@@ -1,0 +1,34 @@
+main p {
+  font-size: 15px;
+}
+
+.frase-mision {
+  max-width: 1000px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  font-style: italic;
+  color: #5c3d2e;
+  line-height: 1.6;
+  text-align: center;
+}
+.frase-vision {
+
+  max-width: 1000px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  font-style: italic;
+  color: #5c3d2e;
+  line-height: 1.6;
+  text-align: center;
+
+}
+.card {
+    width: 22rem;
+    height: auto;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}

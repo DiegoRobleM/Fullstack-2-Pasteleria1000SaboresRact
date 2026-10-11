@@ -1,0 +1,24 @@
+{
+  "name": "pasteleria-1000-sabores-react-original",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --test tests/parity.test.mjs"
+  },
+  "dependencies": {
+    "bootstrap": "5.3.3",
+    "bootstrap-icons": "1.11.3",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "6.1.2",
+    "vite": "8.3.3",
+    "@playwright/test": "1.58.2",
+    "pngjs": "7.0.0"
+  }
+}

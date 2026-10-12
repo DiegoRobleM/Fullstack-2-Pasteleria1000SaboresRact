@@ -1,5 +1,8 @@
 import { createContext, useContext, useState } from "react";
-import { productosIniciales } from "./data/productos.js";
+import {
+  obtenerProductos,
+  guardarProductos,
+} from "./data/database.js";
 
 export function readArray(key) {
   try {
@@ -47,11 +50,16 @@ const Store = createContext(null);
 export function StoreProvider({ children }) {
   const [cart, setCart] = useState(() => readArray("carrito"));
   const [user] = useState(activeUser);
-  const [productos, setProductos] = useState(productosIniciales);
+  const [productos, setProductos] = useState(obtenerProductos);
 
   function saveCart(next) {
     localStorage.setItem("carrito", JSON.stringify(next));
     setCart(next);
+  }
+
+  function actualizarProductos(nuevosProductos) {
+  guardarProductos(nuevosProductos);
+  setProductos(nuevosProductos);
   }
 
   function add(product, quantity) {
@@ -94,17 +102,17 @@ export function StoreProvider({ children }) {
 
   return (
     <Store.Provider
-      value={{
-                productos,
-                setProductos,
-                cart,
-                user,
-                add,
-                changeQuantity,
-                remove,
-                saveCart,
-                logout,
-              }}
+    value={{
+              productos,
+              actualizarProductos,
+              cart,
+              user,
+              add,
+              changeQuantity,
+              remove,
+              saveCart,
+              logout,
+            }}
     >
       {children}
     </Store.Provider>

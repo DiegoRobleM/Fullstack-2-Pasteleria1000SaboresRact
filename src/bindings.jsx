@@ -4,6 +4,7 @@ import { ProductCards, CartRows, price } from "./components/Products.jsx";
 import { register, login, contact } from "./forms.js";
 import FormularioProducto from "./components/FormularioProducto.jsx";
 import { crearProducto } from "./data/database.js";
+import TablaProductos from "./components/TablaProductos.jsx";
 
 const categories = {
   Pasteleria: "pasteleria",
@@ -21,15 +22,8 @@ function category(product) {
 }
 
 export function useOriginalBindings(name) {
-  const {
-          productos,
-          refrescarProductos,
-          cart,
-          user,
-          add,
-          saveCart,
-          logout,
-        } = useStore();
+  const { productos, refrescarProductos, cart, user, add, saveCart, logout } =
+    useStore();
   const [message, setMessage] = useState(null);
   const [toast, setToast] = useState(null);
   const [quantity, setQuantity] = useState("1");
@@ -72,18 +66,18 @@ export function useOriginalBindings(name) {
   }
 
   if (categories[name]) {
-  const productosCategoria = productos.filter(
-    (producto) => producto.categoria === categories[name],
-  );
+    const productosCategoria = productos.filter(
+      (producto) => producto.categoria === categories[name],
+    );
 
-  content.catalogo = (
-    <ProductCards products={productosCategoria} notify={notify} />
-  );
+    content.catalogo = (
+      <ProductCards products={productosCategoria} notify={notify} />
+    );
 
-  props["toast-notificacion"] = {
-    className: toast ? "toast-visible" : "toast-oculto",
-  };
-}
+    props["toast-notificacion"] = {
+      className: toast ? "toast-visible" : "toast-oculto",
+    };
+  }
 
   if (name === "Carrito") {
     content.carrito = <CartRows />;
@@ -235,6 +229,9 @@ export function useOriginalBindings(name) {
         }}
       />
     );
+
+    content["tabla-productos"] = <TablaProductos productos={productos} />;
+
     for (const section of ["consultas", "productos", "usuarios"]) {
       props[`seccion-${section}`] = {
         className: "mt-5" + (open[section] ? "" : " d-none"),

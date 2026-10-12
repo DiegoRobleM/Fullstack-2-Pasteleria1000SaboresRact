@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import { productosIniciales } from "./data/productos.js";
 
 export function readArray(key) {
   try {
@@ -46,6 +47,7 @@ const Store = createContext(null);
 export function StoreProvider({ children }) {
   const [cart, setCart] = useState(() => readArray("carrito"));
   const [user] = useState(activeUser);
+  const [productos, setProductos] = useState(productosIniciales);
 
   function saveCart(next) {
     localStorage.setItem("carrito", JSON.stringify(next));
@@ -92,7 +94,17 @@ export function StoreProvider({ children }) {
 
   return (
     <Store.Provider
-      value={{ cart, user, add, changeQuantity, remove, saveCart, logout }}
+      value={{
+                productos,
+                setProductos,
+                cart,
+                user,
+                add,
+                changeQuantity,
+                remove,
+                saveCart,
+                logout,
+              }}
     >
       {children}
     </Store.Provider>

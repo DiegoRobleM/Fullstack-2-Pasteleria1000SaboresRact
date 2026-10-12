@@ -1,10 +1,14 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { useStore, createDemoAdministrator, readArray } from "./store.jsx";
 import { ProductCards, CartRows, price } from "./components/Products.jsx";
-import { Pasteleria, Panaderia, Salados, SinAzucar } from "./products.js";
 import { register, login, contact } from "./forms.js";
 
-const categories = { Pasteleria, Panaderia, Salados, SinAzucar };
+const categories = {
+  Pasteleria: "pasteleria",
+  Panaderia: "panaderia",
+  Salados: "salados",
+  SinAzucar: "sin-azucar",
+};
 
 function category(product) {
   if (product.id.startsWith("pasteleria-")) return "Pastelería";
@@ -15,7 +19,7 @@ function category(product) {
 }
 
 export function useOriginalBindings(name) {
-  const { cart, user, add, saveCart, logout } = useStore();
+  const { productos, cart, user, add, saveCart, logout } = useStore();
   const [message, setMessage] = useState(null);
   const [toast, setToast] = useState(null);
   const [quantity, setQuantity] = useState("1");
@@ -58,13 +62,18 @@ export function useOriginalBindings(name) {
   }
 
   if (categories[name]) {
-    content.catalogo = (
-      <ProductCards products={categories[name]} notify={notify} />
-    );
-    props["toast-notificacion"] = {
-      className: toast ? "toast-visible" : "toast-oculto",
-    };
-  }
+  const productosCategoria = productos.filter(
+    (producto) => producto.categoria === categories[name],
+  );
+
+  content.catalogo = (
+    <ProductCards products={productosCategoria} notify={notify} />
+  );
+
+  props["toast-notificacion"] = {
+    className: toast ? "toast-visible" : "toast-oculto",
+  };
+}
 
   if (name === "Carrito") {
     content.carrito = <CartRows />;

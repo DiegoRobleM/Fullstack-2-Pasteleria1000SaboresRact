@@ -68,3 +68,17 @@ export function crearProducto(datos) {
 
   return producto;
 }
+
+export function eliminarProducto(id) {
+  const productos = obtenerProductos();
+
+  const restantes = productos.filter(
+    (producto) => producto.id !== id,
+  );
+
+  if (restantes.length === productos.length) {
+    throw new Error("Producto no encontrado.");
+  }
+
+  guardarProductos(restantes);
+}

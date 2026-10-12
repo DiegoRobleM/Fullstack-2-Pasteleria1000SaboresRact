@@ -1,4 +1,36 @@
-import { readArray } from "./store.jsx";
+import { readArray } from "../utils/storage.js";
+
+export function activeUser() {
+  const text =
+    sessionStorage.getItem("usuarioActivo") ||
+    localStorage.getItem("usuarioActivo");
+  try {
+    return text ? JSON.parse(text) : null;
+  } catch {
+    sessionStorage.removeItem("usuarioActivo");
+    localStorage.removeItem("usuarioActivo");
+    return null;
+  }
+}
+
+export function createDemoAdministrator() {
+  const users = readArray("usuariosRegistrados");
+  if (users.some((user) => user && user.email === "admin@pasteleria.test"))
+    return;
+  users.push({
+    nombre: "Administrador",
+    apellido: "Demo",
+    email: "admin@pasteleria.test",
+    password: "AdminDemo123!",
+    rol: "admin",
+    direccion: "Dirección ficticia",
+    tipoPropiedad: "Local",
+    region: "metropolitana",
+    comuna: "santiago",
+    guardarDatos: false,
+  });
+  localStorage.setItem("usuariosRegistrados", JSON.stringify(users));
+}
 
 // Se conservan las validaciones, mensajes y datos del JavaScript original.
 export function register(form) {
@@ -91,21 +123,4 @@ export function login(form) {
     redirect: "../PerfilUsuario/index.html",
     delay: 1500,
   };
-}
-
-export function contact(form) {
-  const correo = form.get("correo").trim().toLowerCase();
-  const mensaje = form.get("mensaje").trim();
-  if (!correo || !mensaje)
-    return { text: "Debes completar todos los campos.", type: "warning" };
-  const queries = readArray("consultasContacto");
-  queries.push({
-    id: `consulta-${Date.now()}`,
-    correo,
-    mensaje,
-    fecha: new Date().toISOString(),
-    estado: "pendiente",
-  });
-  localStorage.setItem("consultasContacto", JSON.stringify(queries));
-  return { text: "Tu consulta fue enviada correctamente.", type: "success" };
 }

@@ -1,4 +1,4 @@
-import { price } from "./Products.jsx";
+import { price } from "../../utils/formatPrice.js";
 
 const nombresCategoria = {
   pasteleria: "Pastelería",

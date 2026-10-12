@@ -2,48 +2,10 @@ import { createContext, useContext, useState } from "react";
 import {
   obtenerProductos,
   guardarProductos,
-} from "./data/database.js";
+} from "../services/productos.js";
 
-export function readArray(key) {
-  try {
-    const data = JSON.parse(localStorage.getItem(key));
-    return Array.isArray(data) ? data : [];
-  } catch {
-    return [];
-  }
-}
-
-export function activeUser() {
-  const text =
-    sessionStorage.getItem("usuarioActivo") ||
-    localStorage.getItem("usuarioActivo");
-  try {
-    return text ? JSON.parse(text) : null;
-  } catch {
-    sessionStorage.removeItem("usuarioActivo");
-    localStorage.removeItem("usuarioActivo");
-    return null;
-  }
-}
-
-export function createDemoAdministrator() {
-  const users = readArray("usuariosRegistrados");
-  if (users.some((user) => user && user.email === "admin@pasteleria.test"))
-    return;
-  users.push({
-    nombre: "Administrador",
-    apellido: "Demo",
-    email: "admin@pasteleria.test",
-    password: "AdminDemo123!",
-    rol: "admin",
-    direccion: "Dirección ficticia",
-    tipoPropiedad: "Local",
-    region: "metropolitana",
-    comuna: "santiago",
-    guardarDatos: false,
-  });
-  localStorage.setItem("usuariosRegistrados", JSON.stringify(users));
-}
+import { readArray } from "../utils/storage.js";
+import { activeUser } from "../services/auth.js";
 
 const Store = createContext(null);
 
@@ -53,8 +15,8 @@ export function StoreProvider({ children }) {
   const [productos, setProductos] = useState(obtenerProductos);
 
   function refrescarProductos() {
-  setProductos(obtenerProductos());
-}
+    setProductos(obtenerProductos());
+  }
 
   function saveCart(next) {
     localStorage.setItem("carrito", JSON.stringify(next));
@@ -62,8 +24,8 @@ export function StoreProvider({ children }) {
   }
 
   function actualizarProductos(nuevosProductos) {
-  guardarProductos(nuevosProductos);
-  setProductos(nuevosProductos);
+    guardarProductos(nuevosProductos);
+    setProductos(nuevosProductos);
   }
 
   function add(product, quantity) {
@@ -106,18 +68,18 @@ export function StoreProvider({ children }) {
 
   return (
     <Store.Provider
-    value={{
-              productos,
-              actualizarProductos,
-              cart,
-              user,
-              add,
-              changeQuantity,
-              remove,
-              saveCart,
-              logout,
-              refrescarProductos
-            }}
+      value={{
+        productos,
+        actualizarProductos,
+        refrescarProductos,
+        cart,
+        user,
+        add,
+        changeQuantity,
+        remove,
+        saveCart,
+        logout,
+      }}
     >
       {children}
     </Store.Provider>

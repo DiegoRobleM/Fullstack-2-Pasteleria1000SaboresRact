@@ -3,7 +3,7 @@ import {
   Panaderia,
   Salados,
   SinAzucar,
-} from "../products.js";
+} from "./catalogo.js";
 
 function prepararProductos(productos, categoria) {
   return productos.map((producto) => ({

@@ -1,4 +1,4 @@
-import { productosIniciales } from "./productos.js";
+import { productosIniciales } from "../data/productos.js";
 
 export function obtenerProductos() {
   try {

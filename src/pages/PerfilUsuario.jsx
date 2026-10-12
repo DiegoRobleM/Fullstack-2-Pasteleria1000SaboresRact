@@ -1,4 +1,5 @@
-import { Navbar, Footer } from "../components/Layout.jsx";
+import { Navbar } from "../components/layout/Navbar.jsx";
+import { Footer } from "../components/layout/Footer.jsx";
 
 // Estructura y textos de la pantalla original, conservados en JSX.
 export default function PerfilUsuario({ props = {}, content = {} }) {

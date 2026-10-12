@@ -10,7 +10,7 @@ import os from "node:os";
 import { fileURLToPath } from "node:url";
 import { chromium } from "@playwright/test";
 import { PNG } from "pngjs";
-import { pages } from "../src/pages.js";
+import { pages } from "../src/app/pages.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const original = path.resolve(root, "../Pasteleria1000Sabores/Fullstack_2");
@@ -85,7 +85,7 @@ before(async () => {
   );
   assert.ok(
     existsSync(path.join(root, "dist/index.html")),
-    "Ejecuta pnpm build antes de pnpm test",
+    "Ejecuta npm run build antes de npm test",
   );
   await mkdir(output, { recursive: true });
   sourceURL = `http://127.0.0.1:${await port()}`;

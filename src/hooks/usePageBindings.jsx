@@ -1,10 +1,14 @@
 import { Fragment, useEffect, useRef, useState } from "react";
-import { useStore, createDemoAdministrator, readArray } from "./store.jsx";
-import { ProductCards, CartRows, price } from "./components/Products.jsx";
-import { register, login, contact } from "./forms.js";
-import FormularioProducto from "./components/FormularioProducto.jsx";
-import { crearProducto } from "./data/database.js";
-import TablaProductos from "./components/TablaProductos.jsx";
+import { useStore } from "../context/StoreContext.jsx";
+import { createDemoAdministrator, register, login } from "../services/auth.js";
+import { readArray } from "../utils/storage.js";
+import { ProductCards } from "../components/products/ProductCards.jsx";
+import { CartRows } from "../components/cart/CartRows.jsx";
+import { price } from "../utils/formatPrice.js";
+import { contact } from "../services/contact.js";
+import FormularioProducto from "../components/admin/FormularioProducto.jsx";
+import { crearProducto } from "../services/productos.js";
+import TablaProductos from "../components/admin/TablaProductos.jsx";
 
 const categories = {
   Pasteleria: "pasteleria",
@@ -21,7 +25,7 @@ function category(product) {
   return "Producto";
 }
 
-export function useOriginalBindings(name) {
+export function usePageBindings(name) {
   const { productos, refrescarProductos, cart, user, add, saveCart, logout } =
     useStore();
   const [message, setMessage] = useState(null);

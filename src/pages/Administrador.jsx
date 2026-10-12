@@ -141,6 +141,7 @@ export default function Administrador({ props = {}, content = {} }) {
                 <>
                   {"\n        "}
                   <h2 className="h3 mb-3">{"Catálogos publicados"}</h2>
+                  {content["formulario-producto"]}
                   {"\n\n        "}
                   <div className="row g-3">
                     {"\n          "}

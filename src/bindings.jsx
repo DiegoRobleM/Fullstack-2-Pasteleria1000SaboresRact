@@ -2,6 +2,8 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { useStore, createDemoAdministrator, readArray } from "./store.jsx";
 import { ProductCards, CartRows, price } from "./components/Products.jsx";
 import { register, login, contact } from "./forms.js";
+import FormularioProducto from "./components/FormularioProducto.jsx";
+import { crearProducto } from "./data/database.js";
 
 const categories = {
   Pasteleria: "pasteleria",
@@ -19,7 +21,15 @@ function category(product) {
 }
 
 export function useOriginalBindings(name) {
-  const { productos, cart, user, add, saveCart, logout } = useStore();
+  const {
+          productos,
+          refrescarProductos,
+          cart,
+          user,
+          add,
+          saveCart,
+          logout,
+        } = useStore();
   const [message, setMessage] = useState(null);
   const [toast, setToast] = useState(null);
   const [quantity, setQuantity] = useState("1");
@@ -217,6 +227,14 @@ export function useOriginalBindings(name) {
     props["panel-admin"] = { className: "container py-5" };
     content["saludo-admin"] =
       `Sesión iniciada como ${user.nombre} ${user.apellido}.`;
+    content["formulario-producto"] = (
+      <FormularioProducto
+        onGuardar={(datos) => {
+          crearProducto(datos);
+          refrescarProductos();
+        }}
+      />
+    );
     for (const section of ["consultas", "productos", "usuarios"]) {
       props[`seccion-${section}`] = {
         className: "mt-5" + (open[section] ? "" : " d-none"),

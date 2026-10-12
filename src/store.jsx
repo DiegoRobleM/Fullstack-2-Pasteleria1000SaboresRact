@@ -52,6 +52,10 @@ export function StoreProvider({ children }) {
   const [user] = useState(activeUser);
   const [productos, setProductos] = useState(obtenerProductos);
 
+  function refrescarProductos() {
+  setProductos(obtenerProductos());
+}
+
   function saveCart(next) {
     localStorage.setItem("carrito", JSON.stringify(next));
     setCart(next);
@@ -112,6 +116,7 @@ export function StoreProvider({ children }) {
               remove,
               saveCart,
               logout,
+              refrescarProductos
             }}
     >
       {children}

@@ -1,0 +1,7 @@
+.contenedorProductos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin: 40px 0;
+}

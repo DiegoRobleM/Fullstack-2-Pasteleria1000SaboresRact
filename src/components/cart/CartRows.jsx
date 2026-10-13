@@ -1,3 +1,4 @@
+import estilos from "./filaCarrito.module.css";
 import { useStore } from "../../context/StoreContext.jsx";
 import { price } from "../../utils/formatPrice.js";
 
@@ -14,9 +15,7 @@ export function CartRows() {
       <div className="card-body d-flex align-items-center gap-4">
         <img
           src={product.imagen}
-          alt={product.titulo}
-          className="imagen-carrito"
-        />
+          alt={product.titulo} className={estilos.imagenCarrito}/>
         <div className="flex-grow-1">
           <h5>{product.titulo}</h5>
           <p>Precio: {price(product.precio)}</p>

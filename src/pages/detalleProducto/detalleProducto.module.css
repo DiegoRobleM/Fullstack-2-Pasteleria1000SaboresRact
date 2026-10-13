@@ -1,0 +1,49 @@
+.producto {
+  padding: 32px;
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.imagen {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background-color: #e9e1d1;
+}
+
+.categoria {
+  color: #8b4513 !important;
+  font-size: 0.85rem;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+}
+
+.titulo {
+  color: var(--color-titulo);
+  font-family: var(--fuente-titulos);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: bold;
+}
+
+.descripcion {
+  color: #5d4037;
+  line-height: 1.7;
+}
+
+.precio {
+  color: #8b4513;
+}
+
+.cantidad {
+  width: 100%;
+  max-width: 120px;
+  background-color: white;
+  border-color: var(--color-borde);
+}
+
+.mensajeCarrito {
+  margin-bottom: 0;
+}

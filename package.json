@@ -7,7 +7,8 @@
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1",
-    "test": "node --test tests/parity.test.mjs"
+    "test": "node --test tests/parity.test.mjs",
+    "test:styles": "node --test tests/styles.test.mjs"
   },
   "dependencies": {
     "bootstrap": "5.3.3",

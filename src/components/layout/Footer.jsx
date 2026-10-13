@@ -1,10 +1,10 @@
+import estilos from "./layout.module.css";
 export function Footer() {
   return (
     <mi-footer>
       {"\n        "}
       <footer
-        className="text-white py-3"
-        style={{ backgroundColor: "#5c3d2e" }}
+        className={`text-white py-3 ${estilos.piePagina}`}
       >
         {"\n            "}
         <div className="container d-flex justify-content-center align-items-center gap-4">

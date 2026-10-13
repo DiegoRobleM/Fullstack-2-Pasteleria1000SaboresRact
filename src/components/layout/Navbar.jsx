@@ -1,3 +1,4 @@
+import estilos from "./layout.module.css";
 import { useStore } from "../../context/StoreContext.jsx";
 import SessionMenu from "./SessionMenu.jsx";
 
@@ -27,8 +28,7 @@ export function Navbar() {
       <header>
         {"\n          "}
         <nav
-          className="navbar navbar-expand-lg navbar-dark"
-          style={{ backgroundColor: "#5c3d2e" }}
+          className={`navbar navbar-expand-lg navbar-dark ${estilos.barraNavegacion}`}
         >
           {"\n            "}
           <div className="container">
@@ -206,4 +206,3 @@ export function Navbar() {
     </mi-navbar>
   );
 }
-

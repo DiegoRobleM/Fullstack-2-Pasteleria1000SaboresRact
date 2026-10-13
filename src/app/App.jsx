@@ -1,17 +1,17 @@
 import { usePageBindings } from "../hooks/usePageBindings.jsx";
-import Inicio from "../pages/Inicio.jsx";
-import Pasteleria from "../pages/Pasteleria.jsx";
-import Panaderia from "../pages/Panaderia.jsx";
-import Salados from "../pages/Salados.jsx";
-import SinAzucar from "../pages/SinAzucar.jsx";
-import DetalleProducto from "../pages/DetalleProducto.jsx";
-import Carrito from "../pages/Carrito.jsx";
-import RegistroUsuario from "../pages/RegistroUsuario.jsx";
-import InicioSesion from "../pages/InicioSesion.jsx";
-import PerfilUsuario from "../pages/PerfilUsuario.jsx";
-import Contacto from "../pages/Contacto.jsx";
-import SobreNosotros from "../pages/SobreNosotros.jsx";
-import Administrador from "../pages/Administrador.jsx";
+import Inicio from "../pages/inicio/inicio.jsx";
+import Pasteleria from "../pages/pasteleria/pasteleria.jsx";
+import Panaderia from "../pages/panaderia/panaderia.jsx";
+import Salados from "../pages/salados/salados.jsx";
+import SinAzucar from "../pages/sinAzucar/sinAzucar.jsx";
+import DetalleProducto from "../pages/detalleProducto/detalleProducto.jsx";
+import Carrito from "../pages/carrito/carrito.jsx";
+import RegistroUsuario from "../pages/registroUsuario/registroUsuario.jsx";
+import InicioSesion from "../pages/inicioSesion/inicioSesion.jsx";
+import PerfilUsuario from "../pages/perfilUsuario/perfilUsuario.jsx";
+import Contacto from "../pages/contacto/contacto.jsx";
+import SobreNosotros from "../pages/sobreNosotros/sobreNosotros.jsx";
+import Administrador from "../pages/administrador/administrador.jsx";
 
 const views = {
   Inicio,

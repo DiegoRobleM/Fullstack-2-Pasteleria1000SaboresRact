@@ -313,11 +313,11 @@ test("Catálogo → detalle → carrito: navegación, cantidades, persistencia y
     );
     try {
       assert.equal(
-        await page.locator(".contenedorProductos > .card").count(),
+        await page.locator("#productos .card").count(),
         3,
       );
-      await page.locator(".btn-agregar").first().click();
-      await page.locator(".btn-ver").first().click();
+      await page.getByRole("button", { name: "Agregar al carrito", exact: true }).first().click();
+      await page.getByRole("button", { name: "Ver", exact: true }).first().click();
       await page.waitForURL("**/DetalleProducto/index.html");
       await page.locator("#detalle-cantidad").fill("3");
       await page.locator("#btn-agregar-detalle").click();
@@ -342,10 +342,10 @@ test("Catálogo → detalle → carrito: navegación, cantidades, persistencia y
         (await page.locator("#total").innerText()).replace(/\s/g, ""),
         "$100.000",
       );
-      await page.locator(".btn-eliminar").click();
+      await page.getByRole("button", { name: "Eliminar", exact: true }).click();
       await page.locator("#carrito .alert").waitFor();
       await page.goto(base + "/Pasteleria/pasteleria.html");
-      await page.locator(".btn-agregar").first().click();
+      await page.getByRole("button", { name: "Agregar al carrito", exact: true }).first().click();
       await page.locator("#enlace-carrito-navbar").click();
       await page.waitForURL("**/Carrito/carrito.html");
       await page.locator("#btn-vaciar").click();

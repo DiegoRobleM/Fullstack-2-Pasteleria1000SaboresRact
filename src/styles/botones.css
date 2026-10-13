@@ -1,0 +1,16 @@
+.botonPasteleria {
+  background-color: var(--color-principal);
+  color: #ffffff;
+  font-family: var(--fuente-texto);
+  font-size: 0.95rem;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.botonPasteleria:hover {
+  background-color: var(--color-principal-hover);
+  color: #ffffff;
+  transition: background-color 1s ease, color 0.3s ease;
+}

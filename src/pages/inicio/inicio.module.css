@@ -1,0 +1,105 @@
+.textoCentral h2 {
+  font-family: var(--fuente-titulos);
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--color-titulo);
+  margin-bottom: 5px;
+  letter-spacing: 2px;
+  display: flex;
+  justify-content: center;
+}
+
+.subtitulo {
+  max-width: 1000px;
+  font-family: var(--fuente-texto);
+  font-size: 1.5rem;
+  font-style: italic;
+  color: var(--color-principal);
+  line-height: 1.6;
+  text-align: right;
+}
+
+.imagenCentral img {
+  width: 900px;
+  max-width: 100%;
+  height: auto;
+}
+
+.pagina h2,
+.subtitulo {
+  text-align: left;
+  max-width: 100%;
+}
+
+.botonesCentrales {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.contenedorProductos,
+.contenedorLocales {
+  padding: 20px 0;
+  align-items: center;
+}
+
+.contenedorProductos .tarjetaProducto,
+.contenedorLocales .tarjetaLocal {
+  border-radius: 10%;
+  background-color: rgb(210, 241, 255);
+}
+
+.contenedorProductos .tarjetaProducto {
+  font-family: var(--fuente-titulos);
+  font-size: 2.8rem;
+  color: var(--color-titulo);
+}
+
+.imagenProducto {
+  height: 400px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.tituloProductos h2,
+.tituloLocales h2 {
+  font-family: var(--fuente-titulos);
+  font-size: 2.8rem;
+  font-weight: 700;
+  padding: 20px 0;
+  color: #f1e6c7;
+  margin-bottom: 5px;
+  letter-spacing: 2px;
+  display: flex;
+  justify-content: center;
+  background-color: var(--color-principal);
+}
+
+.contenedorLocales .imagenLocal {
+  height: 500px;
+  width: auto;
+  object-fit: cover;
+  border-radius: 10%;
+}
+
+.tarjetaHistoria h3 {
+  font-family: var(--fuente-titulos);
+  font-size: 15px;
+  padding: 20px 0;
+  color: #302812;
+  margin-bottom: 5px;
+  letter-spacing: 2px;
+  display: flex;
+  justify-content: center;
+}
+
+.tarjetaHistoria {
+  border-radius: var(--bs-card-border-radius);
+  background-color: var(--bs-card-bg);
+  width: 850px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  object-fit: fill;
+  align-items: center;
+}

@@ -1,0 +1,51 @@
+.contenedorPerfil {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 15px;
+  min-height: 80vh;
+}
+
+.tarjetaPerfil {
+  width: 100%;
+  max-width: 650px;
+}
+
+.tarjetaPerfil .contenidoPerfil {
+  background-color: #e9e1d1;
+  padding: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.tarjetaPerfil .contenidoPerfil .imagenPerfil {
+  margin-right: 10px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.tituloPerfil {
+  font-family: var(--fuente-titulos);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--color-titulo);
+  margin: 0;
+}
+
+.tarjetaDatos {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  width: 300px;
+  margin: 10px auto;
+  text-align: center;
+  color: var(--color-principal-hover);
+  background-color: #dae2ec;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

@@ -45,12 +45,13 @@ La cuenta ficticia `admin@pasteleria.test` / `AdminDemo123!` ya existía en el o
 src/
 ├── app/
 │   ├── App.jsx               # Selección de la pantalla React
-│   ├── pages.js              # Rutas, títulos y estilos por pantalla
-│   └── setupPage.js          # Preparación de la página y redirecciones
+│   ├── pages.js              # Rutas y títulos por pantalla
+│   └── setupPage.js          # Título de la página y redirecciones
 ├── components/
 │   ├── admin/                # Formulario y tabla de productos
 │   ├── cart/                 # Filas del carrito
 │   ├── layout/               # Navbar, menú de sesión y footer
+│   ├── notificacion/         # Notificación compartida y su CSS Module
 │   └── products/             # Tarjetas del catálogo
 ├── context/
 │   └── StoreContext.jsx      # Estado compartido: carrito, usuario y productos
@@ -59,24 +60,45 @@ src/
 │   └── productos.js          # Productos iniciales con categoría y descuento
 ├── hooks/
 │   └── usePageBindings.jsx   # Eventos y contenido variable de las pantallas
-├── pages/                    # Las 13 pantallas en JSX
+├── pages/                    # Una carpeta por pantalla, con JSX y CSS local
+│   ├── inicio/               # inicio.jsx e inicio.module.css
+│   ├── carrito/              # carrito.jsx; los estilos de filas están en el componente
+│   └── ...                   # Las 13 pantallas conservan sus componentes PascalCase
 ├── services/
 │   ├── auth.js               # Registro, login y sesión
 │   ├── contact.js            # Validación y almacenamiento de consultas
 │   └── productos.js          # Lectura, creación, guardado y eliminación
+├── styles/
+│   ├── global.css            # Estructura general, fondo y variables CSS
+│   ├── botones.css           # Botones compartidos
+│   └── formularios.css       # Contenedores y campos compartidos
 ├── utils/
+│   ├── combinarClases.js     # Combina clases locales, Bootstrap y estado dinámico
 │   ├── formatPrice.js        # Formato de precios en pesos chilenos
 │   └── storage.js            # Lectura de arrays desde localStorage
 └── main.jsx                  # Entrada y montaje de React
-public/                       # Imágenes, CSS y librerías originales
+public/                       # Imágenes originales con sus rutas conservadas
 tests/                        # Comparación con el sitio original
 ```
 
-Las pantallas usan componentes y reciben sus eventos y contenido de `usePageBindings`. El contexto mantiene el estado compartido y los servicios contienen las reglas y la persistencia; los servicios no dependen de componentes React. Para agregar una pantalla, crea su componente en `src/pages/`, registra su ruta en `src/app/pages.js` y su vista en `src/app/App.jsx`.
+Las pantallas usan componentes y reciben sus eventos y contenido de `usePageBindings`. El contexto mantiene el estado compartido y los servicios contienen las reglas y la persistencia; los servicios no dependen de componentes React. Para agregar una pantalla, crea una carpeta en `src/pages/` con nombres camelCase sin tildes, registra su ruta en `src/app/pages.js` y su vista en `src/app/App.jsx`.
 
-Los archivos de `public/` mantienen sus rutas para conservar las referencias de imágenes y CSS. Bootstrap e iconos se sirven localmente con las versiones del original (5.3.3 y 1.11.3); `public/vendor/` incluye sus licencias. `dist/`, `node_modules/` y `test-results/` son carpetas generadas e ignoradas por Git.
+Las imágenes de `public/` mantienen sus rutas. Los estilos propios se importan desde `src`: los globales y compartidos una sola vez en `main.jsx`, y los CSS Modules junto a la página o componente que los utiliza. Las clases locales están en español y camelCase, y se combinan con las clases Bootstrap. Los selectores de etiquetas están delimitados por una clase local para evitar que afecten otras pantallas.
+
+Bootstrap e iconos se importan desde las dependencias instaladas (5.3.3 y 1.11.3), antes de las personalizaciones; Vite incluye sus CSS y fuentes en `dist`. Se retiraron los CSS originales de `public`, la copia duplicada de `vendor` y la carga manual de hojas por página. La compilación conserva la precisión del CSS de Bootstrap para mantener las medidas de su grilla. `dist/`, `node_modules/` y `test-results/` son carpetas generadas e ignoradas por Git.
 
 React renderiza las pantallas y actualiza su contenido mediante estado y eventos. No se cargan los scripts antiguos, no se inyecta su HTML con `innerHTML` y no se utiliza un iframe.
+
+## Verificar la organización de estilos
+
+```sh
+npm run build
+npm run test:styles
+```
+
+Esta suite sirve la compilación con Vite y comprueba las trece pantallas en escritorio y móvil, errores de JavaScript y recursos, aislamiento de estilos, notificaciones, mensajes de registro y detalle vacío. No requiere Python ni el proyecto original. Usa Chromium de Playwright; si no está instalado, en Windows intenta usar Chrome. También admite `CHROME_BIN` para indicar un ejecutable de navegador. Para descargar Chromium: `npm exec -- playwright install chromium`.
+
+La migración también se comprobó comparando textos, títulos y 26 capturas contra el port anterior al cambio de CSS. Los scripts y capturas auxiliares están en `test-results`, sin versionar; la suite de estilos descrita arriba sí forma parte del proyecto.
 
 ## Comparar con el original
 

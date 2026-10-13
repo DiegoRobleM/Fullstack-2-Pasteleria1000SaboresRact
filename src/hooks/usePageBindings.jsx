@@ -1,3 +1,5 @@
+import notificacion from "../components/notificacion/notificacion.module.css";
+import consulta from "../components/admin/consulta.module.css";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { useStore } from "../context/StoreContext.jsx";
 import { createDemoAdministrator, register, login } from "../services/auth.js";
@@ -79,7 +81,7 @@ export function usePageBindings(name) {
     );
 
     props["toast-notificacion"] = {
-      className: toast ? "toast-visible" : "toast-oculto",
+      className: toast ? notificacion.visible : notificacion.oculta,
     };
   }
 
@@ -149,8 +151,8 @@ export function usePageBindings(name) {
         toast === null
           ? "alert alert-success d-none mt-4"
           : toast
-            ? "toast-visible"
-            : "toast-oculto",
+            ? notificacion.visible
+            : notificacion.oculta,
     };
     if (toast !== null)
       content["mensaje-carrito"] = "🍰 ¡PRODUCTO AGREGADO A TU CARRITO!";
@@ -276,7 +278,7 @@ export function usePageBindings(name) {
       <tr key={query.id} data-consulta-id={query.id}>
         <td>{new Date(query.fecha).toLocaleString("es-CL")}</td>
         <td>{query.correo}</td>
-        <td className="celda-consulta">{query.mensaje}</td>
+        <td className={consulta.celdaConsulta}>{query.mensaje}</td>
         <td>
           <select
             className="form-select form-select-sm"

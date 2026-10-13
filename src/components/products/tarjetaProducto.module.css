@@ -1,0 +1,15 @@
+.tarjeta {
+  width: 20rem;
+}
+
+.acciones {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.acciones .boton {
+  display: inline-block;
+  margin: 5px;
+  justify-content: center;
+}

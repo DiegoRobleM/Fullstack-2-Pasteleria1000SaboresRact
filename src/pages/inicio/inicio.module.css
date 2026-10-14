@@ -93,8 +93,8 @@
   min-width: 145px !important;
   padding: 10px 24px !important;
   border: 2px solid var(--color-brand) !important;
-  background-color: var(--color-amarillo-original) !important;
-  color: var(--color-brand) !important;
+  background-color: var(--color-brand) !important;
+  color: #ffffff !important;
   font-size: 0.88rem !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
@@ -106,7 +106,8 @@
 }
 
 .btnProductos:hover {
-  background-color: var(--color-brand) !important;
+  background-color: var(--color-brand-dark) !important;
+  border-color: var(--color-brand-dark) !important;
   color: #ffffff !important;
 }
 
@@ -227,18 +228,64 @@
   box-shadow: 0 6px 18px rgba(92, 61, 46, 0.2);
 }
 
-/* Tarjeta Blanca Grande Única para Historia + Foto */
+/* Carta de papel antiguo para Historia + Foto */
 .tarjetaHistoriaGrande {
-  background-color: #ffffff !important;
-  border: 1px solid #e0d5c1;
-  border-radius: 20px;
+  position: relative;
+  background-color: #f2dfb6 !important;
+  background-image:
+    url("/Inicio/img/papel-antiguo.svg"),
+    radial-gradient(ellipse at 3% 8%, rgba(132, 78, 26, 0.24), transparent 38%),
+    radial-gradient(ellipse at 97% 92%, rgba(132, 78, 26, 0.2), transparent 36%),
+    radial-gradient(ellipse at 78% 12%, rgba(166, 111, 44, 0.12), transparent 24%),
+    radial-gradient(ellipse at 18% 85%, rgba(166, 111, 44, 0.1), transparent 22%),
+    linear-gradient(
+      90deg,
+      transparent 49.5%,
+      rgba(116, 76, 32, 0.07) 50%,
+      rgba(255, 250, 230, 0.28) 50.4%,
+      transparent 51%
+    ),
+    linear-gradient(110deg, #ead2a2, #fff3d6 45%, #efd9ae);
+  background-size: 240px 240px, auto, auto, auto, auto, auto, auto;
+  border: 1px solid #bea071;
+  border-radius: 7px 3px 9px 4px;
   padding: 40px;
-  box-shadow: 0 12px 30px rgba(92, 61, 46, 0.12);
+  box-shadow:
+    0 12px 30px rgba(92, 61, 46, 0.2),
+    inset 0 0 55px rgba(132, 78, 26, 0.2),
+    inset 0 0 8px rgba(112, 68, 24, 0.18);
   display: flex;
   align-items: center;
   gap: 35px;
   max-width: 1100px;
   margin: 0 auto;
+}
+
+.tarjetaHistoriaGrande::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(140, 101, 56, 0.28);
+  pointer-events: none;
+}
+
+/* Esquina doblada de la carta */
+.tarjetaHistoriaGrande::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(
+    45deg,
+    #c5a475 0%,
+    #e8cca0 49%,
+    var(--color-amarillo-original) 50%
+  );
+  border-bottom-left-radius: 4px;
+  box-shadow: -3px 3px 5px rgba(92, 61, 46, 0.12);
+  pointer-events: none;
 }
 
 /* Marco de Foto Álbum montado en el lado izquierdo de la tarjeta */

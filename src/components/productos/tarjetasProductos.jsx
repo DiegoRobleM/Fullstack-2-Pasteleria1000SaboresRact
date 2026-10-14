@@ -1,19 +1,14 @@
 import estilos from "./tarjetaProducto.module.css";
 import { useTienda } from "../../context/ContextoTienda.jsx";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { rutaImagen } from "../../utils/rutaImagen.js";
 import { PrecioProducto } from "./precioProducto.jsx";
 
 export function TarjetasProductos({ productos, notificar }) {
   const { agregarProducto } = useTienda();
   const navegar = useNavigate();
-  const ubicacion = useLocation();
 
   function verProducto(producto) {
-    sessionStorage.setItem(
-      "productoSeleccionado",
-      JSON.stringify({ ...producto, paginaOrigen: ubicacion.pathname }),
-    );
     navegar("/producto/" + encodeURIComponent(producto.id));
   }
 

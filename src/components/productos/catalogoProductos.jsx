@@ -37,9 +37,7 @@ export default function CatalogoProductos({ categoria, soloOfertas = false }) {
   const tituloSeccion = obtenerTituloPagina(categoria, soloOfertas);
 
   useTituloPagina(
-    soloOfertas
-      ? "Ofertas - Pastelería 1000 Sabores"
-      : `${tituloSeccion} - Pastelería 1000 Sabores`,
+    soloOfertas ? "Ofertas - Pastelería 1000 Sabores" : `${tituloSeccion} - Pastelería 1000 Sabores`
   );
 
   const filtrados = productos.filter(
@@ -48,14 +46,14 @@ export default function CatalogoProductos({ categoria, soloOfertas = false }) {
       (!soloOfertas || Number(producto.descuento) > 0) &&
       (producto.titulo + " " + producto.descripcion)
         .toLocaleLowerCase("es")
-        .includes(busqueda.trim().toLocaleLowerCase("es")),
+        .includes(busqueda.trim().toLocaleLowerCase("es"))
   );
 
   if (orden !== "original") {
     filtrados.sort((a, b) =>
       orden === "menor"
         ? precioFinal(a) - precioFinal(b)
-        : precioFinal(b) - precioFinal(a),
+        : precioFinal(b) - precioFinal(a)
     );
   }
 
@@ -67,9 +65,7 @@ export default function CatalogoProductos({ categoria, soloOfertas = false }) {
         {/* BANNER HERO DEL CATÁLOGO */}
         <section className={estilos.heroCatalogo}>
           <div className={estilos.heroContenido}>
-            <span className={estilos.subtituloBadge}>
-              {"Nuestra Selección"}
-            </span>
+            <span className={estilos.subtituloBadge}>{"Nuestra Selección"}</span>
             <h1 className={estilos.tituloHero}>{tituloSeccion}</h1>
             <p className={estilos.bajadaHero}>
               {
@@ -85,10 +81,7 @@ export default function CatalogoProductos({ categoria, soloOfertas = false }) {
             <div className="row g-3 align-items-end">
               {/* Buscador */}
               <div className="col-12 col-md-7 col-lg-8">
-                <label
-                  className={estilos.etiquetaCampo}
-                  htmlFor="buscar-productos"
-                >
+                <label className={estilos.etiquetaCampo} htmlFor="buscar-productos">
                   <svg
                     className={estilos.iconoLabel}
                     viewBox="0 0 24 24"
@@ -113,10 +106,7 @@ export default function CatalogoProductos({ categoria, soloOfertas = false }) {
 
               {/* Selector de Orden */}
               <div className="col-12 col-md-5 col-lg-4">
-                <label
-                  className={estilos.etiquetaCampo}
-                  htmlFor="orden-productos"
-                >
+                <label className={estilos.etiquetaCampo} htmlFor="orden-productos">
                   <svg
                     className={estilos.iconoLabel}
                     viewBox="0 0 24 24"
@@ -154,12 +144,9 @@ export default function CatalogoProductos({ categoria, soloOfertas = false }) {
 
             <div className={estilos.contenedorProductos}>
               {filtrados.length ? (
-                <TarjetasProductos
-                  productos={filtrados}
-                  notificar={notificar}
-                />
+                <TarjetasProductos productos={filtrados} notificar={notificar} />
               ) : (
-                <Alerta className={estilos.tarjetaSinResultados}>
+                <div className={estilos.tarjetaSinResultados}>
                   <div className={estilos.iconoSinResultados}>
                     <svg
                       viewBox="0 0 24 24"
@@ -174,11 +161,9 @@ export default function CatalogoProductos({ categoria, soloOfertas = false }) {
                   </div>
                   <h3>{"No se encontraron productos"}</h3>
                   <p>
-                    {
-                      "Intenta buscar con otra palabra clave o restablece los filtros."
-                    }
+                    {"Intenta buscar con otra palabra clave o restablece los filtros."}
                   </p>
-                </Alerta>
+                </div>
               )}
             </div>
           </section>

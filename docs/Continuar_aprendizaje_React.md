@@ -6,7 +6,7 @@ Actualizado el 14 de octubre de 2026. Proyecto actual: Pasteleria1000SaboresReac
 
 El estudiante solicitó explícitamente implementar todo el plan y realizar commits durante el avance. Ya se implementaron:
 
-1. React Router con createBrowserRouter, RouterProvider y montaje en #root. Dieciocho pantallas, rutas .html compatibles y detalle por parámetro.
+1. React Router con createBrowserRouter, RouterProvider y montaje en #root. Dieciocho pantallas con rutas React y detalle por parámetro.
 2. Carpetas por página, nombres propios en español y lógica local junto al JSX. Se retiraron usePageBindings, los diccionarios props/content y el adaptador temporal.
 3. Contexto de productos, carrito, usuario y pedidos; servicios de autenticación, consultas, productos, carrito y pedidos; utilidades de precios y almacenamiento.
 4. CRUD completo de productos, con edición que conserva IDs y eliminación confirmada. Carrito actualizado después de los cambios de catálogo.
@@ -56,9 +56,6 @@ README.md explica ejecución y estructura. docs/ERS_V2.md define el alcance. doc
 El plan funcional acordado está implementado: router, lógica local, nombres en español, CRUD de productos, descuentos, compra simulada e historial. El cierre documental incorpora ERS, cobertura y registro de pruebas. No quedan tareas de ese plan funcional identificadas en esta revisión.
 
 1. Publicación y entrega: verificar que el enlace GitHub sea público y contenga la versión final, preparar el proyecto comprimido solicitado y la presentación según las instrucciones de clases. El remoto configurado es https://github.com/DiegoRobleM/Fullstack-2-Pasteleria1000SaboresRact.git; su visibilidad y contenido remoto no se verificaron en este cierre. Si se elige un alojamiento, configurar la recuperación de rutas SPA en ese servidor. Estas acciones quedan registradas para la siguiente instrucción.
-2. Comparación histórica: test:parity aún no está verificada contra el HTML original. Requiere disponer de ese proyecto y python3 y revisar las diferencias intencionales de las funciones nuevas. Las suites actuales de router, estilos y tienda cubren la implementación vigente.
-3. Dependencias de pruebas: dar seguimiento a las tres alertas altas de desarrollo de Karma/braces documentadas en TESTING.md. La actualización automática propone cambios incompatibles; no se aplicó una degradación de versiones.
+2. Dependencias de pruebas: dar seguimiento a las tres alertas altas de desarrollo de Karma/braces documentadas en TESTING.md. La actualización automática propone cambios incompatibles; no se aplicó una degradación de versiones.
 
 Backend, pago real, inventario, reportes contables/exportables y CRUD administrativo de usuarios/categorías son ampliaciones de alcance. El panel de ventas incluido presenta indicadores locales de los pedidos simulados. Si la entrega académica exige funciones adicionales, deben incorporarse a un plan nuevo antes de implementarlas. Este documento registra los pendientes; su implementación queda detenida por instrucción del estudiante.
-
-La comparación histórica test:parity corresponde al diseño HTML anterior y conserva diferencias intencionales por funcionalidades nuevas; no equivale a las pruebas actuales ni se registra como aprobada sin ejecutarla.

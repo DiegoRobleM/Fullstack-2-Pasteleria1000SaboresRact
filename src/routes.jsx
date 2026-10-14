@@ -1,6 +1,5 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import App from "./app/App.jsx";
-import { paginas, rutasAnteriores } from "./app/pages.js";
 import Inicio from "./pages/inicio/inicio.jsx";
 import Pasteleria from "./pages/pasteleria/pasteleria.jsx";
 import Panaderia from "./pages/panaderia/panaderia.jsx";
@@ -20,21 +19,6 @@ import Compra from "./pages/compra/compra.jsx";
 import CompraFallida from "./pages/compraFallida/compraFallida.jsx";
 import Categorias from "./pages/categorias/categorias.jsx";
 import Ofertas from "./pages/ofertas/ofertas.jsx";
-
-function DetalleAnterior() {
-  let idProducto;
-  try {
-    idProducto = JSON.parse(sessionStorage.getItem("productoSeleccionado"))?.id;
-  } catch {
-    // Una selección antigua inválida abre el estado de producto inexistente.
-  }
-  return (
-    <Navigate
-      to={"/producto/" + encodeURIComponent(idProducto || "sin-seleccion")}
-      replace
-    />
-  );
-}
 
 export const routes = createBrowserRouter([
   {
@@ -181,15 +165,5 @@ export const routes = createBrowserRouter([
       </App>
     ),
   },
-  ...Object.entries(rutasAnteriores).map(([path, nombre]) => ({
-    path,
-    element:
-      nombre === "DetalleProducto" ? (
-        <DetalleAnterior />
-      ) : (
-        <Navigate to={paginas[nombre].path} replace />
-      ),
-  })),
-  { path: "/index.html", element: <Navigate to="/" replace /> },
   { path: "*", element: <Navigate to="/" replace /> },
 ]);

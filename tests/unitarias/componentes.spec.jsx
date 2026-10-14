@@ -8,7 +8,7 @@ import CatalogoProductos from "../../src/components/productos/catalogoProductos.
 import { FilasCarrito } from "../../src/components/carrito/filasCarrito.jsx";
 import FormularioProducto from "../../src/components/administracion/FormularioProducto.jsx";
 
-describe("Diez pruebas unitarias simples de componentes", () => {
+describe("Pruebas unitarias ejemplo", () => {
   const entorno = entornoComponentes();
   const elemento = (selector) => entorno.contenedor.querySelector(selector);
 

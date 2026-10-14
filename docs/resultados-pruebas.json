@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "fecha": "2026-10-14T18:56:25.560Z",
+=======
+  "fecha": "2026-10-14T19:00:03.315Z",
+>>>>>>> a5b886d30fe25a7d5096f79de946e29be859314f
   "zonaHoraria": "America/Santiago",
   "herramienta": "Jasmine y Karma",
   "total": 10,
@@ -13,7 +17,11 @@
       "entrada": "Texto Guardado y tipo success",
       "esperado": "Texto, color success y role status",
       "estado": "Aprobada",
+<<<<<<< HEAD
       "duracionMs": 19,
+=======
+      "duracionMs": 16,
+>>>>>>> a5b886d30fe25a7d5096f79de946e29be859314f
       "errores": [],
       "navegador": "Chrome Headless 153.0.0.0 (Windows 10)"
     },
@@ -53,7 +61,11 @@
       "entrada": "Texto Producto agregado",
       "esperado": "Texto recibido y role status",
       "estado": "Aprobada",
+<<<<<<< HEAD
       "duracionMs": 2,
+=======
+      "duracionMs": 1,
+>>>>>>> a5b886d30fe25a7d5096f79de946e29be859314f
       "errores": [],
       "navegador": "Chrome Headless 153.0.0.0 (Windows 10)"
     },
@@ -63,7 +75,11 @@
       "entrada": "Producto de 10000 con descuento 20%",
       "esperado": "Nombre y precio final 8000",
       "estado": "Aprobada",
+<<<<<<< HEAD
       "duracionMs": 11,
+=======
+      "duracionMs": 28,
+>>>>>>> a5b886d30fe25a7d5096f79de946e29be859314f
       "errores": [],
       "navegador": "Chrome Headless 153.0.0.0 (Windows 10)"
     },
@@ -73,7 +89,11 @@
       "entrada": "Clic Agregar al carrito y callback spy",
       "esperado": "Una llamada y producto guardado",
       "estado": "Aprobada",
+<<<<<<< HEAD
       "duracionMs": 6,
+=======
+      "duracionMs": 7,
+>>>>>>> a5b886d30fe25a7d5096f79de946e29be859314f
       "errores": [],
       "navegador": "Chrome Headless 153.0.0.0 (Windows 10)"
     },
@@ -83,7 +103,11 @@
       "entrada": "Escribir FRUTILLA",
       "esperado": "Una tarjeta de Pastel de Frutilla",
       "estado": "Aprobada",
+<<<<<<< HEAD
       "duracionMs": 58,
+=======
+      "duracionMs": 48,
+>>>>>>> a5b886d30fe25a7d5096f79de946e29be859314f
       "errores": [],
       "navegador": "Chrome Headless 153.0.0.0 (Windows 10)"
     },
@@ -93,7 +117,11 @@
       "entrada": "Carrito sin productos",
       "esperado": "Mensaje informativo de carrito vacío",
       "estado": "Aprobada",
+<<<<<<< HEAD
       "duracionMs": 4,
+=======
+      "duracionMs": 1,
+>>>>>>> a5b886d30fe25a7d5096f79de946e29be859314f
       "errores": [],
       "navegador": "Chrome Headless 153.0.0.0 (Windows 10)"
     },
@@ -103,7 +131,7 @@
       "entrada": "Producto recibido por props y precio 15000",
       "esperado": "Nombre precargado y callback con precio 15000",
       "estado": "Aprobada",
-      "duracionMs": 7,
+      "duracionMs": 11,
       "errores": [],
       "navegador": "Chrome Headless 153.0.0.0 (Windows 10)"
     }

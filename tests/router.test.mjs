@@ -1,7 +1,7 @@
 import { after, before, test } from "node:test";
 import assert from "node:assert/strict";
 import { expect } from "@playwright/test";
-import { paginas, rutasAnteriores } from "../src/app/pages.js";
+import { paginas } from "../src/app/pages.js";
 import { iniciarSitio } from "./helpers/sitio.mjs";
 
 let sitio, browser, base;
@@ -66,38 +66,16 @@ async function completarRegistro(page, correo = "ANA@example.test") {
   await page.locator("[name=tipoPropiedad]").fill("Casa");
 }
 
-test("Las trece URL antiguas redirigen; raíz, index y ruta desconocida abren Inicio", async () => {
+test("La raíz y las rutas desconocidas abren Inicio", async () => {
   const { context, page, errores } = await abrir("/", {
     usuario: { nombre: "Admin", rol: "admin" },
   });
   try {
-    for (const [ruta, nombre] of Object.entries(rutasAnteriores)) {
-      await page.goto(base + ruta);
-      const destino = paginas[nombre].path.replace(
-        ":idProducto",
-        "sin-seleccion",
-      );
-      await page.waitForURL(base + destino);
-      await expect(page.locator("main")).toBeVisible();
-      await expect(page).toHaveTitle(paginas[nombre].title);
-    }
-    for (const ruta of ["/", "/index.html", "/direccion-desconocida"]) {
+    for (const ruta of ["/", "/direccion-desconocida"]) {
       await page.goto(base + ruta);
       await page.waitForURL(base + "/");
       await expect(page).toHaveTitle(paginas.Inicio.title);
     }
-    await page.evaluate(() =>
-      sessionStorage.setItem("productoSeleccionado", '{"id":"panaderia-2"}'),
-    );
-    await page.goto(base + "/DetalleProducto/index.html");
-    await page.waitForURL(base + "/producto/panaderia-2");
-    await expect(page.locator("#detalle-titulo")).toHaveText("Pan Ciabatta");
-    await page.evaluate(() =>
-      sessionStorage.setItem("productoSeleccionado", "dato inválido"),
-    );
-    await page.goto(base + "/DetalleProducto/index.html");
-    await page.waitForURL(base + "/producto/sin-seleccion");
-    await expect(page.locator("#mensaje-detalle")).toBeVisible();
     assert.deepEqual(errores, []);
   } finally {
     await context.close();
@@ -160,12 +138,6 @@ test("Detalle directo y recarga funcionan sin selección previa en las cuatro ca
   ]) {
     const { context, page, errores } = await abrir(`/producto/${categoria}-1`);
     try {
-      assert.equal(
-        await page.evaluate(() =>
-          sessionStorage.getItem("productoSeleccionado"),
-        ),
-        null,
-      );
       await expect(page.locator("#detalle-producto")).toBeVisible();
       assert.equal(
         await page
@@ -294,11 +266,7 @@ for (const recordar of [false, true]) {
 }
 
 test("Perfil y administración protegen el acceso de visitantes y clientes", async () => {
-  for (const ruta of [
-    "/perfil",
-    "/administrador",
-    "/Administrador/index.html",
-  ]) {
+  for (const ruta of ["/perfil", "/administrador"]) {
     const { context, page, errores } = await abrir(ruta);
     try {
       await page.waitForURL(base + "/inicio-sesion");

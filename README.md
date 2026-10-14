@@ -13,7 +13,7 @@ npm run build
 npm run preview
 ```
 
-Las rutas se declaran en src/routes.jsx con createBrowserRouter, siguiendo el patrón de clases. RouterProvider se monta en #root dentro de ProveedorTienda. Link y useNavigate permiten navegar sin recargar. Las direcciones .html anteriores redirigen a sus equivalentes y las direcciones desconocidas vuelven al inicio.
+Las rutas se declaran en src/routes.jsx con createBrowserRouter, siguiendo el patrón de clases. RouterProvider se monta en #root dentro de ProveedorTienda. Link y useNavigate permiten navegar sin recargar. Las pantallas usan rutas como /pasteleria, /carrito y /producto/:idProducto. Las direcciones desconocidas vuelven al inicio.
 
 ## Funciones
 
@@ -30,7 +30,7 @@ Las rutas se declaran en src/routes.jsx con createBrowserRouter, siguiendo el pa
 
 Administrador ficticio: admin@pasteleria.test / AdminDemo123!. Se crea al abrir Inicio de sesión.
 
-No hay backend ni cobros reales. La sesión, los roles y los datos son una simulación local; la información pertenece al origen del navegador. Las claves previas se conservan: carrito, usuariosRegistrados, usuarioActivo, consultasContacto, productosPasteleria y productoSeleccionado. Los pedidos usan pedidosPasteleria. La selección antigua solo se utiliza para redirigir la URL .html del detalle.
+No hay backend ni cobros reales. La sesión, los roles y los datos son una simulación local; la información pertenece al origen del navegador. Las claves de almacenamiento son carrito, usuariosRegistrados, usuarioActivo, consultasContacto, productosPasteleria y pedidosPasteleria. El detalle obtiene el producto mediante el ID de la URL y el catálogo compartido.
 
 ## Organización
 
@@ -65,8 +65,6 @@ npm test ejecuta Jasmine/Karma y después las suites de navegador en serie. Requ
 - npm run formatear: formato de código con Prettier.
 
 La configuración de Karma usa ejecución única, sin vigilancia automática de archivos. El informe y el registro real están en docs/TESTING.md, docs/resultados-pruebas.json y docs/Registro_Pruebas_Unitarias.xlsx. Las métricas se generan en test-results/coverage y sus archivos temporales están ignorados por Git.
-
-La suite histórica npm run test:parity conserva la comparación exacta contra ../Pasteleria1000Sabores/Fullstack_2. Requiere ese proyecto y python3. Es una referencia del diseño anterior: filtros, CRUD, ofertas e historial incorporan diferencias intencionales, por lo que no se presenta como una prueba aprobada de equivalencia visual completa.
 
 ## Documentación
 

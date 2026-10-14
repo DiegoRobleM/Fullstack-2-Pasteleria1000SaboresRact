@@ -5,6 +5,7 @@ import { combinarClases } from "../../utils/combinarClases.js";
 import { BarraNavegacion } from "../../components/estructura/barraNavegacion.jsx";
 import { PiePagina } from "../../components/estructura/piePagina.jsx";
 import Notificacion from "../../components/notificacion/notificacion.jsx";
+import Alerta from "../../components/alerta/alerta.jsx";
 import notificacion from "../../components/notificacion/notificacion.module.css";
 import { PrecioProducto } from "../../components/productos/precioProducto.jsx";
 import { useTienda } from "../../context/ContextoTienda.jsx";
@@ -40,11 +41,7 @@ export default function DetalleProducto() {
     <>
       <BarraNavegacion />
       <main className="container my-5">
-        <div
-          id="mensaje-detalle"
-          role="alert"
-          className={"alert alert-warning" + (producto ? " d-none" : "")}
-        >
+        <Alerta id="mensaje-detalle" tipo="warning" visible={!producto}>
           {!producto && (
             <>
               {idProducto === "sin-seleccion"
@@ -55,7 +52,7 @@ export default function DetalleProducto() {
               </Link>
             </>
           )}
-        </div>
+        </Alerta>
         <section
           id="detalle-producto"
           aria-labelledby="detalle-titulo"
@@ -150,7 +147,7 @@ export default function DetalleProducto() {
           className={combinarClases(
             estilos.mensajeCarrito,
             visible === null
-              ? "alert alert-success d-none mt-4"
+              ? "d-none mt-4"
               : visible
                 ? notificacion.visible
                 : notificacion.oculta,

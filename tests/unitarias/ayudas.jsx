@@ -7,12 +7,6 @@ export function caso(id, nombre, entrada, esperado, comprobar) {
   catalogoCasos.push({ id, nombre, entrada, esperado });
   it(id + ": " + nombre, comprobar);
 }
-export function datosFormulario(datos) {
-  const formulario = new FormData();
-  for (const [clave, valor] of Object.entries(datos))
-    formulario.set(clave, valor);
-  return formulario;
-}
 export const producto = {
   id: "pasteleria-1",
   titulo: "Pastel de prueba",
@@ -22,30 +16,6 @@ export const producto = {
   precio: 10000,
   descuento: 20,
 };
-export const cliente = {
-  nombre: "Ana",
-  apellido: "Prueba",
-  email: "ana@example.test",
-  password: "Prueba123!",
-  rol: "cliente",
-  direccion: "Calle 123",
-  tipoPropiedad: "Casa",
-  region: "metropolitana",
-  comuna: "Santiago",
-};
-export const datosCompra = {
-  nombre: "Ana Prueba",
-  email: "ana@example.test",
-  direccion: "Calle 123",
-  comuna: "Santiago",
-  region: "metropolitana",
-  entrega: "domicilio",
-  pago: "aprobado",
-};
-export function prepararCarrito(cantidad = 1) {
-  localStorage.setItem("productosPasteleria", JSON.stringify([producto]));
-  localStorage.setItem("carrito", JSON.stringify([{ ...producto, cantidad }]));
-}
 export function entornoComponentes() {
   let raiz,
     contenedor,

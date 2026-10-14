@@ -4,13 +4,14 @@ import { formatearPrecio } from "../../utils/formatoPrecio.js";
 import { precioFinal } from "../../utils/precios.js";
 import { rutaImagen } from "../../utils/rutaImagen.js";
 import { PrecioProducto } from "../productos/precioProducto.jsx";
+import Alerta from "../alerta/alerta.jsx";
 export function FilasCarrito() {
   const { carrito, quitarProducto, cambiarCantidad } = useTienda();
   if (!carrito.length)
     return (
-      <div className="alert alert-info text-center" role="status">
+      <Alerta className="text-center">
         Tu carrito está vacío. Agrega productos desde el catálogo.
-      </div>
+      </Alerta>
     );
   return carrito.map((producto) => (
     <div className="card mb-3" key={producto.id}>

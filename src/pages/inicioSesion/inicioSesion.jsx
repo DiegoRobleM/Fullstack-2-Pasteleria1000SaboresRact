@@ -8,6 +8,7 @@ import { paginas } from "../../app/pages.js";
 import { Link, useNavigate } from "react-router-dom";
 import { BarraNavegacion } from "../../components/estructura/barraNavegacion.jsx";
 import { PiePagina } from "../../components/estructura/piePagina.jsx";
+import AlertaFormulario from "../../components/alerta/alertaFormulario.jsx";
 
 // Estructura y textos de la pantalla original, conservados en JSX.
 export default function InicioSesion() {
@@ -52,13 +53,7 @@ export default function InicioSesion() {
           {"\n        "}
           <h2 className="tituloFormulario">{"Iniciar Sesión"}</h2>
           {"\n        "}
-          <div
-            id="mensaje-login"
-            className={mensaje ? "alert alert-" + mensaje.tipo : "alert d-none"}
-            role="alert"
-          >
-            {mensaje?.texto}
-          </div>
+          <AlertaFormulario id="mensaje-login" role="alert" mensaje={mensaje} />
           {"\n\n        "}
           <form id="form-inicio-sesion" onSubmit={iniciarSesion}>
             {"\n          "}

@@ -4,6 +4,7 @@ import { BarraNavegacion } from "../../components/estructura/barraNavegacion.jsx
 import { PiePagina } from "../../components/estructura/piePagina.jsx";
 import { paginas } from "../../app/pages.js";
 import { registrarConsulta } from "../../services/consultas.js";
+import AlertaFormulario from "../../components/alerta/alertaFormulario.jsx";
 
 export default function Contacto() {
   const [mensaje, establecerMensaje] = useState(null);
@@ -29,13 +30,11 @@ export default function Contacto() {
           <h2 className="tituloFormulario">Contacto</h2>
           <p className="text-center text-muted mb-4">Pastelería 1000 Sabores</p>
 
-          <div
+          <AlertaFormulario
             id="mensaje-contacto"
-            className={mensaje ? "alert alert-" + mensaje.tipo : "alert d-none"}
             role="alert"
-          >
-            {mensaje?.texto}
-          </div>
+            mensaje={mensaje}
+          />
 
           <form id="form-contacto" onSubmit={enviarConsulta}>
             <div className="grupoCampo">

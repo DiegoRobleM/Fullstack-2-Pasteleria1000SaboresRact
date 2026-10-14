@@ -3,6 +3,7 @@ import { BarraNavegacion } from "../estructura/barraNavegacion.jsx";
 import { PiePagina } from "../estructura/piePagina.jsx";
 import { TarjetasProductos } from "./tarjetasProductos.jsx";
 import Notificacion from "../notificacion/notificacion.jsx";
+import Alerta from "../alerta/alerta.jsx";
 import notificacion from "../notificacion/notificacion.module.css";
 import estilos from "./catalogo.module.css";
 import { useTienda } from "../../context/ContextoTienda.jsx";
@@ -73,9 +74,7 @@ export default function CatalogoProductos({ categoria, soloOfertas = false }) {
             {filtrados.length ? (
               <TarjetasProductos productos={filtrados} notificar={notificar} />
             ) : (
-              <p role="status" className="alert alert-info">
-                No se encontraron productos.
-              </p>
+              <Alerta como="p">No se encontraron productos.</Alerta>
             )}
           </div>
         </section>

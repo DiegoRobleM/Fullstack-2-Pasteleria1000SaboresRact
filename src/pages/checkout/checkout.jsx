@@ -7,6 +7,7 @@ import { useTituloPagina } from "../../hooks/useTituloPagina.js";
 import { opcionesEntrega } from "../../services/pedidos.js";
 import { totalCarrito, precioFinal } from "../../utils/precios.js";
 import { formatearPrecio } from "../../utils/formatoPrecio.js";
+import Alerta from "../../components/alerta/alerta.jsx";
 export default function Checkout() {
   const { carrito, usuario, confirmarCompra } = useTienda();
   const [datos, establecerDatos] = useState(() => ({
@@ -54,10 +55,10 @@ export default function Checkout() {
       <main className="container my-5">
         <h1 className="tituloFormulario">Finalizar compra</h1>
         {!carrito.length ? (
-          <div className="alert alert-info">
+          <Alerta>
             Tu carrito está vacío.{" "}
             <Link to="/pasteleria">Volver al catálogo</Link>
-          </div>
+          </Alerta>
         ) : (
           <div className="row g-4">
             <div className="col-12 col-lg-7">
@@ -67,9 +68,9 @@ export default function Checkout() {
                 className="tarjetaFormulario mx-auto"
               >
                 {mensaje && (
-                  <p className="alert alert-danger" role="alert">
+                  <Alerta tipo="danger" como="p">
                     {mensaje}
-                  </p>
+                  </Alerta>
                 )}
                 {[
                   {

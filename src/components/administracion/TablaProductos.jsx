@@ -2,14 +2,11 @@ import { useState } from "react";
 import { formatearPrecio } from "../../utils/formatoPrecio.js";
 import { precioFinal } from "../../utils/precios.js";
 import { nombreCategoria } from "../../data/categorias.js";
+import Alerta from "../alerta/alerta.jsx";
 export default function TablaProductos({ productos, onEditar, onEliminar }) {
   const [confirmacion, establecerConfirmacion] = useState(null);
   if (!productos.length)
-    return (
-      <p className="alert alert-info" role="status">
-        No hay productos registrados.
-      </p>
-    );
+    return <Alerta como="p">No hay productos registrados.</Alerta>;
   return (
     <section className="mb-4">
       <h3 className="h4">Productos registrados ({productos.length})</h3>

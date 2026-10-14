@@ -1,8 +1,8 @@
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { registrarUsuario as registrarCuenta } from "../../services/autenticacion.js";
 import { paginas } from "../../app/pages.js";
 import { Link, useNavigate } from "react-router-dom";
-import { combinarClases } from "../../utils/combinarClases.js";
+import AlertaFormulario from "../../components/alerta/alertaFormulario.jsx";
 import estilos from "./registroUsuario.module.css";
 import { BarraNavegacion } from "../../components/estructura/barraNavegacion.jsx";
 import { PiePagina } from "../../components/estructura/piePagina.jsx";
@@ -56,24 +56,13 @@ export default function RegistroUsuario() {
           {"\n        "}
           <h2 className="tituloFormulario">{"Registro de Usuario"}</h2>
           {"\n        "}
-          <div
+          <AlertaFormulario
             id="mensaje-registro"
             role="alert"
             ref={mensajeElemento}
-            className={combinarClases(
-              estilos.mensajeRegistro,
-              mensaje ? "alert alert-" + mensaje.tipo : "alert d-none",
-            )}
-          >
-            {Array.isArray(mensaje?.texto)
-              ? mensaje.texto.map((texto, indice) => (
-                  <Fragment key={texto}>
-                    {indice > 0 && <br />}
-                    {texto}
-                  </Fragment>
-                ))
-              : mensaje?.texto}
-          </div>
+            className={estilos.mensajeRegistro}
+            mensaje={mensaje}
+          />
           {"\n        "}
           <form id="form-registro" onSubmit={registrarUsuario}>
             {"\n          "}

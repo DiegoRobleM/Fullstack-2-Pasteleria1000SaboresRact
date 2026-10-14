@@ -4,6 +4,7 @@ import { PiePagina } from "../../components/estructura/piePagina.jsx";
 import { useTienda } from "../../context/ContextoTienda.jsx";
 import { useTituloPagina } from "../../hooks/useTituloPagina.js";
 import { formatearPrecio } from "../../utils/formatoPrecio.js";
+import Alerta from "../../components/alerta/alerta.jsx";
 export default function Compra() {
   const { idPedido } = useParams();
   const { pedidos, usuario } = useTienda();
@@ -21,9 +22,9 @@ export default function Compra() {
           <section id="resumen-pedido" className="card">
             <div className="card-body p-4">
               <h1>Compra confirmada</h1>
-              <p className="alert alert-success" role="status">
+              <Alerta tipo="success" como="p">
                 Tu pedido fue registrado correctamente.
-              </p>
+              </Alerta>
               <p>
                 Pedido: <strong>{pedido.id}</strong>
               </p>
@@ -86,10 +87,10 @@ export default function Compra() {
             </div>
           </section>
         ) : (
-          <div className="alert alert-warning" role="alert">
+          <Alerta tipo="warning">
             No hay un pedido disponible con este identificador.{" "}
             <Link to="/pasteleria">Volver al catálogo</Link>
-          </div>
+          </Alerta>
         )}
       </main>
       <PiePagina />

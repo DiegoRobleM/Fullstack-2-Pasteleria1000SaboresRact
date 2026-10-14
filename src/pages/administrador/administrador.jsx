@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Alerta from "../../components/alerta/alerta.jsx";
+import AlertaFormulario from "../../components/alerta/alertaFormulario.jsx";
 import { Link } from "react-router-dom";
 import estilos from "./administrador.module.css";
 import { BarraNavegacion } from "../../components/estructura/barraNavegacion.jsx";
@@ -121,14 +123,7 @@ export default function Administrador() {
             </div>
           ))}
         </div>
-        {mensaje && (
-          <p
-            className={"alert alert-" + mensaje.tipo + " mt-4"}
-            role={mensaje.tipo === "danger" ? "alert" : "status"}
-          >
-            {mensaje.texto}
-          </p>
-        )}
+        <AlertaFormulario mensaje={mensaje} como="p" className="mt-4" />
         {secciones.productos && (
           <section id="seccion-productos" className="mt-5">
             <h2 className="h3 mb-3">Catálogos publicados</h2>
@@ -179,9 +174,9 @@ export default function Administrador() {
                 />
               </div>
             ) : (
-              <p id="sin-consultas" className="alert alert-info" role="status">
+              <Alerta id="sin-consultas" como="p">
                 Todavía no se han recibido consultas.
-              </p>
+              </Alerta>
             )}
           </section>
         )}
@@ -196,9 +191,9 @@ export default function Administrador() {
             {usuarios.length ? (
               <TablaUsuarios usuarios={usuarios} />
             ) : (
-              <p id="sin-usuarios" className="alert alert-info" role="status">
+              <Alerta id="sin-usuarios" como="p">
                 Todavía no existen usuarios registrados.
-              </p>
+              </Alerta>
             )}
           </section>
         )}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { categorias } from "../../data/categorias.js";
+import AlertaFormulario from "../alerta/alertaFormulario.jsx";
 function Campo({ name, etiqueta, type = "text", ...atributos }) {
   return (
     <div className="mb-3">
@@ -44,14 +45,7 @@ export default function FormularioProducto({
       <h3 className="h4 mb-3">
         {producto ? "Editar producto" : "Crear producto"}
       </h3>
-      {mensaje && (
-        <div
-          className={"alert alert-" + mensaje.tipo}
-          role={mensaje.tipo === "danger" ? "alert" : "status"}
-        >
-          {mensaje.texto}
-        </div>
-      )}
+      <AlertaFormulario mensaje={mensaje} />
       <Campo
         name="titulo"
         etiqueta="Nombre del producto"

@@ -1,0 +1,294 @@
+/* =================================================================
+   ESTILOS CARRITO DE COMPRAS - PASTELERÍA 1000 SABORES
+   =================================================================== */
+
+:root {
+  --color-brand: #5c3d2e;             /* Café principal */
+  --color-brand-dark: #2e1f18;        /* Café oscuro */
+  --color-amarillo-original: #f1e6c7; /* Fondo crema original */
+  --color-text-main: #2b2b2b;
+  --color-text-subtle: #4a3f35;
+  --font-classic: 'Playfair Display', Georgia, serif;
+  --font-body: 'Lora', Georgia, serif;
+}
+
+body {
+  background-color: var(--color-amarillo-original) !important;
+  margin: 0;
+  padding: 0;
+}
+
+.pagina {
+  background-color: var(--color-amarillo-original) !important;
+  color: var(--color-text-main);
+  font-family: var(--font-body);
+  min-height: 80vh;
+}
+
+/* =================================================================
+   1. HERO HEADER CARRITO
+   =================================================================== */
+
+.heroCarrito {
+  background-color: var(--color-brand);
+  color: var(--color-amarillo-original);
+  padding: 45px 20px 50px 20px;
+  text-align: center;
+  border-bottom: 4px solid #422b20;
+  box-shadow: 0 8px 20px rgba(46, 31, 24, 0.15);
+}
+
+.heroContenido {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.subtituloBadge {
+  display: inline-block;
+  background-color: var(--color-amarillo-original);
+  color: var(--color-brand);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 6px 18px;
+  border-radius: 30px;
+  margin-bottom: 12px;
+}
+
+.tituloHero {
+  font-family: var(--font-classic);
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--color-amarillo-original);
+}
+
+.bajadaHero {
+  font-size: 1.15rem;
+  opacity: 0.92;
+  margin: 0;
+}
+
+/* =================================================================
+   2. ESTILIZACIÓN DE TARJETAS DE PRODUCTOS DENTRO DEL CARRITO
+   =================================================================== */
+
+.contenedorFilas {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Estilos de alta especificidad para estilizar las cards generadas por FilasCarrito */
+.contenedorFilas :global(.card),
+.contenedorFilas > div {
+  background-color: #ffffff !important;
+  border: 1px solid #e0d5c1 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 20px rgba(92, 61, 46, 0.08) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.contenedorFilas :global(.card):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(92, 61, 46, 0.14) !important;
+}
+
+/* =================================================================
+   3. TARJETA DE RESUMEN DE COMPRA
+   =================================================================== */
+
+.tarjetaResumen {
+  background-color: #ffffff !important;
+  border: 1px solid #e0d5c1;
+  border-radius: 20px;
+  padding: 30px 25px;
+  box-shadow: 0 10px 25px rgba(92, 61, 46, 0.12);
+  position: sticky;
+  top: 20px;
+}
+
+.tituloResumen {
+  font-family: var(--font-classic);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-brand);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--color-amarillo-original);
+}
+
+.lineaResumen {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+  color: var(--color-text-subtle);
+  margin-bottom: 12px;
+}
+
+.valorCantidad {
+  font-weight: 700;
+  color: var(--color-brand);
+}
+
+.divisorResumen {
+  border: 0;
+  border-top: 1px dashed #e0d5c1;
+  margin: 18px 0;
+}
+
+.lineaTotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-brand);
+  margin-bottom: 24px;
+}
+
+.montoTotal {
+  font-family: var(--font-classic);
+  font-size: 1.8rem;
+  color: var(--color-brand);
+}
+
+/* BOTONES DE ACCIÓN */
+.accionesCarrito {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+a.btnCheckout,
+a.btnCheckout:link,
+a.btnCheckout:visited {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  padding: 13px 20px !important;
+  background-color: var(--color-brand) !important;
+  color: #ffffff !important;
+  border: 2px solid var(--color-brand) !important;
+  border-radius: 10px !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  text-decoration: none !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 6px 16px rgba(92, 61, 46, 0.2) !important;
+}
+
+a.btnCheckout:hover {
+  background-color: var(--color-brand-dark) !important;
+  border-color: var(--color-brand-dark) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(92, 61, 46, 0.3) !important;
+}
+
+button.btnVaciar {
+  width: 100% !important;
+  padding: 11px 20px !important;
+  background-color: transparent !important;
+  color: #b91c1c !important;
+  border: 1.5px solid #fca5a5 !important;
+  border-radius: 10px !important;
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+}
+
+button.btnVaciar:hover {
+  background-color: #fee2e2 !important;
+  border-color: #f87171 !important;
+}
+
+/* =================================================================
+   4. ESTADO CARRITO VACÍO
+   =================================================================== */
+
+.tarjetaVacio {
+  background-color: #ffffff !important;
+  border: 1px solid #e0d5c1;
+  border-radius: 20px;
+  padding: 60px 30px;
+  text-align: center;
+  max-width: 580px;
+  margin: 30px auto;
+  box-shadow: 0 10px 30px rgba(92, 61, 46, 0.1);
+}
+
+.iconoVacioWrapper {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  background-color: var(--color-amarillo-original);
+  color: var(--color-brand);
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.iconoVacio {
+  width: 40px;
+  height: 40px;
+}
+
+.tituloVacio {
+  font-family: var(--font-classic);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-brand);
+  margin-bottom: 10px;
+}
+
+.textoVacio {
+  font-size: 1rem;
+  color: var(--color-text-subtle);
+  margin-bottom: 25px;
+}
+
+a.btnExplorar,
+a.btnExplorar:link,
+a.btnExplorar:visited {
+  display: inline-block !important;
+  padding: 12px 32px !important;
+  background-color: var(--color-brand) !important;
+  color: #ffffff !important;
+  border-radius: 30px !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  transition: all 0.3s ease !important;
+}
+
+a.btnExplorar:hover {
+  background-color: var(--color-brand-dark) !important;
+  transform: translateY(-2px);
+}
+
+/* =================================================================
+   5. RESPONSIVO
+   =================================================================== */
+
+@media (max-width: 991px) {
+  .tarjetaResumen {
+    position: static;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .tituloHero {
+    font-size: 2.1rem;
+  }
+
+  .tarjetaVacio {
+    padding: 40px 20px;
+  }
+}

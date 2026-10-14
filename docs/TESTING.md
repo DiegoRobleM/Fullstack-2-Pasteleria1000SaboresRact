@@ -1,12 +1,12 @@
 # Informe de pruebas y cobertura
 
-Ejecución: 14-10-2026, 3:36:59 a. m. (America/Santiago).
+Ejecución: 14-10-2026, 3:56:25 p. m. (America/Santiago).
 
 ## Resultado unitario verificado
 
 **10 casos ejecutados, 10 aprobados y 0 fallidos.**
 
-Herramientas: Jasmine y Karma 6.4.4. Navegador: Chrome Headless 155.0.0.0 (Windows 10).
+Herramientas: Jasmine y Karma 6.4.4. Navegador: Chrome Headless 153.0.0.0 (Windows 10).
 
 | Métrica | Cobertura | Cubierto / total |
 | --- | --- | --- |

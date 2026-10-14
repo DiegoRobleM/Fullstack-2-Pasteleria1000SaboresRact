@@ -1,5 +1,243 @@
-.mensajeRegistro {
-  border-radius: 8px;
-  font-weight: 600;
+/* =================================================================
+   ESTILOS REGISTRO DE USUARIO - PASTELERÍA 1000 SABORES
+   =================================================================== */
+
+:root {
+  --color-brand: #5c3d2e;             /* Café principal */
+  --color-brand-dark: #2e1f18;        /* Café oscuro */
+  --color-amarillo-original: #f1e6c7; /* Amarillo crema de fondo */
+  --color-input-bg: #e2d8c7;          /* Beige suave para inputs */
+  --color-text-main: #2b2b2b;
+  --color-text-subtle: #4a3f35;
+  --font-classic: 'Playfair Display', Georgia, serif;
+  --font-body: 'Lora', Georgia, serif;
+}
+
+body {
+  background-color: var(--color-amarillo-original) !important;
+  margin: 0;
+  padding: 0;
+}
+
+.pagina {
+  background-color: var(--color-amarillo-original) !important;
+  color: var(--color-text-main);
+  font-family: var(--font-body);
+  min-height: 80vh;
+}
+
+/* =================================================================
+   1. HERO HEADER DE LA PÁGINA
+   =================================================================== */
+
+.heroRegistro {
+  background-color: var(--color-brand);
+  color: var(--color-amarillo-original);
+  padding: 45px 20px 50px 20px;
   text-align: center;
+  border-bottom: 4px solid #422b20;
+  box-shadow: 0 8px 20px rgba(46, 31, 24, 0.15);
+}
+
+.heroContenido {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.subtituloBadge {
+  display: inline-block;
+  background-color: var(--color-amarillo-original);
+  color: var(--color-brand);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 6px 18px;
+  border-radius: 30px;
+  margin-bottom: 12px;
+}
+
+.tituloHero {
+  font-family: var(--font-classic);
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--color-amarillo-original);
+}
+
+.bajadaHero {
+  font-size: 1.15rem;
+  opacity: 0.92;
+  margin: 0;
+}
+
+/* =================================================================
+   2. CONTENEDOR Y TARJETA DEL FORMULARIO
+   =================================================================== */
+
+.contenedorFormulario {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.tarjetaFormulario {
+  background-color: #ffffff !important;
+  border: 1px solid #e0d5c1;
+  border-radius: 20px;
+  padding: 40px 35px;
+  box-shadow: 0 12px 32px rgba(92, 61, 46, 0.12);
+}
+
+.tituloFormulario {
+  font-family: var(--font-classic);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-brand);
+  text-align: center;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--color-amarillo-original);
+}
+
+/* Alertas de Registro */
+.mensajeRegistro {
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+  padding: 14px 18px !important;
+  font-size: 0.95rem !important;
+  margin-bottom: 24px !important;
+}
+
+/* =================================================================
+   3. CAMPOS E INPUTS DEL FORMULARIO
+   =================================================================== */
+
+.grupoCampo {
+  margin-bottom: 20px;
+}
+
+.etiquetaFormulario {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--color-brand);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.etiquetaFormularioSecundaria {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--color-text-subtle);
+  margin-top: 10px;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.controlFormulario,
+.controlFormularioSelect {
+  width: 100% !important;
+  background-color: var(--color-input-bg) !important;
+  border: 1.5px solid transparent !important;
+  border-radius: 10px !important;
+  padding: 12px 16px !important;
+  font-size: 0.95rem !important;
+  color: var(--color-text-main) !important;
+  transition: all 0.3s ease !important;
+  outline: none;
+  font-family: var(--font-body);
+  box-sizing: border-box;
+}
+
+.controlFormulario::placeholder {
+  color: #7a6b5a;
+}
+
+.controlFormulario:focus,
+.controlFormularioSelect:focus {
+  background-color: #f7f2ea !important;
+  border-color: var(--color-brand) !important;
+  box-shadow: 0 0 0 3px rgba(92, 61, 46, 0.18) !important;
+}
+
+/* Checkbox personalizado */
+.contenedorCheckbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+}
+
+.checkboxInput {
+  width: 18px !important;
+  height: 18px !important;
+  accent-color: var(--color-brand);
+  cursor: pointer;
+}
+
+.checkboxLabel {
+  font-size: 0.92rem;
+  color: var(--color-text-subtle);
+  font-weight: 600;
+  cursor: pointer;
+  margin: 0;
+}
+
+/* =================================================================
+   4. BOTÓN Y ENLACE DE NAVEGACIÓN
+   =================================================================== */
+
+button.btnRegistrarse {
+  width: 100% !important;
+  background-color: var(--color-brand) !important;
+  color: #ffffff !important;
+  border: 2px solid var(--color-brand) !important;
+  border-radius: 12px !important;
+  padding: 14px 20px !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 6px 16px rgba(92, 61, 46, 0.2) !important;
+}
+
+button.btnRegistrarse:hover {
+  background-color: var(--color-brand-dark) !important;
+  border-color: var(--color-brand-dark) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(92, 61, 46, 0.3) !important;
+}
+
+a.enlaceInicioSesion,
+a.enlaceInicioSesion:link,
+a.enlaceInicioSesion:visited {
+  display: block;
+  text-align: center;
+  margin-top: 14px;
+  font-size: 0.9rem;
+  color: var(--color-brand) !important;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a.enlaceInicioSesion:hover {
+  color: var(--color-brand-dark) !important;
+  text-decoration: underline;
+}
+
+/* =================================================================
+   5. ADAPTACIÓN RESPONSIVA
+   =================================================================== */
+
+@media (max-width: 768px) {
+  .tituloHero {
+    font-size: 2.1rem;
+  }
+
+  .tarjetaFormulario {
+    padding: 28px 20px;
+  }
 }

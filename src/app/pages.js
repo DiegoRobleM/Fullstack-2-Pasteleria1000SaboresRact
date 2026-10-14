@@ -72,27 +72,3 @@ export const paginas = {
     title: "Ofertas - Pastelería 1000 Sabores",
   },
 };
-
-export const rutasAnteriores = {
-  "/Administrador/index.html": "Administrador",
-  "/Carrito/carrito.html": "Carrito",
-  "/Contacto/contacto.html": "Contacto",
-  "/DetalleProducto/index.html": "DetalleProducto",
-  "/Inicio/index.html": "Inicio",
-  "/InicioSesion/iniciosesion.html": "InicioSesion",
-  "/Panaderia/index.html": "Panaderia",
-  "/Pasteleria/pasteleria.html": "Pasteleria",
-  "/PerfilUsuario/index.html": "PerfilUsuario",
-  "/RegistroUsuario/registro.html": "RegistroUsuario",
-  "/Salados/index.html": "Salados",
-  "/SinAzucar/sugar.html": "SinAzucar",
-  "/SobreNosotros/sobrenosotros.html": "SobreNosotros",
-};
-
-// Correspondencia utilizada por las pruebas de comparación con el original.
-export const pages = Object.fromEntries(
-  Object.entries(rutasAnteriores).map(([ruta, name]) => [
-    ruta,
-    { ...paginas[name], name },
-  ]),
-);

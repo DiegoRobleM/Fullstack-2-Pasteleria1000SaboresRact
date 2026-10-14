@@ -1,6 +1,6 @@
 # Informe de pruebas y cobertura
 
-Ejecución: 14-10-2026, 3:54:04 p. m. (America/Santiago).
+Ejecución: 14-10-2026, 4:00:03 p. m. (America/Santiago).
 
 ## Resultado unitario verificado
 
@@ -39,7 +39,7 @@ El reporte HTML reproducible queda en test-results/coverage/index.html. docs/res
 
 ## Límites y seguimiento
 
-No se prueban backend, pasarela real, autorización de servidor, logística ni navegadores distintos de Chrome. La comparación test:parity conserva las expectativas del HTML original y las diferencias funcionales nuevas son intencionales; no se declara aprobada como equivalencia visual completa.
+No se prueban backend, pasarela real, autorización de servidor, logística ni navegadores distintos de Chrome.
 
 La instalación de Karma conserva tres alertas altas de desarrollo vinculadas a braces (GHSA-vfj7-8cjw-p6xm). La versión publicada consultada es 3.0.3, también afectada; la solución automática propuesta cambia a versiones anteriores de Karma/karma-jasmine. La configuración ejecuta pruebas únicas con patrones locales definidos por el proyecto. Revisar la actualización del proveedor antes de ampliar la herramienta a entradas no confiables. Esta dependencia no se importa en el frontend de producción.
 

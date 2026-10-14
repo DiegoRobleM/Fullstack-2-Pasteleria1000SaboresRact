@@ -9,7 +9,6 @@
     "preview": "vite preview --host 127.0.0.1",
     "test": "node scripts/verificar.mjs",
     "test:router": "node --test tests/router.test.mjs",
-    "test:parity": "node --test tests/parity.test.mjs",
     "test:styles": "node --test tests/styles.test.mjs",
     "test:tienda": "node --test tests/tienda.test.mjs",
     "formatear": "prettier --write src tests scripts karma.conf.cjs",
@@ -34,7 +33,6 @@
     "karma-chrome-launcher": "^3.2.0",
     "karma-coverage": "^2.2.1",
     "karma-jasmine": "^5.1.0",
-    "pngjs": "7.0.0",
     "prettier": "^3.9.10",
     "vite": "8.3.3"
   },

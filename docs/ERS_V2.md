@@ -10,7 +10,7 @@ Desarrollar una tienda frontend de demostración con componentes React reutiliza
 
 | ID | Requisito | Criterio verificable |
 | --- | --- | --- |
-| RF-01 | Navegación con React Router | Dieciocho pantallas accesibles, compatibilidad .html, enlaces directos y Atrás/Adelante. |
+| RF-01 | Navegación con React Router | Dieciocho pantallas accesibles mediante rutas React, enlaces directos y Atrás/Adelante. |
 | RF-02 | Catálogos y categorías | Productos separados en las cuatro categorías originales. |
 | RF-03 | Búsqueda, orden y ofertas | Filtro por nombre/descripción sin distinguir mayúsculas; orden por precio final; ofertas con descuento mayor que cero. |
 | RF-04 | Detalle | Identificador en URL, cantidad entera positiva y estado de producto inexistente. |

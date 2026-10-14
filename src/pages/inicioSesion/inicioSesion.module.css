@@ -1,0 +1,252 @@
+/* =================================================================
+   ESTILOS INICIO DE SESIÓN - PASTELERÍA 1000 SABORES
+   =================================================================== */
+
+:root {
+  --color-brand: #5c3d2e;             /* Café principal */
+  --color-brand-dark: #2e1f18;        /* Café oscuro */
+  --color-amarillo-original: #f1e6c7; /* Amarillo crema de fondo */
+  --color-input-bg: #e2d8c7;          /* Beige suave para inputs */
+  --color-text-main: #2b2b2b;
+  --color-text-subtle: #5c4d3e;
+  --font-classic: 'Playfair Display', Georgia, serif;
+  --font-body: 'Lora', Georgia, serif;
+}
+
+body {
+  background-color: var(--color-amarillo-original) !important;
+  margin: 0;
+  padding: 0;
+}
+
+.pagina {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 50px 20px;
+  background-color: var(--color-amarillo-original) !important;
+  font-family: var(--font-body);
+}
+
+/* Tarjeta principal contenedora */
+.tarjetaFormulario {
+  background-color: #ffffff !important;
+  border: 1px solid #e0d5c1;
+  border-radius: 24px;
+  padding: 45px 40px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 14px 35px rgba(92, 61, 46, 0.12);
+  animation: aparicionTarjeta 0.4s ease-out forwards;
+}
+
+@keyframes aparicionTarjeta {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Encabezado */
+.encabezado {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.iconoBadgeWrapper {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  background-color: var(--color-amarillo-original);
+  border-radius: 50%;
+  margin-bottom: 12px;
+  color: var(--color-brand);
+  box-shadow: 0 4px 12px rgba(92, 61, 46, 0.15);
+}
+
+.iconoBadge {
+  width: 30px;
+  height: 30px;
+}
+
+.tituloFormulario {
+  font-family: var(--font-classic);
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: var(--color-brand);
+  margin: 0 0 4px 0;
+}
+
+.subtituloFormulario {
+  font-size: 0.95rem;
+  color: var(--color-text-subtle);
+  margin: 0;
+}
+
+/* Campos de entrada */
+.grupoCampo {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.etiquetaFormulario {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--color-brand);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.iconoInput {
+  width: 16px;
+  height: 16px;
+  color: var(--color-brand);
+}
+
+.controlFormulario {
+  background-color: var(--color-input-bg) !important;
+  border: 1.5px solid transparent !important;
+  border-radius: 12px !important;
+  padding: 12px 18px !important;
+  font-size: 0.95rem;
+  color: var(--color-text-main) !important;
+  transition: all 0.3s ease !important;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.controlFormulario::placeholder {
+  color: #7a6b5a;
+}
+
+.controlFormulario:focus {
+  background-color: #f7f2ea !important;
+  border-color: var(--color-brand) !important;
+  box-shadow: 0 0 0 3px rgba(92, 61, 46, 0.18) !important;
+}
+
+/* Checkbox estilizado */
+.grupoCheckbox {
+  margin-bottom: 24px;
+}
+
+.etiquetaCheckbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--color-text-subtle);
+  cursor: pointer;
+  user-select: none;
+}
+
+.inputCheckbox {
+  accent-color: var(--color-brand);
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+/* Botón y Enlaces */
+.contenedorBoton {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.botonEnviar {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: var(--color-brand) !important;
+  color: #ffffff !important;
+  border: 2px solid var(--color-brand) !important;
+  border-radius: 30px !important;
+  padding: 13px 28px !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 6px 16px rgba(92, 61, 46, 0.2);
+}
+
+.botonEnviar:hover {
+  background-color: var(--color-brand-dark) !important;
+  border-color: var(--color-brand-dark) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(92, 61, 46, 0.3);
+}
+
+.iconoBoton {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s ease;
+}
+
+.botonEnviar:hover .iconoBoton {
+  transform: translateX(4px);
+}
+
+a.linkRegistro,
+a.linkRegistro:link,
+a.linkRegistro:visited {
+  text-align: center !important;
+  font-size: 0.88rem !important;
+  color: var(--color-brand) !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  transition: all 0.3s ease !important;
+}
+
+a.linkRegistro:hover {
+  color: var(--color-brand-dark) !important;
+  text-decoration: underline !important;
+}
+
+/* Alertas */
+.alerta {
+  padding: 12px 18px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.alertaExito {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alertaError {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Adaptación móvil */
+@media (max-width: 576px) {
+  .tarjetaFormulario {
+    padding: 30px 20px;
+    border-radius: 18px;
+  }
+
+  .tituloFormulario {
+    font-size: 1.9rem;
+  }
+}

@@ -1,10 +1,10 @@
 {
-  "fecha": "2026-10-14T06:36:59.557Z",
+  "fecha": "2026-10-14T18:54:43.889Z",
   "zonaHoraria": "America/Santiago",
   "herramienta": "Jasmine y Karma",
   "total": 10,
-  "aprobadas": 10,
-  "fallidas": 0,
+  "aprobadas": 9,
+  "fallidas": 1,
   "errorEjecucion": false,
   "casos": [
     {
@@ -12,9 +12,11 @@
       "nombre": "Alerta muestra un mensaje de éxito",
       "entrada": "Texto Guardado y tipo success",
       "esperado": "Texto, color success y role status",
-      "estado": "Aprobada",
-      "duracionMs": 71,
-      "errores": [],
+      "estado": "Fallida",
+      "duracionMs": 27,
+      "errores": [
+        "Expected 'Guardado' to be 'Error'.\n    at <Jasmine>\n    at UserContext.<anonymous> (http://localhost:9876/base/.tests/pruebas.js?563a487db309ff09dc7d83a6493a5236ce55ade8:38191:48)"
+      ],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
     {
@@ -23,7 +25,7 @@
       "entrada": "visible false y luego true",
       "esperado": "Oculta al inicio y visible después",
       "estado": "Aprobada",
-      "duracionMs": 4,
+      "duracionMs": 6,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -53,7 +55,7 @@
       "entrada": "Texto Producto agregado",
       "esperado": "Texto recibido y role status",
       "estado": "Aprobada",
-      "duracionMs": 5,
+      "duracionMs": 2,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -63,7 +65,7 @@
       "entrada": "Producto de 10000 con descuento 20%",
       "esperado": "Nombre y precio final 8000",
       "estado": "Aprobada",
-      "duracionMs": 49,
+      "duracionMs": 34,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -73,7 +75,7 @@
       "entrada": "Clic Agregar al carrito y callback spy",
       "esperado": "Una llamada y producto guardado",
       "estado": "Aprobada",
-      "duracionMs": 12,
+      "duracionMs": 9,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -83,7 +85,7 @@
       "entrada": "Escribir FRUTILLA",
       "esperado": "Una tarjeta de Pastel de Frutilla",
       "estado": "Aprobada",
-      "duracionMs": 72,
+      "duracionMs": 54,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -93,7 +95,7 @@
       "entrada": "Carrito sin productos",
       "esperado": "Mensaje informativo de carrito vacío",
       "estado": "Aprobada",
-      "duracionMs": 2,
+      "duracionMs": 1,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -103,7 +105,7 @@
       "entrada": "Producto recibido por props y precio 15000",
       "esperado": "Nombre precargado y callback con precio 15000",
       "estado": "Aprobada",
-      "duracionMs": 7,
+      "duracionMs": 4,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     }

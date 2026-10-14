@@ -30,10 +30,10 @@
     "esbuild": "^0.28.2",
     "istanbul-lib-instrument": "^6.0.3",
     "jasmine-core": "^7.0.2",
-    "karma": "^6.4.4",
+    "karma": "^4.0.0",
     "karma-chrome-launcher": "^3.2.0",
     "karma-coverage": "^2.2.1",
-    "karma-jasmine": "^5.1.0",
+    "karma-jasmine": "^4.0.2",
     "pngjs": "7.0.0",
     "prettier": "^3.9.10",
     "vite": "8.3.3"

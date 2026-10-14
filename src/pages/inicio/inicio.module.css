@@ -1,122 +1,350 @@
-.textoCentral h2 {
-  font-family: var(--fuente-titulos);
+/* =================================================================
+   PALETA CÁLIDA ORIGINAL: FONDO AMARILLO Y CAFÉ
+   =================================================================== */
+
+:root {
+  --color-brand: #5c3d2e;             /* Café corporativo principal */
+  --color-brand-dark: #2e1f18;        /* Café oscuro rústico */
+  --color-amarillo-original: #f1e6c7; /* Amarillo suave de fondo original */
+  --color-card-bg: #ffffff;           /* Blanco limpio */
+  --color-text-main: #2b2b2b;     
+  --color-text-subtle: #4a3f35;   
+  --font-classic: 'Playfair Display', Georgia, serif;
+  --font-body: 'Lora', Georgia, serif;
+}
+
+body {
+  background-color: var(--color-amarillo-original) !important;
+  margin: 0;
+  padding: 0;
+}
+
+.pagina {
+  background-color: var(--color-amarillo-original) !important;
+  color: var(--color-text-main);
+  font-family: var(--font-body);
+  min-height: 100vh;
+}
+
+/* =================================================================
+   1. HERO BANNER Y BOTONES EXACTOS A TU IMAGEN
+   =================================================================== */
+
+.presentacion {
+  position: relative;
+  width: 100%;
+  min-height: 460px;
+  background-image: url("/Inicio/img/Pasteleria.jpg.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 3.5rem;
+}
+
+.heroOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(46, 31, 24, 0.48);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.tarjetaHero {
+  background-color: var(--color-amarillo-original) !important;
+  border-radius: 24px !important;
+  padding: 40px 45px !important;
+  max-width: 620px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid #e0d5c1;
+}
+
+.tarjetaHero h2 {
+  font-family: var(--font-classic);
   font-size: 2.8rem;
   font-weight: 700;
-  color: var(--color-titulo);
-  margin-bottom: 5px;
-  letter-spacing: 2px;
-  display: flex;
-  justify-content: center;
+  color: var(--color-brand) !important;
+  margin-bottom: 0.5rem;
 }
 
-.subtitulo {
-  max-width: 1000px;
-  font-family: var(--fuente-texto);
-  font-size: 1.5rem;
+.subtitulo p {
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  color: var(--color-brand) !important;
   font-style: italic;
-  color: var(--color-principal);
-  line-height: 1.6;
-  text-align: right;
-}
-
-.imagenCentral img {
-  width: 900px;
-  max-width: 100%;
-  height: auto;
-}
-
-.pagina h2,
-.subtitulo {
-  text-align: left;
-  max-width: 100%;
+  margin-bottom: 1.8rem;
 }
 
 .botonesCentrales {
   display: flex;
+  justify-content: center;
+  gap: 16px;
   flex-wrap: wrap;
-  gap: 12px;
 }
 
-.contenedorProductos,
-.contenedorLocales {
-  padding: 20px 0;
+/* BOTÓN PRODUCTOS (Borde café y fondo amarillo) */
+.btnProductos {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 145px !important;
+  padding: 10px 24px !important;
+  border: 2px solid var(--color-brand) !important;
+  background-color: var(--color-amarillo-original) !important;
+  color: var(--color-brand) !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+  box-sizing: border-box !important;
+  text-decoration: none !important;
+}
+
+.btnProductos:hover {
+  background-color: var(--color-brand) !important;
+  color: #ffffff !important;
+}
+
+/* BOTÓN NOSOTROS (Fondo café relleno) */
+.btnNosotros {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 145px !important;
+  padding: 10px 24px !important;
+  border: 2px solid var(--color-brand) !important;
+  background-color: var(--color-brand) !important;
+  color: #ffffff !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+  box-sizing: border-box !important;
+  text-decoration: none !important;
+}
+
+.btnNosotros:hover {
+  background-color: var(--color-brand-dark) !important;
+  border-color: var(--color-brand-dark) !important;
+  color: #ffffff !important;
+}
+
+/* =================================================================
+   2. SECCIÓN PRODUCTOS: RECTÁNGULO CAFÉ CON CARDS BLANCAS
+   =================================================================== */
+
+.bloqueProductosCafe {
+  background-color: var(--color-brand) !important;
+  border-radius: 20px;
+  padding: 45px 30px;
+  margin-bottom: 4.5rem;
+  box-shadow: 0 14px 30px rgba(46, 31, 24, 0.22);
+  border: 1px solid var(--color-brand-dark);
+}
+
+.headerTituloDestacado {
+  text-align: center;
+  margin-bottom: 2.2rem;
+}
+
+.tituloSeccionProductos {
+  font-family: var(--font-classic);
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: var(--color-amarillo-original);
+  margin: 0;
+  letter-spacing: 1.5px;
+  display: inline-block;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--color-amarillo-original);
+}
+
+.contenedorProductos {
+  justify-content: center;
+}
+
+.tarjetaProductoBlanca {
+  background-color: #ffffff !important;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  height: 100%;
 }
 
-.contenedorProductos .tarjetaProducto,
-.contenedorLocales .tarjetaLocal {
-  border-radius: 10%;
-  background-color: rgb(210, 241, 255);
+.tarjetaProductoBlanca:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.32);
 }
 
-.contenedorProductos .tarjetaProducto {
-  font-family: var(--fuente-titulos);
-  font-size: 2.8rem;
-  color: var(--color-titulo);
+.cardHeader {
+  margin-bottom: 12px;
+  width: 100%;
+  text-align: center;
+}
+
+.cardHeader h5 {
+  font-family: var(--font-classic);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-brand);
+  margin: 0;
 }
 
 .imagenProducto {
-  height: 400px;
-  object-fit: cover;
   width: 100%;
-}
-
-.tituloProductos h2,
-.tituloLocales h2 {
-  font-family: var(--fuente-titulos);
-  font-size: 2.8rem;
-  font-weight: 700;
-  padding: 20px 0;
-  color: #f1e6c7;
-  margin-bottom: 5px;
-  letter-spacing: 2px;
-  display: flex;
-  justify-content: center;
-  background-color: var(--color-principal);
-}
-
-.contenedorLocales .imagenLocal {
-  height: 500px;
-  width: auto;
+  height: 210px;
   object-fit: cover;
-  border-radius: 10%;
+  border-radius: 8px;
 }
 
-.tarjetaHistoria h3 {
-  font-family: var(--fuente-titulos);
-  font-size: 15px;
-  padding: 20px 0;
-  color: #302812;
-  margin-bottom: 5px;
-  letter-spacing: 2px;
-  display: flex;
-  justify-content: center;
+/* =================================================================
+   3. SECCIÓN LOCALES: CARD GRANDE ÚNICO CON FOTO ÁLBUM E HISTORIA
+   =================================================================== */
+
+.tituloBadgeCafe {
+  font-family: var(--font-classic);
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: var(--color-amarillo-original);
+  background-color: var(--color-brand);
+  display: inline-block;
+  padding: 10px 36px;
+  border-radius: 50px;
+  letter-spacing: 1.5px;
+  box-shadow: 0 6px 18px rgba(92, 61, 46, 0.2);
 }
 
-.tarjetaHistoria {
-  border-radius: var(--bs-card-border-radius);
-  background-color: var(--bs-card-bg);
-  width: 850px;
-  height: 200px;
+/* Tarjeta Blanca Grande Única para Historia + Foto */
+.tarjetaHistoriaGrande {
+  background-color: #ffffff !important;
+  border: 1px solid #e0d5c1;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 12px 30px rgba(92, 61, 46, 0.12);
   display: flex;
-  justify-content: center;
-  object-fit: fill;
   align-items: center;
+  gap: 35px;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-@media (max-width: 767px) {
-  .presentacion {
+/* Marco de Foto Álbum montado en el lado izquierdo de la tarjeta */
+.marcoFotoAlbum {
+  background-color: #ffffff;
+  padding: 12px 12px 18px 12px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(46, 31, 24, 0.22), 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #ece2dc;
+  transform: rotate(-2.5deg);
+  width: 330px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.marcoFotoAlbum:hover {
+  transform: rotate(0deg) scale(1.03);
+  box-shadow: 0 16px 35px rgba(46, 31, 24, 0.3);
+}
+
+.imagenFotoAlbum {
+  width: 100%;
+  height: 330px;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+}
+
+.pieFotoAlbum {
+  display: block;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--color-text-subtle);
+  font-style: italic;
+  margin-top: 10px;
+}
+
+/* Contenido de texto a la derecha dentro del mismo card */
+.contenidoHistoria {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.textoParrafo {
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: var(--color-text-subtle);
+  margin-bottom: 14px;
+}
+
+.textoDestacado {
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: var(--color-brand);
+  font-weight: 700;
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+
+/* =================================================================
+   4. ADAPTACIÓN RESPONSIVA
+   =================================================================== */
+
+@media (max-width: 991px) {
+  .tarjetaHistoriaGrande {
     flex-direction: column;
-    align-items: stretch !important;
+    padding: 30px 20px;
   }
-  .contenedorLocales .imagenLocal {
+
+  .marcoFotoAlbum {
+    transform: rotate(0deg);
     width: 100%;
-    height: auto;
-    max-height: 500px;
+    max-width: 360px;
   }
-  .tarjetaHistoria {
-    width: 100%;
-    height: auto;
-    padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .presentacion {
+    min-height: 380px;
+  }
+
+  .tarjetaHero {
+    padding: 30px 20px !important;
+    border-radius: 16px !important;
+  }
+
+  .tarjetaHero h2 {
+    font-size: 2rem;
+  }
+
+  .btnProductos, .btnNosotros {
+    width: 100% !important;
+  }
+
+  .bloqueProductosCafe {
+    padding: 30px 15px;
+  }
+
+  .imagenFotoAlbum {
+    height: 260px;
   }
 }

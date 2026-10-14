@@ -6,281 +6,164 @@ import estilos from "./inicio.module.css";
 import { BarraNavegacion } from "../../components/estructura/barraNavegacion.jsx";
 import { PiePagina } from "../../components/estructura/piePagina.jsx";
 
-// Estructura y textos de la pantalla original, conservados en JSX.
 export default function Inicio() {
   useTituloPagina(paginas.Inicio.title);
+
   return (
     <>
-      {"\n\n  "}
       <BarraNavegacion />
-      {"\n\n  "}
-      <main className={combinarClases("container my-5", estilos.pagina)}>
-        {"\n    "}
-        <section
-          className={combinarClases(
-            "d-flex align-items-center gap-4 mb-5",
-            estilos.presentacion,
-          )}
-        >
-          {"\n          "}
-          <div className={estilos.imagenCentral}>
-            {"\n            "}
-            <img
-              src="/Inicio/img/Pasteleria.jpg.jpeg"
-              className="img-thumbnail shadow-sm p-2 bg-white"
-              alt="Pasteleria"
-            />
-            {"\n          "}
-          </div>
-          {"\n\n          "}
-          <div className={estilos.textoCentral}>
-            {"\n            "}
-            <h2>{"Pastelería 1000 Sabores"}</h2>
-            {"\n            "}
-            <div className={estilos.subtitulo}>
-              {"\n              "}
-              <p>{"Entregando sabor desde 1976."}</p>
-              {"\n            "}
+
+      <main className={estilos.pagina}>
+        {/* BANNER HERO PRINCIPAL */}
+        <section className={estilos.presentacion}>
+          <div className={estilos.heroOverlay}>
+            <div className={estilos.tarjetaHero}>
+              <h2>{"Pastelería 1000 Sabores"}</h2>
+              <div className={estilos.subtitulo}>
+                <p>{"Entregando sabor desde 1976."}</p>
+              </div>
+              <div className={estilos.botonesCentrales}>
+                <Link
+                  to="/pasteleria"
+                  className={combinarClases(
+                    estilos.btnProductos,
+                    "text-decoration-none"
+                  )}
+                >
+                  {"Productos"}
+                </Link>
+                <Link
+                  to="/sobre-nosotros"
+                  className={combinarClases(
+                    estilos.btnNosotros,
+                    "text-decoration-none"
+                  )}
+                >
+                  {"Nosotros"}
+                </Link>
+              </div>
             </div>
-            {"\n            "}
-            <div className={estilos.botonesCentrales}>
-              {"\n              "}
-              <Link
-                to="/pasteleria"
-                className={combinarClases(
-                  "botonPasteleria text-decoration-none",
-                )}
-              >
-                {"Productos"}
-              </Link>
-              {"\n              "}
-              <Link
-                to="/sobre-nosotros"
-                className={combinarClases(
-                  "botonPasteleria text-decoration-none",
-                )}
-              >
-                {"Nosotros"}
-              </Link>
-              {"\n            "}
-            </div>
-            {"\n          "}
           </div>
-          {"\n        "}
         </section>
-        {"\n\n        "}
-        <section className="mb-5">
-          {"\n          "}
-          <div className={estilos.tituloProductos}>
-            {"\n            "}
-            <h2 className="mb-4">{"Nuestros productos"}</h2>
-            {"\n          "}
-          </div>
-          {"\n\n          "}
-          <div
-            className={combinarClases("row g-4", estilos.contenedorProductos)}
-          >
-            {"\n\n            "}
-            <div className="col-12 col-md-4">
-              {"\n              "}
-              <Link to="/pasteleria" className="text-decoration-none text-dark">
-                {"\n                "}
-                <div
-                  className={combinarClases(
-                    "card",
-                    estilos.tarjetaProducto,
-                    "h-100",
-                    "shadow-sm",
-                    "text-center",
-                  )}
-                >
-                  {"\n                  "}
-                  <div className="card-body py-3">
-                    {"\n                    "}
-                    <h5 className="card-title fw-bold mb-0">{"Pasteles"}</h5>
-                    {"\n                  "}
-                  </div>
-                  {"\n                  "}
-                  <img
-                    src="/Inicio/img/pasteles.jpg"
-                    alt="Pastel de Chocolate"
-                    className={combinarClases(
-                      "card-img-bottom",
-                      estilos.imagenProducto,
-                    )}
-                  />
-                  {"\n                "}
-                </div>
-                {"\n              "}
-              </Link>
-              {"\n            "}
+
+        <div className="container py-2">
+          {/* SECCIÓN PRODUCTOS CON BLOQUE CAFÉ */}
+          <section className={estilos.bloqueProductosCafe}>
+            <div className={estilos.headerTituloDestacado}>
+              <h2 className={estilos.tituloSeccionProductos}>
+                {"Nuestros productos"}
+              </h2>
             </div>
-            {"\n\n             "}
-            <div className="col-12 col-md-4">
-              {"\n              "}
-              <Link to="/panaderia" className="text-decoration-none text-dark">
-                {"\n                "}
-                <div
-                  className={combinarClases(
-                    "card",
-                    estilos.tarjetaProducto,
-                    "h-100",
-                    "shadow-sm",
-                    "text-center",
-                  )}
-                >
-                  {"\n                  "}
-                  <div className="card-body py-3">
-                    {"\n                    "}
-                    <h5 className="card-title fw-bold mb-0">{"Panes"}</h5>
-                    {"\n                  "}
+
+            <div
+              className={combinarClases(
+                "row g-4",
+                estilos.contenedorProductos
+              )}
+            >
+              {/* Card 1: Pasteles */}
+              <div className="col-12 col-md-4">
+                <Link to="/pasteleria" className="text-decoration-none">
+                  <div className={estilos.tarjetaProductoBlanca}>
+                    <div className={estilos.cardHeader}>
+                      <h5>{"Pasteles"}</h5>
+                    </div>
+                    <img
+                      src="/Inicio/img/pasteles.jpg"
+                      alt="Pasteles"
+                      className={estilos.imagenProducto}
+                    />
                   </div>
-                  {"\n                  "}
-                  <img
-                    src="/Inicio/img/panes.jpg"
-                    alt="Pan Ciabatta"
-                    className={combinarClases(
-                      "card-img-bottom",
-                      estilos.imagenProducto,
-                    )}
-                  />
-                  {"\n                "}
-                </div>
-                {"\n              "}
-              </Link>
-              {"\n            "}
-            </div>
-            {" \n\n            "}
-            <div className="col-12 col-md-4">
-              {"\n              "}
-              <Link to="/salados" className="text-decoration-none text-dark">
-                {"\n                "}
-                <div
-                  className={combinarClases(
-                    "card",
-                    estilos.tarjetaProducto,
-                    "h-100",
-                    "shadow-sm",
-                    "text-center",
-                  )}
-                >
-                  {"\n                  "}
-                  <div className="card-body py-3">
-                    {"\n                    "}
-                    <h5 className="card-title fw-bold mb-0">{"Salados"}</h5>
-                    {"\n                  "}
+                </Link>
+              </div>
+
+              {/* Card 2: Panes */}
+              <div className="col-12 col-md-4">
+                <Link to="/panaderia" className="text-decoration-none">
+                  <div className={estilos.tarjetaProductoBlanca}>
+                    <div className={estilos.cardHeader}>
+                      <h5>{"Panes"}</h5>
+                    </div>
+                    <img
+                      src="/Inicio/img/panes.jpg"
+                      alt="Panes"
+                      className={estilos.imagenProducto}
+                    />
                   </div>
-                  {"\n                  "}
-                  <img
-                    src="/Inicio/img/salados.jpg"
-                    alt="Salados"
-                    className={combinarClases(
-                      "card-img-bottom",
-                      estilos.imagenProducto,
-                    )}
-                  />
-                  {"\n                "}
-                </div>
-                {"\n              "}
-              </Link>
-              {"\n            "}
+                </Link>
+              </div>
+
+              {/* Card 3: Salados */}
+              <div className="col-12 col-md-4">
+                <Link to="/salados" className="text-decoration-none">
+                  <div className={estilos.tarjetaProductoBlanca}>
+                    <div className={estilos.cardHeader}>
+                      <h5>{"Salados"}</h5>
+                    </div>
+                    <img
+                      src="/Inicio/img/salados.jpg"
+                      alt="Salados"
+                      className={estilos.imagenProducto}
+                    />
+                  </div>
+                </Link>
+              </div>
             </div>
-            {"\n          "}
-          </div>
-          {"\n        "}
-        </section>
-        {"\n         "}
-        <section className="mb-5">
-          {"\n          "}
-          <div className={estilos.tituloLocales}>
-            {"\n            "}
-            <h2 className="mb-4">{"Nuestros locales"}</h2>
-            {"\n          "}
-          </div>
-          {"\n\n          "}
-          <div className={combinarClases("row g-4", estilos.contenedorLocales)}>
-            {"\n            "}
-            <div className="col-12 col-md-4">
-              {"\n              "}
+          </section>
+
+          {/* SECCIÓN LOCALES E HISTORIA (UN SOLO CARD GRANDE CON FOTO Y TEXTO INTEGRADOS) */}
+          <section className="mb-5">
+            <div className="text-center mb-4">
+              <h2 className={estilos.tituloBadgeCafe}>
+                {"Nuestros locales"}
+              </h2>
+            </div>
+
+            {/* Contenedor único grande */}
+            <div className={estilos.tarjetaHistoriaGrande}>
+              {/* Foto de Álbum integrada en la izquierda del card */}
               <a
                 href="https://tinyurl.com/pasteleria1000"
-                className="text-decoration-none text-dark"
+                className="text-decoration-none"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                {"\n                "}
-                <div
-                  className={combinarClases(
-                    "card",
-                    estilos.tarjetaLocal,
-                    "h-100",
-                    "shadow-sm",
-                    "text-center",
-                  )}
-                >
-                  {"\n                  "}
+                <div className={estilos.marcoFotoAlbum}>
                   <img
                     src="/Inicio/img/Pasteleria.jpg.jpeg"
-                    alt="PasteleriaLocal"
-                    className={combinarClases(
-                      "card-img-bottom",
-                      estilos.imagenLocal,
-                    )}
+                    alt="Pastelería Local"
+                    className={estilos.imagenFotoAlbum}
                   />
-                  {"\n                "}
+                  <span className={estilos.pieFotoAlbum}>
+                    {"Dublé Almeyda 3141, Ñuñoa"}
+                  </span>
                 </div>
-                {"\n              "}
               </a>
-              {"\n            "}
-            </div>
-            {"\n\n            "}
-            <div className="col-12 col-md-4">
-              {"\n                "}
-              <div
-                className={combinarClases(
-                  "card",
-                  estilos.tarjetaHistoria,
-                  "h-100",
-                  "shadow-sm",
-                  "text-center",
-                )}
-              >
-                {"\n                  "}
-                <div className="card-body py-3">
-                  {"\n                    "}
-                  <h3 className="card-title fw-bold mb-0">
-                    {
-                      "Todo comenzó en la cocina de la Abuela Carmen, \n                      entre el aroma a vainilla fresca, una cuchara de palo desgastada y un cuaderno de \n                      tapas de cuero donde guardaba sus secretos mejor guardados. \n                      Entre todas sus creaciones, había una estrella indiscutida: \n                      su legendaria Torta Hojarasca con Manjar Artesanal y Nuez. \n                      Lo que empezó como el hito infaltable de los domingos familiares, \n                      pronto cruzó la puerta de la casa cuando los vecinos comenzaron a tocar la ventana \n                      pidiendo encargos para sus propios cumpleaños. "
-                    }
-                  </h3>
-                  {"\n                    "}
-                  <h3 className="card-title fw-bold mb-0">
-                    {
-                      "En 1976, empujados por el entusiasmo de un barrio entero enamorado de \n                    esa receta única, la familia decidió dar el salto y abrir las puertas \n                    de Pastelería 1000 Sabores. Aquel pastel de la abuela no solo se convirtió\n                     en el producto estrella, sino en la piedra angular de un negocio \n                     que creció basándose en el boca a boca, el cariño de hogar y el\n                      respeto por los ingredientes auténticos."
-                    }
-                  </h3>
-                  {"\n                      "}
-                  <h3 className="card-title fw-bold mb-0">
-                    {
-                      "Ahora la tienda original se encuentra cerrada pero nos relocalizamos \n                        en Dublé Almeyda 3141, 7750000 Ñuñoa, Región Metropolitana "
-                    }
-                  </h3>
-                  {"\n                  "}
-                </div>
-                {"\n\n                "}
+
+              {/* Texto de la historia a la derecha dentro del mismo card */}
+              <div className={estilos.contenidoHistoria}>
+                <p className={estilos.textoParrafo}>
+                  {
+                    "Todo comenzó en la cocina de la Abuela Carmen, entre el aroma a vainilla fresca, una cuchara de palo desgastada y un cuaderno de tapas de cuero donde guardaba sus secretos mejor guardados. Entre todas sus creaciones, había una estrella indiscutida: su legendaria Torta Hojarasca con Manjar Artesanal y Nuez. Lo que empezó como el hito infaltable de los domingos familiares, pronto cruzó la puerta de la casa cuando los vecinos comenzaron a tocar la ventana pidiendo encargos para sus propios cumpleaños."
+                  }
+                </p>
+                <p className={estilos.textoParrafo}>
+                  {
+                    "En 1976, empujados por el entusiasmo de un barrio entero enamorado de esa receta única, la familia decidió dar el salto y abrir las puertas de Pastelería 1000 Sabores. Aquel pastel de la abuela no solo se convirtió en el producto estrella, sino en la piedra angular de un negocio que creció basándose en el boca a boca, el cariño de hogar y el respeto por los ingredientes auténticos."
+                  }
+                </p>
+                <p className={estilos.textoDestacado}>
+                  {
+                    "Ahora la tienda original se encuentra cerrada pero nos relocalizamos en Dublé Almeyda 3141, 7750000 Ñuñoa, Región Metropolitana."
+                  }
+                </p>
               </div>
-              {"\n              "}
-              {"\n            "}
             </div>
-            {"\n          "}
-          </div>
-          {"\n            "}
-        </section>
-        {"\n\n  "}
+          </section>
+        </div>
       </main>
-      {"\n\n  "}
+
       <PiePagina />
-      {"\n  "}
-      {"\n  "}
-      {"\n"}
     </>
   );
 }

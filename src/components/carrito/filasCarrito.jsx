@@ -14,13 +14,15 @@ export function FilasCarrito() {
     );
   return carrito.map((producto) => (
     <div className="card mb-3" key={producto.id}>
-      <div className="card-body d-flex align-items-center gap-4">
+      <div
+        className={"card-body d-flex align-items-center gap-4 " + estilos.fila}
+      >
         <img
           src={rutaImagen(producto.imagen)}
           alt={producto.titulo}
           className={estilos.imagenCarrito}
         />
-        <div className="flex-grow-1">
+        <div className={"flex-grow-1 " + estilos.contenido}>
           <h5>{producto.titulo}</h5>
           <p>
             Precio: <PrecioProducto producto={producto} />

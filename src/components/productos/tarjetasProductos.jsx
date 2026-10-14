@@ -5,14 +5,14 @@ import { rutaImagen } from "../../utils/rutaImagen.js";
 import { PrecioProducto } from "./precioProducto.jsx";
 export function TarjetasProductos({ productos, notificar }) {
   const { agregarProducto } = useTienda();
-  const navigate = useNavigate();
+  const navegar = useNavigate();
   const ubicacion = useLocation();
   function verProducto(producto) {
     sessionStorage.setItem(
       "productoSeleccionado",
       JSON.stringify({ ...producto, paginaOrigen: ubicacion.pathname }),
     );
-    navigate("/producto/" + encodeURIComponent(producto.id));
+    navegar("/producto/" + encodeURIComponent(producto.id));
   }
   return productos.map((producto) => (
     <div key={producto.id} className={"card " + estilos.tarjeta}>

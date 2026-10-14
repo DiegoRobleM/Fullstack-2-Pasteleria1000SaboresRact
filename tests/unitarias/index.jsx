@@ -1,0 +1,11 @@
+import { catalogoCasos } from "./ayudas.jsx";
+import "./servicios.spec.js";
+import "./componentes.spec.jsx";
+import "../../src/pages/inicio/inicio.jsx";
+import "../../src/pages/sobreNosotros/sobreNosotros.jsx";
+import "../../src/pages/pasteleria/pasteleria.jsx";
+import "../../src/pages/panaderia/panaderia.jsx";
+import "../../src/pages/salados/salados.jsx";
+import "../../src/pages/sinAzucar/sinAzucar.jsx";
+globalThis.IS_REACT_ACT_ENVIRONMENT = true;
+window.__karma__.info({ catalogoCasos });

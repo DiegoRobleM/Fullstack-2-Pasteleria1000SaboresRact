@@ -1,124 +1,73 @@
-# Pastelería 1000 Sabores: port del original a React
+# Pastelería 1000 Sabores en React
 
-Esta carpeta contiene el port de `../Pasteleria1000Sabores/Fullstack_2` en el commit `3c8dd53f2fbf2ee716914ef2aff683b5849f0fab`. Mantiene sus 13 pantallas, imágenes, estilos, URL `.html` y navegación por páginas, e incorpora la creación de productos desde administración. Es un proyecto independiente dentro del repositorio principal `FullStack2`, no un submódulo.
-
-El original sigue en su carpeta. Esta versión permite registrar un porcentaje de descuento por producto, pero no lo aplica al precio del catálogo ni al carrito. No incorpora búsqueda, orden de catálogo, checkout, historial de pedidos ni edición de productos.
+Tienda frontend con React, Vite, React Router, Bootstrap y persistencia simulada en el navegador. Conserva las trece pantallas e imágenes del original y añade categorías, ofertas, checkout, compra confirmada y pago rechazado: dieciocho pantallas en total.
 
 ## Ejecutar
 
-Requiere Node.js 20.19+ o 22.12+ y npm. Las dependencias se fijan en `package-lock.json`.
+Requiere Node.js 20.19+ o 22.12+ y npm. Las versiones instaladas quedan fijadas en package-lock.json.
 
-Desde esta carpeta:
-
-```sh
+```powershell
 npm install
 npm run dev
-```
-
-La raíz abre el inicio. Los enlaces conservan las rutas del original, por ejemplo `/Pasteleria/pasteleria.html` y `/Carrito/carrito.html`.
-
-```sh
 npm run build
 npm run preview
 ```
 
-Para alojar `dist/`, configura el servidor para servir `index.html` también en las rutas `.html` del sitio. Vite dev y preview ya lo hacen. El proyecto se sirve en la raíz del origen.
+Las rutas se declaran en src/routes.jsx con createBrowserRouter, siguiendo el patrón de clases. RouterProvider se monta en #root dentro de ProveedorTienda. Link y useNavigate permiten navegar sin recargar. Las direcciones .html anteriores redirigen a sus equivalentes y las direcciones desconocidas vuelven al inicio.
 
-## Pantallas y comportamiento conservados
+## Funciones
 
-- Inicio y Sobre nosotros, con el contenido y las tarjetas del original.
-- Pastelería, Panadería, Salados y Sin azúcar: tres productos por categoría, en el mismo orden.
-- Detalle: selección mediante `sessionStorage`, cantidad, notificación y retorno al catálogo de origen.
-- Carrito: cantidades, eliminación, vaciado, contador y total; sin flujo de pago.
-- Registro: los mismos campos, opciones, validaciones y mensajes.
-- Inicio de sesión: cuenta temporal o recordada y los mismos mensajes y tiempos de redirección.
-- Perfil: nombre, correo, dirección y “Sin pedidos registrados”.
-- Contacto: consultas guardadas en el navegador.
-- Administración: creación y listado de productos, listado de usuarios y consultas con cambio de estado. No permite editar productos.
-- Navbar y footer: mismos enlaces, menús Bootstrap, contador y cierre de sesión.
+- Catálogos por categoría, búsqueda por nombre/descripción, orden por precio final y ofertas.
+- Detalle por /producto/:idProducto, enlace directo, recarga, validación de cantidad y notificación.
+- Carrito persistente con cantidades, eliminación, vaciado y total con descuentos.
+- Registro, cuenta temporal o recordada, perfil, cierre de sesión y protección de administración por rol.
+- Contacto con validación, guardado y administración del estado de consultas.
+- Administración CRUD de productos: crear, listar, editar y eliminar con confirmación. La edición conserva el ID; cambiar precio, descuento o categoría actualiza el carrito vigente. Eliminar un producto también lo retira del carrito.
+- Checkout con datos de sesión precargados, dirección y opción de entrega. Despacho: $3.000; retiro: $0. Los importes son reglas de la demostración.
+- Pago simulado aprobado o rechazado. El aprobado guarda un único pedido y vacía el carrito; el rechazado conserva los productos y permite reintentar.
+- Confirmación recargable por /compra/:idPedido e historial de la cuenta activa. Los pedidos conservan los precios pagados aunque después cambie el catálogo.
 
-La cuenta ficticia `admin@pasteleria.test` / `AdminDemo123!` ya existía en el original y se crea al cargar el inicio de sesión. Se mantienen las claves `carrito`, `productoSeleccionado`, `usuariosRegistrados`, `usuarioActivo` y `consultasContacto`, sin backend. Los productos creados se guardan en `productosPasteleria`. El almacenamiento pertenece al origen del navegador, como en el original.
+Administrador ficticio: admin@pasteleria.test / AdminDemo123!. Se crea al abrir Inicio de sesión.
 
-## Estructura
+No hay backend ni cobros reales. La sesión, los roles y los datos son una simulación local; la información pertenece al origen del navegador. Las claves previas se conservan: carrito, usuariosRegistrados, usuarioActivo, consultasContacto, productosPasteleria y productoSeleccionado. Los pedidos usan pedidosPasteleria. La selección antigua solo se utiliza para redirigir la URL .html del detalle.
 
-```text
-src/
-├── app/
-│   ├── App.jsx               # Selección de la pantalla React
-│   ├── pages.js              # Rutas y títulos por pantalla
-│   └── setupPage.js          # Título de la página y redirecciones
-├── components/
-│   ├── admin/                # Formulario y tabla de productos
-│   ├── cart/                 # Filas del carrito
-│   ├── layout/               # Navbar, menú de sesión y footer
-│   ├── notificacion/         # Notificación compartida y su CSS Module
-│   └── products/             # Tarjetas del catálogo
-├── context/
-│   └── StoreContext.jsx      # Estado compartido: carrito, usuario y productos
-├── data/
-│   ├── catalogo.js           # Catálogos originales por categoría
-│   └── productos.js          # Productos iniciales con categoría y descuento
-├── hooks/
-│   └── usePageBindings.jsx   # Eventos y contenido variable de las pantallas
-├── pages/                    # Una carpeta por pantalla, con JSX y CSS local
-│   ├── inicio/               # inicio.jsx e inicio.module.css
-│   ├── carrito/              # carrito.jsx; los estilos de filas están en el componente
-│   └── ...                   # Las 13 pantallas conservan sus componentes PascalCase
-├── services/
-│   ├── auth.js               # Registro, login y sesión
-│   ├── contact.js            # Validación y almacenamiento de consultas
-│   └── productos.js          # Lectura, creación, guardado y eliminación
-├── styles/
-│   ├── global.css            # Estructura general, fondo y variables CSS
-│   ├── botones.css           # Botones compartidos
-│   └── formularios.css       # Contenedores y campos compartidos
-├── utils/
-│   ├── combinarClases.js     # Combina clases locales, Bootstrap y estado dinámico
-│   ├── formatPrice.js        # Formato de precios en pesos chilenos
-│   └── storage.js            # Lectura de arrays desde localStorage
-└── main.jsx                  # Entrada y montaje de React
-public/                       # Imágenes originales con sus rutas conservadas
-tests/                        # Comparación con el sitio original
-```
+## Organización
 
-Las pantallas usan componentes y reciben sus eventos y contenido de `usePageBindings`. El contexto mantiene el estado compartido y los servicios contienen las reglas y la persistencia; los servicios no dependen de componentes React. Para agregar una pantalla, crea una carpeta en `src/pages/` con nombres camelCase sin tildes, registra su ruta en `src/app/pages.js` y su vista en `src/app/App.jsx`.
+- src/pages: estado, efectos y eventos junto al JSX de cada pantalla.
+- src/components/estructura: barra de navegación, menú de sesión y pie de página.
+- src/components/productos: catálogo reutilizable, tarjetas y presentación de precios.
+- src/components/carrito y src/components/administracion: filas y tablas reutilizables.
+- src/context/ContextoTienda.jsx: carrito, productos, usuario y pedidos compartidos.
+- src/services: validación, CRUD y persistencia; no importan componentes React.
+- src/hooks: título de página y notificación con limpieza del temporizador.
+- src/utils: almacenamiento, precios, imágenes y combinación de clases.
+- src/styles: estilos globales y compartidos. Los estilos locales usan CSS Modules.
 
-Las imágenes de `public/` mantienen sus rutas. Los estilos propios se importan desde `src`: los globales y compartidos una sola vez en `main.jsx`, y los CSS Modules junto a la página o componente que los utiliza. Las clases locales están en español y camelCase, y se combinan con las clases Bootstrap. Los selectores de etiquetas están delimitados por una clase local para evitar que afecten otras pantallas.
+Se retiraron usePageBindings, los diccionarios genéricos props/content y el adaptador de páginas. App conserva el montaje por visita, el desplazamiento inicial y la protección de acceso. Los nombres propios están en español; las APIs de React, Bootstrap y React Router, las claves persistidas y la convención routes.jsx mantienen sus nombres.
 
-Bootstrap e iconos se importan desde las dependencias instaladas (5.3.3 y 1.11.3), antes de las personalizaciones; Vite incluye sus CSS y fuentes en `dist`. Se retiraron los CSS originales de `public`, la copia duplicada de `vendor` y la carga manual de hojas por página. La compilación conserva la precisión del CSS de Bootstrap para mantener las medidas de su grilla. `dist/`, `node_modules/` y `test-results/` son carpetas generadas e ignoradas por Git.
+## Comprobar
 
-React renderiza las pantallas y actualiza su contenido mediante estado y eventos. No se cargan los scripts antiguos, no se inyecta su HTML con `innerHTML` y no se utiliza un iframe.
-
-## Verificar la organización de estilos
-
-```sh
-npm run build
-npm run test:styles
-```
-
-Esta suite sirve la compilación con Vite y comprueba las trece pantallas en escritorio y móvil, errores de JavaScript y recursos, aislamiento de estilos, notificaciones, mensajes de registro y detalle vacío. No requiere Python ni el proyecto original. Usa Chromium de Playwright; si no está instalado, en Windows intenta usar Chrome. También admite `CHROME_BIN` para indicar un ejecutable de navegador. Para descargar Chromium: `npm exec -- playwright install chromium`.
-
-La migración también se comprobó comparando textos, títulos y 26 capturas contra el port anterior al cambio de CSS. Los scripts y capturas auxiliares están en `test-results`, sin versionar; la suite de estilos descrita arriba sí forma parte del proyecto.
-
-## Comparar con el original
-
-Las pruebas requieren Python 3 y Chromium/Chrome. También deben estar descargados los submódulos del principal:
-
-```sh
-# Desde FullStack2, solo si todavía faltan los submódulos:
-git submodule update --init --recursive
-
-# Desde Pasteleria1000SaboresReactPort:
+```powershell
 npm run build
 npm test
 ```
 
-El runner inicia y detiene dos servidores locales: el original y la compilación React. Compara textos, títulos y capturas de las 13 pantallas a 1440 y 390 píxeles de ancho. También ejercita navegación, detalle, carrito persistente, registro, login, perfil, protección del panel, contacto, estado de consultas y menús de visitante/usuario. Sirve al original los mismos archivos Bootstrap del proyecto para evitar que la red altere las comparaciones. Esta suite conserva las expectativas del original; las funciones añadidas en administración pueden producir diferencias de paridad.
+npm test ejecuta Jasmine/Karma y después las suites de navegador en serie. Requiere Chrome o Edge; CHROME_BIN permite indicar el ejecutable. Las pruebas de navegador también admiten Chromium de Playwright.
 
-Las capturas y diferencias se guardan en `test-results/`, ignorado por Git. El comparador admite una diferencia máxima de 8 por canal de color para evitar ruido de rasterización y exige cero píxeles que superen ese margen. No cubre todos los tamaños de pantalla ni todos los datos posibles; conserva las limitaciones del original.
+- npm run test:unitarias: servicios y componentes con Jasmine/Karma; genera cobertura y registro de resultados.
+- npm run test:e2e: navegación, estilos y flujos de compra con Playwright.
+- npm run test:router, npm run test:styles y npm run test:tienda: suites separadas.
+- npm run test:visual: capturas de diez pantallas en escritorio y móvil y comprobación de desbordamiento horizontal.
+- npm run formatear: formato de código con Prettier.
 
-El runner necesita que Python esté disponible como `python3`. Utiliza `CHROME_BIN` si está definido; en Linux detecta `/usr/bin/chromium`. Si no está disponible, instala Chromium mediante Playwright (`npm exec -- playwright install chromium`). En el contenedor cloud se puede usar el lanzador local:
+La configuración de Karma usa ejecución única, sin vigilancia automática de archivos. El informe y el registro real están en docs/TESTING.md, docs/resultados-pruebas.json y docs/Registro_Pruebas_Unitarias.xlsx. Las métricas se generan en test-results/coverage y sus archivos temporales están ignorados por Git.
 
-```sh
-CHROME_BIN=/workspace/.cache/fullstack2/bin/chromium-cloud npm test
-```
+La suite histórica npm run test:parity conserva la comparación exacta contra ../Pasteleria1000Sabores/Fullstack_2. Requiere ese proyecto y python3. Es una referencia del diseño anterior: filtros, CRUD, ofertas e historial incorporan diferencias intencionales, por lo que no se presenta como una prueba aprobada de equivalencia visual completa.
+
+## Documentación
+
+- docs/ERS_V2.md: requisitos, reglas y alcance de la versión actual.
+- docs/TESTING.md: método, resultados y cobertura de la última ejecución.
+- docs/Continuar_aprendizaje_React.md: estado del plan y recorrido para estudiar el código.
+
+Para alojar dist, el servidor debe devolver index.html al abrir o recargar rutas de la aplicación. Vite dev y preview ya lo hacen. El proyecto se sirve en la raíz del origen.

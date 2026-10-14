@@ -5,14 +5,14 @@ import MenuSesion from "./menuSesion.jsx";
 import { categorias } from "../../data/categorias.js";
 export function BarraNavegacion() {
   const { usuario, cerrarSesion, carrito } = useTienda();
-  const navigate = useNavigate();
+  const navegar = useNavigate();
   const cantidad = carrito.reduce(
     (total, producto) => total + producto.cantidad,
     0,
   );
   function salir() {
     cerrarSesion();
-    navigate("/inicio-sesion", { replace: true });
+    navegar("/inicio-sesion", { replace: true });
   }
   return (
     <mi-navbar>

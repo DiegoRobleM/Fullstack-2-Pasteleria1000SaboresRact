@@ -16,7 +16,12 @@ export default function Inicio() {
       {"\n\n  "}
       <main className={combinarClases("container my-5", estilos.pagina)}>
         {"\n    "}
-        <section className="d-flex align-items-center gap-4 mb-5">
+        <section
+          className={combinarClases(
+            "d-flex align-items-center gap-4 mb-5",
+            estilos.presentacion,
+          )}
+        >
           {"\n          "}
           <div className={estilos.imagenCentral}>
             {"\n            "}

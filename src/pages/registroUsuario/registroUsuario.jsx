@@ -9,8 +9,8 @@ import { PiePagina } from "../../components/estructura/piePagina.jsx";
 
 // Estructura y textos de la pantalla original, conservados en JSX.
 export default function RegistroUsuario() {
-  const [mensaje, setMensaje] = useState(null);
-  const navigate = useNavigate();
+  const [mensaje, establecerMensaje] = useState(null);
+  const navegar = useNavigate();
   const temporizador = useRef(null);
   const mensajeElemento = useRef(null);
 
@@ -33,13 +33,13 @@ export default function RegistroUsuario() {
     const formulario = evento.currentTarget;
     const resultado = registrarCuenta(new FormData(formulario));
 
-    setMensaje(resultado);
+    establecerMensaje(resultado);
     if (resultado.enfocar)
       formulario.querySelector("#" + resultado.enfocar)?.focus();
     if (resultado.tipo === "success") formulario.reset();
     if (resultado.redirigir) {
       temporizador.current = setTimeout(
-        () => navigate(resultado.redirigir),
+        () => navegar(resultado.redirigir),
         resultado.demora,
       );
     }

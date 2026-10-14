@@ -6,7 +6,7 @@ import { paginas } from "../../app/pages.js";
 import { registrarConsulta } from "../../services/consultas.js";
 
 export default function Contacto() {
-  const [mensaje, setMensaje] = useState(null);
+  const [mensaje, establecerMensaje] = useState(null);
 
   useEffect(() => {
     document.title = paginas.Contacto.title;
@@ -17,7 +17,7 @@ export default function Contacto() {
     const formulario = evento.currentTarget;
     const resultado = registrarConsulta(new FormData(formulario));
 
-    setMensaje(resultado);
+    establecerMensaje(resultado);
     if (resultado.tipo === "success") formulario.reset();
   }
 

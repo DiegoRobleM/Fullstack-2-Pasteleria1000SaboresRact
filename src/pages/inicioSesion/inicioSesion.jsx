@@ -11,8 +11,8 @@ import { PiePagina } from "../../components/estructura/piePagina.jsx";
 
 // Estructura y textos de la pantalla original, conservados en JSX.
 export default function InicioSesion() {
-  const [mensaje, setMensaje] = useState(null);
-  const navigate = useNavigate();
+  const [mensaje, establecerMensaje] = useState(null);
+  const navegar = useNavigate();
   const temporizador = useRef(null);
   const { refrescarUsuario } = useTienda();
 
@@ -28,14 +28,14 @@ export default function InicioSesion() {
     const formulario = evento.currentTarget;
     const resultado = validarInicioSesion(new FormData(formulario));
 
-    setMensaje(resultado);
+    establecerMensaje(resultado);
     if (resultado.limpiarContrasena) formulario.elements.password.value = "";
     if (resultado.enfocar)
       formulario.querySelector("#" + resultado.enfocar)?.focus();
     if (resultado.tipo === "success") refrescarUsuario();
     if (resultado.redirigir) {
       temporizador.current = setTimeout(
-        () => navigate(resultado.redirigir),
+        () => navegar(resultado.redirigir),
         resultado.demora,
       );
     }

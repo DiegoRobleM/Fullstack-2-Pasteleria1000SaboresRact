@@ -8,14 +8,14 @@ import { paginas } from "../../app/pages.js";
 import { formatearPrecio } from "../../utils/formatoPrecio.js";
 export default function PerfilUsuario() {
   const { usuario, pedidos, cerrarSesion } = useTienda();
-  const navigate = useNavigate();
+  const navegar = useNavigate();
   useTituloPagina(paginas.PerfilUsuario.title);
   const propios = pedidos
     .filter((pedido) => pedido.correoCliente === usuario?.email?.toLowerCase())
     .sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
   function salir() {
     cerrarSesion();
-    navigate("/inicio-sesion", { replace: true });
+    navegar("/inicio-sesion", { replace: true });
   }
   return (
     <>

@@ -21,7 +21,7 @@ export default function Checkout() {
   const [mensaje, establecerMensaje] = useState(null);
   const [procesando, establecerProcesando] = useState(false);
   const bloqueado = useRef(false);
-  const navigate = useNavigate();
+  const navegar = useNavigate();
   useTituloPagina("Checkout - Pastelería 1000 Sabores");
   const entrega = opcionesEntrega.find((opcion) => opcion.id === datos.entrega);
   function cambiarDato(evento) {
@@ -37,7 +37,7 @@ export default function Checkout() {
     establecerProcesando(true);
     try {
       const resultado = confirmarCompra(datos);
-      navigate(
+      navegar(
         resultado.aprobado
           ? "/compra/" + resultado.pedido.id
           : "/compra-fallida",

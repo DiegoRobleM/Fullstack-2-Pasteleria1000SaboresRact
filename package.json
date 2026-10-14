@@ -7,12 +7,15 @@
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1",
-    "test": "node --test --test-concurrency=1 tests/router.test.mjs tests/styles.test.mjs tests/tienda.test.mjs",
+    "test": "node scripts/verificar.mjs",
     "test:router": "node --test tests/router.test.mjs",
     "test:parity": "node --test tests/parity.test.mjs",
     "test:styles": "node --test tests/styles.test.mjs",
     "test:tienda": "node --test tests/tienda.test.mjs",
-    "formatear": "prettier --write src tests"
+    "formatear": "prettier --write src tests scripts karma.conf.cjs",
+    "test:unitarias": "node scripts/pruebas-unitarias.mjs",
+    "test:e2e": "node --test --test-concurrency=1 tests/router.test.mjs tests/styles.test.mjs tests/tienda.test.mjs",
+    "test:visual": "node scripts/revision-visual.mjs"
   },
   "dependencies": {
     "bootstrap": "5.3.3",

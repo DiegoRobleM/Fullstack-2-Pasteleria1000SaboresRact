@@ -4,3 +4,27 @@
   object-fit: cover;
   border-radius: 5px;
 }
+
+.contenido {
+  min-width: 0;
+}
+
+@media (max-width: 575px) {
+  .fila {
+    flex-wrap: wrap;
+    gap: 12px !important;
+  }
+
+  .imagenCarrito {
+    width: 80px;
+    height: 60px;
+  }
+
+  .contenido {
+    flex-basis: calc(100% - 100px);
+  }
+
+  .fila > button {
+    margin-left: auto;
+  }
+}

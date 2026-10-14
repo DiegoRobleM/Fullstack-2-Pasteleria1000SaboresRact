@@ -20,7 +20,7 @@ export default function DetalleProducto() {
   const [cantidad, establecerCantidad] = useState("1");
   const entradaCantidad = useRef(null);
   const { visible, notificar } = useNotificacion();
-  const navigate = useNavigate();
+  const navegar = useNavigate();
   useTituloPagina(
     producto
       ? producto.titulo + " | Pastelería 1000 Sabores"
@@ -135,7 +135,7 @@ export default function DetalleProducto() {
                     type="button"
                     id="btn-volver-catalogo"
                     className="btn btn-outline-secondary"
-                    onClick={() => navigate("/" + producto.categoria)}
+                    onClick={() => navegar("/" + producto.categoria)}
                   >
                     Volver al catálogo
                   </button>

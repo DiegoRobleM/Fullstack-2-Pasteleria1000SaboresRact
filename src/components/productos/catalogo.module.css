@@ -1,7 +1,229 @@
+/* =================================================================
+   ESTILOS CATÁLOGO DE PRODUCTOS - PASTELERÍA 1000 SABORES
+   =================================================================== */
+
+:root {
+  --color-brand: #5c3d2e;             /* Café corporativo principal */
+  --color-brand-dark: #2e1f18;        /* Café oscuro rústico */
+  --color-amarillo-original: #f1e6c7; /* Amarillo crema de fondo original */
+  --color-input-bg: #e2d8c7;          /* Beige suave para inputs */
+  --color-text-main: #2b2b2b;
+  --color-text-subtle: #4a3f35;
+  --font-classic: 'Playfair Display', Georgia, serif;
+  --font-body: 'Lora', Georgia, serif;
+}
+
+body {
+  background-color: var(--color-amarillo-original) !important;
+  margin: 0;
+  padding: 0;
+}
+
+.pagina {
+  background-color: var(--color-amarillo-original) !important;
+  color: var(--color-text-main);
+  font-family: var(--font-body);
+  min-height: 80vh;
+}
+
+/* =================================================================
+   1. HERO HEADER CATÁLOGO
+   =================================================================== */
+
+.heroCatalogo {
+  background-color: var(--color-brand);
+  color: var(--color-amarillo-original);
+  padding: 45px 20px 50px 20px;
+  text-align: center;
+  border-bottom: 4px solid #422b20;
+  box-shadow: 0 8px 20px rgba(46, 31, 24, 0.15);
+}
+
+.heroContenido {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.subtituloBadge {
+  display: inline-block;
+  background-color: var(--color-amarillo-original);
+  color: var(--color-brand);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 6px 18px;
+  border-radius: 30px;
+  margin-bottom: 12px;
+}
+
+.tituloHero {
+  font-family: var(--font-classic);
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--color-amarillo-original);
+}
+
+.bajadaHero {
+  font-size: 1.15rem;
+  opacity: 0.92;
+  margin: 0;
+}
+
+/* =================================================================
+   2. BARRA DE FILTROS Y BÚSQUEDA
+   =================================================================== */
+
+.tarjetaFiltros {
+  background-color: #ffffff !important;
+  border: 1px solid #e0d5c1;
+  border-radius: 18px;
+  padding: 24px 28px;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 8px 24px rgba(92, 61, 46, 0.08);
+}
+
+.etiquetaCampo {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--color-brand);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.iconoLabel {
+  width: 16px;
+  height: 16px;
+  color: var(--color-brand);
+}
+
+.controlBusqueda,
+.controlSelect {
+  background-color: var(--color-input-bg) !important;
+  border: 1.5px solid transparent !important;
+  border-radius: 12px !important;
+  padding: 12px 18px !important;
+  font-size: 0.95rem;
+  color: var(--color-text-main) !important;
+  transition: all 0.3s ease !important;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--font-body);
+}
+
+.controlBusqueda::placeholder {
+  color: #7a6b5a;
+}
+
+.controlBusqueda:focus,
+.controlSelect:focus {
+  background-color: #f7f2ea !important;
+  border-color: var(--color-brand) !important;
+  box-shadow: 0 0 0 3px rgba(92, 61, 46, 0.18) !important;
+}
+
+/* =================================================================
+   3. RECTÁNGULO CAFÉ CONTENEDOR DE PRODUCTOS
+   =================================================================== */
+
+.bloqueProductosCafe {
+  background-color: var(--color-brand) !important;
+  border-radius: 20px;
+  padding: 45px 30px;
+  margin-bottom: 3rem;
+  box-shadow: 0 14px 30px rgba(46, 31, 24, 0.22);
+  border: 1px solid var(--color-brand-dark);
+}
+
+.headerProductos {
+  text-align: center;
+  margin-bottom: 2.2rem;
+}
+
+.tituloBloque {
+  font-family: var(--font-classic);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--color-amarillo-original);
+  margin: 0;
+  letter-spacing: 1.2px;
+  display: inline-block;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--color-amarillo-original);
+}
+
 .contenedorProductos {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 24px;
-  margin: 40px 0;
+  margin: 10px 0;
+}
+
+/* =================================================================
+   4. ESTADO SIN RESULTADOS
+   =================================================================== */
+
+.tarjetaSinResultados {
+  background-color: #ffffff !important;
+  border-radius: 16px;
+  padding: 45px 25px;
+  text-align: center;
+  width: 100%;
+  max-width: 520px;
+  margin: 20px auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.iconoSinResultados {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  background-color: var(--color-amarillo-original);
+  color: var(--color-brand);
+  border-radius: 50%;
+  margin-bottom: 16px;
+}
+
+.iconoSinResultados svg {
+  width: 32px;
+  height: 32px;
+}
+
+.tarjetaSinResultados h3 {
+  font-family: var(--font-classic);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-brand);
+  margin-bottom: 8px;
+}
+
+.tarjetaSinResultados p {
+  font-size: 0.95rem;
+  color: var(--color-text-subtle);
+  margin: 0;
+}
+
+/* =================================================================
+   5. ADAPTACIÓN RESPONSIVA
+   =================================================================== */
+
+@media (max-width: 768px) {
+  .tituloHero {
+    font-size: 2.1rem;
+  }
+
+  .tarjetaFiltros {
+    padding: 20px 16px;
+  }
+
+  .bloqueProductosCafe {
+    padding: 30px 15px;
+  }
 }

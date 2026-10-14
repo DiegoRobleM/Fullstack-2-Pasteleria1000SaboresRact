@@ -1,6 +1,6 @@
 # Continuar el aprendizaje de Pastelería 1000 Sabores
 
-Actualizado el 14 de octubre de 2026. Proyecto actual: Pasteleria1000SaboresReactPort. Usar npm. Equipo: Vicente, Victoria y Diego.
+Actualizado el 14 de octubre de 2026. Proyecto actual: Pasteleria1000SaboresReactPort. Usar npm. Equipo: Diego Roble, Victoria Arias y Vicente Perez.
 
 ## Estado del plan
 
@@ -46,7 +46,7 @@ El pago es simulado. Los resultados están ligados al origen del navegador. No c
 
 ## Documentación y entrega
 
-README.md explica ejecución y estructura. docs/ERS_V2.md define el alcance. docs/TESTING.md, docs/resultados-pruebas.json y docs/Registro_Pruebas_Unitarias.xlsx documentan la ejecución real. El registro identifica a Vicente, Victoria y Diego como equipo responsable conjunto. Los casos no tienen una asignación individual acordada.
+README.md explica ejecución y estructura. docs/ERS_V2.md define el alcance. docs/TESTING.md, docs/resultados-pruebas.json y docs/Registro_Pruebas_Unitarias.xlsx documentan la ejecución real. El registro identifica a Diego Roble, Victoria Arias y Vicente Perez como equipo responsable conjunto. Los casos no tienen una asignación individual acordada.
 
 ## Pendientes revisados, sin implementar
 

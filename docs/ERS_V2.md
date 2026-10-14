@@ -1,6 +1,6 @@
 # Especificación de requisitos del software V2
 
-Proyecto: Pastelería 1000 Sabores ReactPort. Fecha: 13 de octubre de 2026.
+Proyecto: Pastelería 1000 Sabores ReactPort. Fecha: 14 de octubre de 2026. Equipo: Vicente, Victoria y Diego.
 
 ## Objetivo y usuarios
 
@@ -45,7 +45,7 @@ Pruebas con Jasmine/Karma para lógica, renderizado, propiedades, estado, evento
 
 Incluye frontend y persistencia en localStorage/sessionStorage, sin backend, pasarela real, inventario, reportes comerciales ni boletas tributarias. Las categorías están definidas en datos; las cuentas pueden registrarse y consultarse, pero no hay CRUD administrativo de categorías/usuarios. Estas funciones más amplias del anexo no forman parte del plan implementado.
 
-La publicación de GitHub, la configuración de hosting, los nombres de integrantes y la presentación oral corresponden a la entrega del equipo. Esta implementación no publica el repositorio ni inventa información de autoría o de equipo.
+La publicación de GitHub, la configuración de hosting y la presentación oral corresponden a la entrega del equipo y quedan pendientes de revisión en su entorno de destino. El registro de pruebas identifica a Vicente, Victoria y Diego como responsables conjuntos.
 
 ## Fuentes académicas
 

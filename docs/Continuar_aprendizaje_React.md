@@ -1,6 +1,6 @@
 # Continuar el aprendizaje de Pastelería 1000 Sabores
 
-Actualizado el 13 de octubre de 2026. Proyecto actual: Pasteleria1000SaboresReactPort. Usar npm.
+Actualizado el 14 de octubre de 2026. Proyecto actual: Pasteleria1000SaboresReactPort. Usar npm. Equipo: Vicente, Victoria y Diego.
 
 ## Estado del plan
 
@@ -44,6 +44,16 @@ El pago es simulado. Los resultados están ligados al origen del navegador. No c
 
 ## Documentación y entrega
 
-README.md explica ejecución y estructura. docs/ERS_V2.md define el alcance. docs/TESTING.md, docs/resultados-pruebas.json y docs/Registro_Pruebas_Unitarias.xlsx documentan la ejecución real. El equipo debe completar sus nombres y responsabilidades en el registro y preparar publicación/presentación según las instrucciones de clases.
+README.md explica ejecución y estructura. docs/ERS_V2.md define el alcance. docs/TESTING.md, docs/resultados-pruebas.json y docs/Registro_Pruebas_Unitarias.xlsx documentan la ejecución real. El registro identifica a Vicente, Victoria y Diego como equipo responsable conjunto. Los casos no tienen una asignación individual acordada.
+
+## Pendientes revisados, sin implementar
+
+El plan funcional acordado está implementado: router, lógica local, nombres en español, CRUD de productos, descuentos, compra simulada e historial. El cierre documental incorpora ERS, cobertura y registro de pruebas. No quedan tareas de ese plan funcional identificadas en esta revisión.
+
+1. Publicación y entrega: verificar que el enlace GitHub sea público y contenga la versión final, preparar el proyecto comprimido solicitado y la presentación según las instrucciones de clases. El remoto configurado es https://github.com/DiegoRobleM/Fullstack-2-Pasteleria1000SaboresRact.git; su visibilidad y contenido remoto no se verificaron en este cierre. Si se elige un alojamiento, configurar la recuperación de rutas SPA en ese servidor. Estas acciones quedan registradas para la siguiente instrucción.
+2. Comparación histórica: test:parity aún no está verificada contra el HTML original. Requiere disponer de ese proyecto y python3 y revisar las diferencias intencionales de las funciones nuevas. Las suites actuales de router, estilos y tienda cubren la implementación vigente.
+3. Dependencias de pruebas: dar seguimiento a las tres alertas altas de desarrollo de Karma/braces documentadas en TESTING.md. La actualización automática propone cambios incompatibles; no se aplicó una degradación de versiones.
+
+Backend, pago real, inventario, reportes comerciales y CRUD administrativo de usuarios/categorías son ampliaciones de alcance. Si la entrega académica exige alguna de ellas, deben incorporarse a un plan nuevo antes de implementarlas. Este documento registra los pendientes; su implementación queda detenida por instrucción del estudiante.
 
 La comparación histórica test:parity corresponde al diseño HTML anterior y conserva diferencias intencionales por funcionalidades nuevas; no equivale a las pruebas actuales ni se registra como aprobada sin ejecutarla.

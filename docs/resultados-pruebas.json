@@ -1,5 +1,5 @@
 {
-  "fecha": "2026-10-14T00:49:45.240Z",
+  "fecha": "2026-10-14T05:59:48.396Z",
   "zonaHoraria": "America/Santiago",
   "herramienta": "Jasmine y Karma",
   "total": 47,
@@ -13,7 +13,7 @@
       "entrada": "JSON corrupto y objeto en una clave de arreglo",
       "esperado": "Devuelve [] sin lanzar errores",
       "estado": "Aprobada",
-      "duracionMs": 4,
+      "duracionMs": 6,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -23,7 +23,7 @@
       "entrada": "Cantidad 2, precio alterado y producto inexistente",
       "esperado": "Conserva el producto disponible, cantidad 2 y precio de catálogo",
       "estado": "Aprobada",
-      "duracionMs": 1,
+      "duracionMs": 2,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -73,7 +73,7 @@
       "entrada": "Crear, editar categoría a salados y eliminar",
       "esperado": "Persistencia actualizada; ID estable; producto eliminado",
       "estado": "Aprobada",
-      "duracionMs": 1,
+      "duracionMs": 2,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -83,7 +83,7 @@
       "entrada": "Precio negativo, descuento 101 e ID desconocido",
       "esperado": "Errores sin sobrescribir datos",
       "estado": "Aprobada",
-      "duracionMs": 0,
+      "duracionMs": 1,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -93,7 +93,7 @@
       "entrada": "Formulario sin campos",
       "esperado": "Lista de errores; no crea usuario",
       "estado": "Aprobada",
-      "duracionMs": 0,
+      "duracionMs": 1,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -103,7 +103,7 @@
       "entrada": "Correo ANA@example.test y rol admin enviado por el cliente",
       "esperado": "Correo en minúsculas, rol cliente y segundo registro rechazado",
       "estado": "Aprobada",
-      "duracionMs": 1,
+      "duracionMs": 2,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -143,7 +143,7 @@
       "entrada": "Dos inicializaciones del administrador",
       "esperado": "Una sola cuenta con rol admin",
       "estado": "Aprobada",
-      "duracionMs": 0,
+      "duracionMs": 1,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -153,7 +153,7 @@
       "entrada": "Correo en mayúsculas y consulta con espacios",
       "esperado": "Datos recortados, estado pendiente y posterior resuelta",
       "estado": "Aprobada",
-      "duracionMs": 1,
+      "duracionMs": 5,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -173,7 +173,7 @@
       "entrada": "Dos unidades de 10000 con 20% de descuento y despacho de 3000",
       "esperado": "Subtotal 16000; total 19000; snapshot de precio final 8000",
       "estado": "Aprobada",
-      "duracionMs": 1,
+      "duracionMs": 2,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -183,7 +183,7 @@
       "entrada": "Carrito válido y pago rechazado",
       "esperado": "Resultado aprobado false; pedidos sin cambios",
       "estado": "Aprobada",
-      "duracionMs": 0,
+      "duracionMs": 1,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -193,7 +193,7 @@
       "entrada": "Carrito vacío, email inválido y producto eliminado",
       "esperado": "Lanza errores; no persiste pedidos",
       "estado": "Aprobada",
-      "duracionMs": 1,
+      "duracionMs": 2,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -203,7 +203,7 @@
       "entrada": "Pedidos de Ana y de otra persona",
       "esperado": "Cada historial contiene solamente su pedido",
       "estado": "Aprobada",
-      "duracionMs": 1,
+      "duracionMs": 2,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -213,7 +213,7 @@
       "entrada": "Producto Pastel de prueba, precio 10000 y descuento 20%",
       "esperado": "Nombre y precio final 8000 en una tarjeta",
       "estado": "Aprobada",
-      "duracionMs": 61,
+      "duracionMs": 76,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -223,7 +223,7 @@
       "entrada": "Clic en Agregar al carrito; callback spy",
       "esperado": "Notifica una vez y persiste el producto correcto",
       "estado": "Aprobada",
-      "duracionMs": 13,
+      "duracionMs": 9,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -243,7 +243,7 @@
       "entrada": "Categoría pasteleria y catálogo inicial de doce productos",
       "esperado": "Tres tarjetas de pastelería",
       "estado": "Aprobada",
-      "duracionMs": 75,
+      "duracionMs": 66,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -253,7 +253,7 @@
       "entrada": "Escribir FRUTILLA",
       "esperado": "Una tarjeta de Pastel de Frutilla",
       "estado": "Aprobada",
-      "duracionMs": 29,
+      "duracionMs": 20,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -263,7 +263,7 @@
       "entrada": "Buscar un producto inexistente",
       "esperado": "Mensaje visible y cero tarjetas",
       "estado": "Aprobada",
-      "duracionMs": 36,
+      "duracionMs": 15,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -273,7 +273,7 @@
       "entrada": "Seleccionar menor precio",
       "esperado": "Pastel de Vainilla en primer lugar",
       "estado": "Aprobada",
-      "duracionMs": 36,
+      "duracionMs": 12,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -283,7 +283,7 @@
       "entrada": "Sin productos guardados",
       "esperado": "Mensaje de carrito vacío y sin botón Vaciar carrito",
       "estado": "Aprobada",
-      "duracionMs": 15,
+      "duracionMs": 7,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -293,7 +293,7 @@
       "entrada": "Dos unidades con precio final 8000; dos clics en disminuir",
       "esperado": "Totales 16000, 8000 y cero; carrito vacío",
       "estado": "Aprobada",
-      "duracionMs": 22,
+      "duracionMs": 15,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -303,7 +303,7 @@
       "entrada": "URL /producto/no-existe",
       "esperado": "Mensaje de producto no disponible",
       "estado": "Aprobada",
-      "duracionMs": 22,
+      "duracionMs": 13,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -313,7 +313,7 @@
       "entrada": "Producto existente, cantidad 3 y clic agregar",
       "esperado": "Carrito de tres unidades y notificación visible",
       "estado": "Aprobada",
-      "duracionMs": 34,
+      "duracionMs": 52,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -323,7 +323,7 @@
       "entrada": "Cantidad 1.5",
       "esperado": "Reinicia a una unidad, enfoca el input y no agrega",
       "estado": "Aprobada",
-      "duracionMs": 22,
+      "duracionMs": 18,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -333,7 +333,7 @@
       "entrada": "Formulario inicialmente vacío y luego submit",
       "esperado": "Mensaje oculto al inicio; errores visibles después; sin usuario creado",
       "estado": "Aprobada",
-      "duracionMs": 27,
+      "duracionMs": 34,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -343,7 +343,7 @@
       "entrada": "Campos válidos introducidos con eventos de input",
       "esperado": "Cuenta cliente persistida y mensaje de éxito",
       "estado": "Aprobada",
-      "duracionMs": 18,
+      "duracionMs": 26,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -353,7 +353,7 @@
       "entrada": "Correo válido y contraseña incorrecta",
       "esperado": "Mensaje de error, contraseña vacía y foco en su input",
       "estado": "Aprobada",
-      "duracionMs": 19,
+      "duracionMs": 20,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -363,7 +363,7 @@
       "entrada": "Credenciales válidas",
       "esperado": "Hola, Ana aparece y la sesión se guarda sin contraseña",
       "estado": "Aprobada",
-      "duracionMs": 16,
+      "duracionMs": 13,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -373,7 +373,7 @@
       "entrada": "Mensaje con espacios y luego consulta válida",
       "esperado": "Advertencia inicial; consulta persistida y formulario vacío al éxito",
       "estado": "Aprobada",
-      "duracionMs": 15,
+      "duracionMs": 17,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -383,7 +383,7 @@
       "entrada": "Clic editar y eliminación confirmada; callbacks spy",
       "esperado": "Editar recibe objeto; eliminar recibe ID solamente al confirmar",
       "estado": "Aprobada",
-      "duracionMs": 28,
+      "duracionMs": 10,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -393,7 +393,7 @@
       "entrada": "Producto inicial y precio modificado a 15000",
       "esperado": "Callback recibe datos del formulario con nuevo precio",
       "estado": "Aprobada",
-      "duracionMs": 7,
+      "duracionMs": 11,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -403,7 +403,7 @@
       "entrada": "Entrar a administración sin sesión y con rol cliente",
       "esperado": "Visitante va a login; cliente vuelve a Inicio",
       "estado": "Aprobada",
-      "duracionMs": 8,
+      "duracionMs": 12,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -413,7 +413,7 @@
       "entrada": "Cliente autenticado y dirección editada",
       "esperado": "Nombre precargado y dirección nueva reflejada en el input",
       "estado": "Aprobada",
-      "duracionMs": 12,
+      "duracionMs": 27,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -423,7 +423,7 @@
       "entrada": "Datos precargados y confirmación de compra",
       "esperado": "Una orden, vista de confirmación y carrito vacío",
       "estado": "Aprobada",
-      "duracionMs": 50,
+      "duracionMs": 27,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -433,7 +433,7 @@
       "entrada": "Elegir pago rechazado",
       "esperado": "Vista de rechazo; carrito intacto y sin pedido",
       "estado": "Aprobada",
-      "duracionMs": 15,
+      "duracionMs": 11,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -443,7 +443,7 @@
       "entrada": "Dos pedidos con correos diferentes y usuario Ana",
       "esperado": "Muestra solamente el pedido de Ana",
       "estado": "Aprobada",
-      "duracionMs": 5,
+      "duracionMs": 23,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -453,7 +453,7 @@
       "entrada": "URL /compra/no-existe",
       "esperado": "Mensaje de pedido no disponible",
       "estado": "Aprobada",
-      "duracionMs": 5,
+      "duracionMs": 3,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -463,7 +463,7 @@
       "entrada": "Dos productos; uno con 20% y otro con descuento cero",
       "esperado": "Una sola tarjeta con precio 8000",
       "estado": "Aprobada",
-      "duracionMs": 10,
+      "duracionMs": 11,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     },
@@ -473,7 +473,7 @@
       "entrada": "Cuatro categorías y catálogo inicial",
       "esperado": "Cuatro tarjetas con enlaces y tres productos por categoría",
       "estado": "Aprobada",
-      "duracionMs": 9,
+      "duracionMs": 3,
       "errores": [],
       "navegador": "Chrome Headless 155.0.0.0 (Windows 10)"
     }

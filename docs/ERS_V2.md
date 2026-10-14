@@ -39,7 +39,7 @@ El correo del propietario del pedido corresponde a la cuenta activa o al correo 
 
 Componentes con una responsabilidad, propiedades explícitas y estado local junto al JSX. Contexto compartido para los datos de tienda y servicios independientes de React. Bootstrap responsivo y CSS Modules para aislar estilos. Recursos de public desde la raíz. Temporizadores cancelados al desmontar la pantalla o volver a enviar el formulario. Datos previos e identificadores conservados.
 
-Pruebas con Jasmine/Karma para lógica, renderizado, propiedades, estado, eventos y DOM; spies para verificar callbacks. Pruebas de navegador para flujos completos, persistencia, navegación y estados visuales. Registro de entradas, expectativas previas y resultados reales e informe de cobertura.
+Diez pruebas unitarias simples con Jasmine/Karma para alertas, renderizado, propiedades, búsqueda, eventos y DOM; spies para verificar callbacks. Pruebas de navegador para flujos completos, persistencia, navegación y estados visuales. Registro de entradas, expectativas previas y resultados reales e informe de cobertura. Los avisos se reutilizan mediante Alerta y AlertaFormulario; Notificacion presenta los mensajes temporales del carrito.
 
 ## Alcance y límites
 

@@ -12,8 +12,10 @@ El estudiante solicitó explícitamente implementar todo el plan y realizar comm
 4. CRUD completo de productos, con edición que conserva IDs y eliminación confirmada. Carrito actualizado después de los cambios de catálogo.
 5. Descuentos aplicados, búsqueda, orden por precio final, categorías y ofertas.
 6. Checkout simulado, opciones de entrega, resultados aprobado/rechazado, confirmación persistida e historial de la cuenta activa.
-7. Jasmine/Karma para servicios y componentes, cobertura, pruebas de navegador y registro de resultados reales. Consultar docs/TESTING.md para la última ejecución; no extrapolar resultados de otra versión.
+7. Jasmine/Karma con diez pruebas unitarias simples de componentes, cobertura, pruebas de navegador y registro de resultados reales. Consultar docs/TESTING.md para la última ejecución; no extrapolar resultados de otra versión.
 8. Bootstrap, CSS Modules y comprobaciones de escritorio y móvil.
+
+Por solicitud del estudiante se simplificó la suite a diez casos PU-001 a PU-010. Alerta centraliza los avisos Bootstrap y AlertaFormulario presenta los mensajes de los formularios, incluidos varios errores. Notificacion conserva los avisos temporales del carrito. Las pantallas usan estos componentes en lugar de repetir su marcado.
 
 ## Próxima etapa de aprendizaje
 

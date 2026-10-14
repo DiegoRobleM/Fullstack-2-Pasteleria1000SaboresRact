@@ -1,29 +1,29 @@
 {
-  "fecha": "2026-10-14T05:59:48.396Z",
+  "fecha": "2026-10-14T06:09:04.480Z",
   "total": {
     "lines": {
-      "total": 437,
-      "covered": 355,
+      "total": 229,
+      "covered": 88,
       "skipped": 0,
-      "pct": 81.23
+      "pct": 38.42
     },
     "statements": {
-      "total": 488,
-      "covered": 394,
+      "total": 264,
+      "covered": 95,
       "skipped": 0,
-      "pct": 80.73
+      "pct": 35.98
     },
     "functions": {
-      "total": 176,
-      "covered": 135,
+      "total": 97,
+      "covered": 42,
       "skipped": 0,
-      "pct": 76.7
+      "pct": 43.29
     },
     "branches": {
-      "total": 356,
-      "covered": 263,
+      "total": 215,
+      "covered": 68,
       "skipped": 0,
-      "pct": 73.87
+      "pct": 31.62
     },
     "branchesTrue": {
       "total": 0,

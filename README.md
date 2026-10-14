@@ -37,6 +37,7 @@ No hay backend ni cobros reales. La sesión, los roles y los datos son una simul
 - src/components/estructura: barra de navegación, menú de sesión y pie de página.
 - src/components/productos: catálogo reutilizable, tarjetas y presentación de precios.
 - src/components/carrito y src/components/administracion: filas y tablas reutilizables.
+- src/components/alerta: Alerta para avisos generales y AlertaFormulario para mensajes de validación o éxito. Admiten colores Bootstrap, visibilidad, contenido, ID, clases y referencias; los formularios reutilizan la presentación de uno o varios mensajes.
 - src/context/ContextoTienda.jsx: carrito, productos, usuario y pedidos compartidos.
 - src/services: validación, CRUD y persistencia; no importan componentes React.
 - src/hooks: título de página y notificación con limpieza del temporizador.
@@ -54,7 +55,7 @@ npm test
 
 npm test ejecuta Jasmine/Karma y después las suites de navegador en serie. Requiere Chrome o Edge; CHROME_BIN permite indicar el ejecutable. Las pruebas de navegador también admiten Chromium de Playwright.
 
-- npm run test:unitarias: servicios y componentes con Jasmine/Karma; genera cobertura y registro de resultados.
+- npm run test:unitarias: exactamente diez pruebas simples de componentes con Jasmine/Karma; genera cobertura y registro de resultados. Los casos están en tests/unitarias/componentes.spec.jsx.
 - npm run test:e2e: navegación, estilos y flujos de compra con Playwright.
 - npm run test:router, npm run test:styles y npm run test:tienda: suites separadas.
 - npm run test:visual: capturas de diez pantallas en escritorio y móvil y comprobación de desbordamiento horizontal.

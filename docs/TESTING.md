@@ -1,6 +1,6 @@
 # Informe de pruebas y cobertura
 
-Ejecución: 14-10-2026, 3:16:43 a. m. (America/Santiago).
+Ejecución: 14-10-2026, 3:36:59 a. m. (America/Santiago).
 
 ## Resultado unitario verificado
 
@@ -10,10 +10,10 @@ Herramientas: Jasmine y Karma 6.4.4. Navegador: Chrome Headless 155.0.0.0 (Windo
 
 | Métrica | Cobertura | Cubierto / total |
 | --- | --- | --- |
-| Sentencias | 35,98% | 95 / 264 |
-| Ramas | 31,62% | 68 / 215 |
-| Funciones | 43,29% | 42 / 97 |
-| Líneas | 38,42% | 88 / 229 |
+| Sentencias | 36,90% | 100 / 271 |
+| Ramas | 32,12% | 71 / 221 |
+| Funciones | 43,87% | 43 / 98 |
+| Líneas | 39,74% | 93 / 234 |
 
 ## Método y proceso
 
@@ -29,7 +29,7 @@ PU-006 a PU-010: datos y descuento de una tarjeta, callback al agregar al carrit
 
 La suite unitaria se redujo a diez casos por solicitud del estudiante. La cobertura refleja los módulos importados por esas pruebas y no conserva el alcance de la suite anterior de 47 casos.
 
-Las suites de navegador contienen 22 casos: 13 de navegación/sesión, cinco de estilos y cuatro de CRUD/filtros/compra. La suite de estilos abre las 18 pantallas a 1440 y 390 píxeles. También se generaron 20 capturas de diez pantallas y se comprobó ausencia de desbordamiento horizontal y errores JavaScript. Se revisaron visualmente carrito, checkout, perfil y administración.
+Las suites de navegador contienen 22 casos: 13 de navegación/sesión, cinco de estilos y cuatro de CRUD/filtros/compra. La compra aprobada también comprueba ingresos, pedidos, ticket promedio y unidades del panel de ventas. Los selectores de tarjetas usan article y las expectativas de textos y CSS corresponden al rediseño integrado. La suite de estilos abre las 18 pantallas a 1440 y 390 píxeles. La revisión visual genera 20 capturas de diez pantallas y comprueba desbordamiento horizontal y errores JavaScript.
 
 ## Repetir
 

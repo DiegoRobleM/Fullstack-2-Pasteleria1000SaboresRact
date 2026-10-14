@@ -177,7 +177,7 @@ test("Detalle directo y recarga funcionan sin selección previa en las cuatro ca
       await expect(page.locator("#detalle-producto")).toBeVisible();
       await page.locator("#btn-volver-catalogo").click();
       await page.waitForURL(base + "/" + categoria);
-      await expect(page.locator("#productos .card")).toHaveCount(3);
+      await expect(page.locator("#productos article")).toHaveCount(3);
       assert.deepEqual(errores, []);
     } finally {
       await context.close();
@@ -498,7 +498,7 @@ test("Contacto y creación administrativa siguen funcionando durante la navegaci
       .click();
     await page.waitForURL(base + "/panaderia");
     const tarjeta = page
-      .locator("#productos .card")
+      .locator("#productos article")
       .filter({ hasText: "Producto React" });
     await tarjeta.getByRole("button", { name: "Ver", exact: true }).click();
     await expect(page.locator("#detalle-titulo")).toHaveText("Producto React");

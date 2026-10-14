@@ -5,12 +5,14 @@ export function registrarConsulta(formulario) {
     .trim()
     .toLowerCase();
   const mensaje = String(formulario.get("mensaje") ?? "").trim();
+  const nombre = String(formulario.get("nombre") ?? "").trim();
   if (!correo || !mensaje)
     return { texto: "Debes completar todos los campos.", tipo: "warning" };
   const consultas = leerArreglo("consultasContacto");
   consultas.push({
     id: `consulta-${Date.now()}`,
     correo,
+    nombre,
     mensaje,
     fecha: new Date().toISOString(),
     estado: "pendiente",

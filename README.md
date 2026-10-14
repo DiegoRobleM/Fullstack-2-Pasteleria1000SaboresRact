@@ -26,6 +26,7 @@ Las rutas se declaran en src/routes.jsx con createBrowserRouter, siguiendo el pa
 - Checkout con datos de sesión precargados, dirección y opción de entrega. Despacho: $3.000; retiro: $0. Los importes son reglas de la demostración.
 - Pago simulado aprobado o rechazado. El aprobado guarda un único pedido y vacía el carrito; el rechazado conserva los productos y permite reintentar.
 - Confirmación recargable por /compra/:idPedido e historial de la cuenta activa. Los pedidos conservan los precios pagados aunque después cambie el catálogo.
+- Panel de ventas del administrador con ingresos, cantidad de pedidos, ticket promedio, unidades vendidas, productos más vendidos y últimas compras. Los indicadores se calculan sobre los pedidos simulados de este navegador.
 
 Administrador ficticio: admin@pasteleria.test / AdminDemo123!. Se crea al abrir Inicio de sesión.
 
@@ -45,6 +46,8 @@ No hay backend ni cobros reales. La sesión, los roles y los datos son una simul
 - src/styles: estilos globales y compartidos. Los estilos locales usan CSS Modules.
 
 Se retiraron usePageBindings, los diccionarios genéricos props/content y el adaptador de páginas. App conserva el montaje por visita, el desplazamiento inicial y la protección de acceso. Los nombres propios están en español; las APIs de React, Bootstrap y React Router, las claves persistidas y la convención routes.jsx mantienen sus nombres.
+
+El rediseño integra banners, tarjetas y formularios en tonos café y crema. Cada CSS Module conserva sus variables dentro de la clase de su pantalla o componente; el fondo global se define una vez en src/styles/global.css. Se mantienen Alerta, AlertaFormulario y Notificacion como componentes reutilizables.
 
 ## Comprobar
 

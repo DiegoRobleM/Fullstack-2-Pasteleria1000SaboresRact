@@ -7,7 +7,6 @@ import estilos from "./registroUsuario.module.css";
 import { BarraNavegacion } from "../../components/estructura/barraNavegacion.jsx";
 import { PiePagina } from "../../components/estructura/piePagina.jsx";
 
-// Estructura y textos de la pantalla original, conservados en JSX.
 export default function RegistroUsuario() {
   const [mensaje, establecerMensaje] = useState(null);
   const navegar = useNavigate();
@@ -47,284 +46,254 @@ export default function RegistroUsuario() {
 
   return (
     <>
-      {"\n    "}
       <BarraNavegacion />
-      {"\n    "}
-      <main className="contenedorFormulario">
-        {"\n      "}
-        <div className="tarjetaFormulario">
-          {"\n        "}
-          <h2 className="tituloFormulario">{"Registro de Usuario"}</h2>
-          {"\n        "}
-          <AlertaFormulario
-            id="mensaje-registro"
-            role="alert"
-            ref={mensajeElemento}
-            className={estilos.mensajeRegistro}
-            mensaje={mensaje}
-          />
-          {"\n        "}
-          <form id="form-registro" onSubmit={registrarUsuario}>
-            {"\n          "}
-            <div className="grupoCampo">
-              {"\n            "}
-              <div className="row g-2">
-                {"\n              "}
-                <div className="col-12 col-md-6">
-                  {"\n                "}
+
+      <main className={estilos.pagina}>
+        {/* BANNER HERO REGISTRO */}
+        <section className={estilos.heroRegistro}>
+          <div className={estilos.heroContenido}>
+            <span className={estilos.subtituloBadge}>
+              {"Comunidad Pastelería"}
+            </span>
+            <h1 className={estilos.tituloHero}>{"Registro de Usuario"}</h1>
+            <p className={estilos.bajadaHero}>
+              {
+                "Crea tu cuenta para guardar tus direcciones, acumular historial y agilizar tus compras."
+              }
+            </p>
+          </div>
+        </section>
+
+        <div className="container py-5">
+          <div className={estilos.contenedorFormulario}>
+            <div className={estilos.tarjetaFormulario}>
+              <h2 className={estilos.tituloFormulario}>
+                {"Completa tus Datos"}
+              </h2>
+
+              {/* MENSAJE DE ALERTA DINÁMICO */}
+              <AlertaFormulario
+                id="mensaje-registro"
+                role="alert"
+                ref={mensajeElemento}
+                className={estilos.mensajeRegistro}
+                mensaje={mensaje}
+              />
+
+              <form id="form-registro" onSubmit={registrarUsuario}>
+                {/* 1. NOMBRE Y APELLIDO */}
+                <div className={estilos.grupoCampo}>
+                  <div className="row g-3">
+                    <div className="col-12 col-md-6">
+                      <label
+                        htmlFor="nombre"
+                        className={estilos.etiquetaFormulario}
+                      >
+                        {"1. Nombre"}
+                      </label>
+                      <input
+                        type="text"
+                        id="nombre"
+                        name="nombre"
+                        autoComplete="given-name"
+                        placeholder="Nombre"
+                        className={estilos.controlFormulario}
+                      />
+                    </div>
+
+                    <div className="col-12 col-md-6">
+                      <label
+                        htmlFor="apellido"
+                        className={estilos.etiquetaFormulario}
+                      >
+                        {"Apellido"}
+                      </label>
+                      <input
+                        type="text"
+                        id="apellido"
+                        name="apellido"
+                        autoComplete="family-name"
+                        placeholder="Apellido"
+                        className={estilos.controlFormulario}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* 2. CORREO ELECTRÓNICO */}
+                <div className={estilos.grupoCampo}>
                   <label
-                    htmlFor="nombre"
-                    className="form-label etiquetaFormulario"
+                    htmlFor="inputEmail"
+                    className={estilos.etiquetaFormulario}
                   >
-                    {"1. Nombre"}
+                    {"2. Correo electrónico"}
                   </label>
-                  {"\n                "}
+                  <input
+                    type="email"
+                    id="inputEmail"
+                    name="email"
+                    autoComplete="email"
+                    placeholder="Escribe aquí tu correo"
+                    className={estilos.controlFormulario}
+                  />
+                </div>
+
+                {/* 3. CONTRASEÑA */}
+                <div className={estilos.grupoCampo}>
+                  <label
+                    htmlFor="inputPassword"
+                    className={estilos.etiquetaFormulario}
+                  >
+                    {"3. Contraseña"}
+                  </label>
+                  <input
+                    type="password"
+                    id="inputPassword"
+                    name="password"
+                    autoComplete="new-password"
+                    placeholder="Mínimo 8 caracteres"
+                    className={estilos.controlFormulario}
+                  />
+                </div>
+
+                {/* 4. DIRECCIÓN DE ENVÍO */}
+                <div className={estilos.grupoCampo}>
+                  <label
+                    htmlFor="inputAddress"
+                    className={estilos.etiquetaFormulario}
+                  >
+                    {"4. Dirección de envío"}
+                  </label>
                   <input
                     type="text"
-                    id="nombre"
-                    name="nombre"
-                    autoComplete="given-name"
-                    placeholder="Nombre"
-                    className="form-control controlFormulario"
+                    id="inputAddress"
+                    name="direccion"
+                    autoComplete="street-address"
+                    placeholder="Escribe aquí tu dirección"
+                    className={`${estilos.controlFormulario} mb-2`}
                   />
-                  {"\n              "}
-                </div>
-                {"\n              "}
-                <div className="col-12 col-md-6">
-                  {"\n                "}
+
                   <label
-                    htmlFor="apellido"
-                    className="form-label etiquetaFormulario"
+                    htmlFor="inputAddress2"
+                    className={estilos.etiquetaFormularioSecundaria}
                   >
-                    {"Apellido"}
+                    {"Tipo de propiedad (opcional)"}
                   </label>
-                  {"\n                "}
                   <input
                     type="text"
-                    id="apellido"
-                    name="apellido"
-                    autoComplete="family-name"
-                    placeholder="Apellido"
-                    className="form-control controlFormulario"
+                    id="inputAddress2"
+                    name="tipoPropiedad"
+                    placeholder="Departamento, casa, etc."
+                    className={estilos.controlFormulario}
                   />
-                  {"\n              "}
                 </div>
-                {"\n            "}
-              </div>
-              {"\n          "}
-            </div>
-            {"\n          "}
-            <div className="grupoCampo">
-              {"\n            "}
-              <label htmlFor="inputEmail" className="f-label">
-                {"2. Correo electrónico"}
-              </label>
-              {"\n            "}
-              <input
-                type="email"
-                id="inputEmail"
-                name="email"
-                autoComplete="email"
-                placeholder="Escribe aquí tu correo"
-                className="form-control controlFormulario"
-              />
-              {"\n          "}
-            </div>
-            {"\n          "}
-            <div className="grupoCampo">
-              {"\n            "}
-              <label
-                htmlFor="inputPassword"
-                className="form-label etiquetaFormulario"
-              >
-                {"3. Contraseña"}
-              </label>
-              {"\n            "}
-              <input
-                type="password"
-                id="inputPassword"
-                name="password"
-                autoComplete="new-password"
-                placeholder="Mínimo 8 caracteres"
-                className="form-control controlFormulario"
-              />
-              {"\n          "}
-            </div>
-            {"\n          "}
-            <div className="grupoCampo">
-              {"\n            "}
-              <label
-                htmlFor="inputAddress"
-                className="form-label etiquetaFormulario"
-              >
-                {"4. Dirección de envío"}
-              </label>
-              {"\n            "}
-              <input
-                type="text"
-                id="inputAddress"
-                name="direccion"
-                autoComplete="street-address"
-                placeholder="Escribe aquí tu dirección"
-                className="form-control controlFormulario mb-2"
-              />
-              {"\n            "}
-              <label
-                htmlFor="inputAddress2"
-                className="form-label etiquetaFormulario"
-              >
-                {"Tipo de propiedad (opcional)"}
-              </label>
-              {"\n            "}
-              <input
-                type="text"
-                id="inputAddress2"
-                name="tipoPropiedad"
-                placeholder="Departamento, casa, etc."
-                className="form-control controlFormulario"
-              />
-              {"\n          "}
-            </div>
-            {"\n          "}
-            <div className="grupoCampo">
-              {"\n            "}
-              <div className="row g-2">
-                {"\n              "}
-                <div className="col-12 col-md-6">
-                  {"\n                "}
-                  <label
-                    htmlFor="inputState"
-                    className="form-label etiquetaFormulario"
-                  >
-                    {"5. Región"}
-                  </label>
-                  {"\n                "}
-                  <select
-                    id="inputState"
-                    defaultValue=""
-                    name="region"
-                    className="form-select controlFormulario"
-                  >
-                    {"\n                  "}
-                    <option value="" disabled={true}>
-                      {"Seleccione una región"}
-                    </option>
-                    {"\n                  "}
-                    <option value="antofagasta">{"Antofagasta"}</option>
-                    {"\n                  "}
-                    <option value="arica-y-parinacota">
-                      {"Arica y Parinacota"}
-                    </option>
-                    {"\n                  "}
-                    <option value="atacama">{"Atacama"}</option>
-                    {"\n                  "}
-                    <option value="aysen">
-                      {"Aysén del General Carlos Ibáñez del Campo"}
-                    </option>
-                    {"\n                  "}
-                    <option value="biobio">{"Biobío"}</option>
-                    {"\n                  "}
-                    <option value="coquimbo">{"Coquimbo"}</option>
-                    {"\n                  "}
-                    <option value="la-araucania">{"La Araucanía"}</option>
-                    {"\n                  "}
-                    <option value="o-higgins">
-                      {"Libertador General Bernardo O'Higgins"}
-                    </option>
-                    {"\n                  "}
-                    <option value="los-lagos">{"Los Lagos"}</option>
-                    {"\n                  "}
-                    <option value="los-rios">{"Los Ríos"}</option>
-                    {"\n                  "}
-                    <option value="magallanes">
-                      {"Magallanes y de la Antártica Chilena"}
-                    </option>
-                    {"\n                  "}
-                    <option value="maule">{"Maule"}</option>
-                    {"\n                  "}
-                    <option value="nuble">{"Ñuble"}</option>
-                    {"\n                  "}
-                    <option value="metropolitana">
-                      {"Región Metropolitana de Santiago"}
-                    </option>
-                    {"\n                  "}
-                    <option value="tarapaca">{"Tarapacá"}</option>
-                    {"\n                  "}
-                    <option value="valparaiso">{"Valparaíso"}</option>
-                    {"\n                "}
-                  </select>
-                  {"\n              "}
+
+                {/* 5. REGIÓN Y COMUNA */}
+                <div className={estilos.grupoCampo}>
+                  <div className="row g-3">
+                    <div className="col-12 col-md-6">
+                      <label
+                        htmlFor="inputState"
+                        className={estilos.etiquetaFormulario}
+                      >
+                        {"5. Región"}
+                      </label>
+                      <select
+                        id="inputState"
+                        defaultValue=""
+                        name="region"
+                        className={estilos.controlFormularioSelect}
+                      >
+                        <option value="" disabled={true}>
+                          {"Seleccione una región"}
+                        </option>
+                        <option value="antofagasta">{"Antofagasta"}</option>
+                        <option value="arica-y-parinacota">
+                          {"Arica y Parinacota"}
+                        </option>
+                        <option value="atacama">{"Atacama"}</option>
+                        <option value="aysen">
+                          {"Aysén del General Carlos Ibáñez del Campo"}
+                        </option>
+                        <option value="biobio">{"Biobío"}</option>
+                        <option value="coquimbo">{"Coquimbo"}</option>
+                        <option value="la-araucania">{"La Araucanía"}</option>
+                        <option value="o-higgins">
+                          {"Libertador General Bernardo O'Higgins"}
+                        </option>
+                        <option value="los-lagos">{"Los Lagos"}</option>
+                        <option value="los-rios">{"Los Ríos"}</option>
+                        <option value="magallanes">
+                          {"Magallanes y de la Antártica Chilena"}
+                        </option>
+                        <option value="maule">{"Maule"}</option>
+                        <option value="nuble">{"Ñuble"}</option>
+                        <option value="metropolitana">
+                          {"Región Metropolitana de Santiago"}
+                        </option>
+                        <option value="tarapaca">{"Tarapacá"}</option>
+                        <option value="valparaiso">{"Valparaíso"}</option>
+                      </select>
+                    </div>
+
+                    <div className="col-12 col-md-6">
+                      <label
+                        htmlFor="inputComuna"
+                        className={estilos.etiquetaFormulario}
+                      >
+                        {"Comuna"}
+                      </label>
+                      <input
+                        type="text"
+                        id="inputComuna"
+                        name="comuna"
+                        autoComplete="address-level2"
+                        placeholder="Comuna"
+                        className={estilos.controlFormulario}
+                      />
+                    </div>
+                  </div>
                 </div>
-                {"\n              "}
-                <div className="col-12 col-md-6">
-                  {"\n                "}
-                  <label
-                    htmlFor="inputComuna"
-                    className="form-label etiquetaFormulario"
-                  >
-                    {"Comuna"}
-                  </label>
-                  {"\n                "}
-                  <input
-                    type="text"
-                    id="inputComuna"
-                    name="comuna"
-                    autoComplete="address-level2"
-                    placeholder="Comuna"
-                    className="form-control controlFormulario"
-                  />
-                  {"\n              "}
+
+                {/* CHECKBOX DATO */}
+                <div className={`${estilos.grupoCampo} mt-3`}>
+                  <div className={estilos.contenedorCheckbox}>
+                    <input
+                      className={estilos.checkboxInput}
+                      type="checkbox"
+                      id="gridCheck"
+                      name="guardarDatos"
+                      defaultValue="true"
+                    />
+                    <label
+                      className={estilos.checkboxLabel}
+                      htmlFor="gridCheck"
+                    >
+                      {"Guardar mis datos para futuras compras"}
+                    </label>
+                  </div>
                 </div>
-                {"\n            "}
-              </div>
-              {"\n          "}
+
+                {/* BOTÓN SUBMIT Y ENLACE LOGIN */}
+                <div className="d-grid gap-2 mt-4">
+                  <button type="submit" className={estilos.btnRegistrarse}>
+                    {"Registrarse"}
+                  </button>
+
+                  <Link
+                    to="/inicio-sesion"
+                    className={estilos.enlaceInicioSesion}
+                  >
+                    {"¿Ya tienes cuenta? Inicia Sesión aquí"}
+                  </Link>
+                </div>
+              </form>
             </div>
-            {"\n          "}
-            <div className="grupoCampo mt-3">
-              {"\n            "}
-              <div className="form-check">
-                {"\n              "}
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id="gridCheck"
-                  name="guardarDatos"
-                  defaultValue="true"
-                />
-                {"\n              "}
-                <label className="form-check-label" htmlFor="gridCheck">
-                  {"Guardar mis datos para futuras compras"}
-                </label>
-                {"\n            "}
-              </div>
-              {"\n          "}
-            </div>
-            {"\n          "}
-            <div className="d-grid gap-2 mt-4">
-              {"\n            "}
-              <button type="submit" className="btn botonPasteleria btn-zoom">
-                {"Registrarse"}
-              </button>
-              {"\n            "}
-              <Link
-                to="/inicio-sesion"
-                className="text-center text-decoration-none mt-2 text-muted small"
-              >
-                {"¿Ya tienes cuenta? Inicia Sesión aquí"}
-              </Link>
-              {"\n          "}
-            </div>
-            {"\n        "}
-          </form>
-          {"\n      "}
+          </div>
         </div>
-        {"\n    "}
       </main>
-      {"\n    "}
+
       <PiePagina />
-      {"\n    "}
-      {"\n    "}
-      {"\n  "}
     </>
   );
 }

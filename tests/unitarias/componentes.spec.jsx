@@ -98,8 +98,8 @@ describe("Diez pruebas unitarias simples de componentes", () => {
       await entorno.montar(
         <TarjetasProductos productos={[producto]} notificar={() => {}} />,
       );
-      expect(elemento(".card").textContent).toContain("Pastel de prueba");
-      expect(elemento(".card").textContent).toContain("$8.000");
+      expect(elemento("article").textContent).toContain("Pastel de prueba");
+      expect(elemento("article").textContent).toContain("$8.000");
     },
   );
 
@@ -130,7 +130,7 @@ describe("Diez pruebas unitarias simples de componentes", () => {
       await entorno.montar(<CatalogoProductos categoria="pasteleria" />);
       await entorno.escribir("#buscar-productos", "FRUTILLA");
       expect(
-        entorno.contenedor.querySelectorAll("#productos .card").length,
+        entorno.contenedor.querySelectorAll("#productos article").length,
       ).toBe(1);
       expect(elemento("#productos h5").textContent).toBe("Pastel de Frutilla");
     },

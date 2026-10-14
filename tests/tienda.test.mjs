@@ -88,7 +88,7 @@ test("CRUD, descuento y cambios de categoría actualizan catálogo, detalle y ca
       .locator("#seccion-productos")
       .getByRole("link", { name: "Pastelería", exact: true })
       .click();
-    await expect(page.locator("#productos .card")).toContainText("$7.500");
+    await expect(page.locator("#productos article")).toContainText("$7.500");
     await page
       .getByRole("button", { name: "Agregar al carrito", exact: true })
       .click();
@@ -155,9 +155,14 @@ test("Búsqueda, orden por precio y ofertas muestran los resultados correspondie
   const { context, page, errores } = await abrir("/pasteleria");
   try {
     await page.getByLabel("Buscar productos").fill("FRUTILLA");
-    await expect(page.locator("#productos .card")).toHaveCount(1);
+    await expect(page.locator("#productos article")).toHaveCount(1);
     await page.getByLabel("Buscar productos").fill("ningún producto coincide");
-    await expect(page.getByText("No se encontraron productos.")).toBeVisible();
+    await expect(
+      page.getByRole("heading", {
+        name: "No se encontraron productos",
+        exact: true,
+      }),
+    ).toBeVisible();
     await page.getByLabel("Buscar productos").fill("");
     await page.getByLabel("Ordenar por").selectOption("menor");
     await expect(page.locator("#productos h5").first()).toHaveText(
@@ -172,7 +177,12 @@ test("Búsqueda, orden por precio y ofertas muestran los resultados correspondie
       .getByRole("link", { name: "Productos", exact: true })
       .click();
     await page.getByRole("link", { name: "Ofertas", exact: true }).click();
-    await expect(page.getByText("No se encontraron productos.")).toBeVisible();
+    await expect(
+      page.getByRole("heading", {
+        name: "No se encontraron productos",
+        exact: true,
+      }),
+    ).toBeVisible();
     assert.deepEqual(errores, []);
   } finally {
     await context.close();
@@ -217,7 +227,9 @@ test("Compra aprobada precarga datos, guarda un único pedido y conserva los pre
     await expect(page.locator("#historial-pedidos")).toContainText(
       "Pastel de prueba",
     );
-    await page.getByRole("link", { name: "Ver pedido", exact: true }).click();
+    await page
+      .getByRole("link", { name: "Ver detalle completo", exact: true })
+      .click();
     await page.evaluate(() => {
       const productos = JSON.parse(localStorage.productosPasteleria);
       productos[0].precio = 90000;
@@ -238,6 +250,24 @@ test("Compra aprobada precarga datos, guarda un único pedido y conserva los pre
     await page.goto(base + "/perfil");
     await expect(page.locator("#historial-pedidos")).not.toContainText(
       "Pastel de prueba",
+    );
+    await page.evaluate(() =>
+      sessionStorage.setItem(
+        "usuarioActivo",
+        JSON.stringify({
+          nombre: "Admin",
+          email: "admin@example.test",
+          rol: "admin",
+        }),
+      ),
+    );
+    await page.goto(base + "/administrador");
+    await expect(page.locator("#ventas-ingresos")).toHaveText("$16.000");
+    await expect(page.locator("#ventas-pedidos")).toHaveText("1");
+    await expect(page.locator("#ventas-promedio")).toHaveText("$16.000");
+    await expect(page.locator("#ventas-unidades")).toHaveText("2");
+    await expect(page.locator("#seccion-ventas table tbody")).toContainText(
+      cliente.email,
     );
     assert.deepEqual(errores, []);
   } finally {

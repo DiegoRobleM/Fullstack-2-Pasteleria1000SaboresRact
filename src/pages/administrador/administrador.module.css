@@ -1,29 +1,406 @@
-.titulo {
-  color: var(--color-titulo);
-  font-family: var(--fuente-titulos);
+/* =================================================================
+   ESTILOS PANEL ADMINISTRADOR CON DASHBOARD DE VENTAS
+   PASTELERÍA 1000 SABORES
+   =================================================================== */
+
+.pagina {
+  --color-brand: #5c3d2e; /* Café principal */
+  --color-brand-dark: #2e1f18; /* Café oscuro */
+  --color-amarillo-original: #f1e6c7; /* Amarillo crema de fondo */
+  --color-input-bg: #e2d8c7; /* Beige suave */
+  --color-text-main: #2b2b2b;
+  --color-text-subtle: #4a3f35;
+  --font-classic: "Playfair Display", Georgia, serif;
+  --font-body: "Lora", Georgia, serif;
+}
+
+.pagina {
+  background-color: var(--color-amarillo-original) !important;
+  color: var(--color-text-main);
+  font-family: var(--font-body);
+  min-height: 80vh;
+}
+
+/* =================================================================
+   1. HERO HEADER ADMINISTRACIÓN
+   =================================================================== */
+
+.heroAdmin {
+  background-color: var(--color-brand);
+  color: var(--color-amarillo-original);
+  padding: 45px 20px 50px 20px;
+  text-align: center;
+  border-bottom: 4px solid #422b20;
+  box-shadow: 0 8px 20px rgba(46, 31, 24, 0.15);
+}
+
+.heroContenido {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.subtituloBadge {
+  display: inline-block;
+  background-color: var(--color-amarillo-original);
+  color: var(--color-brand);
+  font-size: 0.85rem;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 6px 18px;
+  border-radius: 30px;
+  margin-bottom: 12px;
 }
 
-.tarjeta {
-  background-color: var(--color-superficie);
-  border: 1px solid var(--color-borde);
+.tituloHero {
+  font-family: var(--font-classic);
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--color-amarillo-original);
+}
+
+.bajadaHero {
+  font-size: 1.15rem;
+  opacity: 0.92;
+  margin: 0;
+  color: var(--color-amarillo-original) !important;
+}
+
+/* =================================================================
+   2. TARJETAS DE ACCESO A SECCIONES
+   =================================================================== */
+
+.tarjetaAcceso {
+  background-color: #ffffff !important;
+  border: 1px solid #e0d5c1;
+  border-radius: 18px;
+  padding: 24px 18px;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 8px 24px rgba(92, 61, 46, 0.08);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.tarjetaAcceso:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(92, 61, 46, 0.16);
+}
+
+.contenedorIcono {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background-color: var(--color-amarillo-original);
+  color: var(--color-brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 12px rgba(92, 61, 46, 0.12);
+}
+
+.iconoSvg {
+  width: 26px;
+  height: 26px;
+}
+
+.tituloTarjeta {
+  font-family: var(--font-classic);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-brand);
+  margin-bottom: 8px;
+}
+
+.textoTarjeta {
+  font-size: 0.88rem;
+  color: var(--color-text-subtle);
+  margin-bottom: 18px;
+  flex-grow: 1;
+}
+
+button.btnVerSeccion {
+  width: 100% !important;
+  background-color: var(--color-brand) !important;
+  color: #ffffff !important;
+  border: 1.5px solid var(--color-brand) !important;
+  padding: 9px 16px !important;
+  border-radius: 10px !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+  text-transform: capitalize !important;
+  cursor: pointer !important;
+  transition: all 0.25s ease !important;
+}
+
+button.btnVerSeccion:hover {
+  background-color: var(--color-brand-dark) !important;
+  border-color: var(--color-brand-dark) !important;
+}
+
+.alertaAdmin {
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  padding: 14px 20px !important;
+}
+
+/* =================================================================
+   3. BLOQUE CONTENEDOR CAFÉ DE SECCIONES
+   =================================================================== */
+
+.bloqueSeccionCafe {
+  background-color: var(--color-brand) !important;
+  border-radius: 20px;
+  padding: 35px 28px;
+  margin-top: 2rem;
+  box-shadow: 0 14px 30px rgba(46, 31, 24, 0.22);
+  border: 1px solid var(--color-brand-dark);
+}
+
+.headerSeccion {
+  text-align: center;
+  margin-bottom: 1.8rem;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--color-amarillo-original);
+}
+
+.headerSeccionConBadge {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.8rem;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--color-amarillo-original);
+}
+
+.tituloSeccion {
+  font-family: var(--font-classic);
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--color-amarillo-original);
+  margin: 0;
+}
+
+.badgeConteo {
+  background-color: var(--color-amarillo-original) !important;
+  color: var(--color-brand) !important;
+  font-family: var(--font-body);
+  font-weight: 800 !important;
+  font-size: 1rem !important;
+  padding: 6px 16px !important;
+  border-radius: 20px !important;
+}
+
+.contenidoSeccionBlanco {
+  background-color: #ffffff !important;
   border-radius: 16px;
-  color: var(--color-principal-hover);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.15);
 }
 
-.icono {
-  color: var(--color-principal);
-  font-size: 2rem;
+/* =================================================================
+   4. DASHBOARD DE VENTAS Y TARJETAS KPI
+   =================================================================== */
+
+.kpiCard {
+  background-color: #ffffff !important;
+  border: 1px solid #e0d5c1;
+  border-radius: 14px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 }
+
+.kpiTitulo {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.kpiValor {
+  font-family: var(--font-classic);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--color-brand);
+  margin-bottom: 2px;
+}
+
+.kpiSub {
+  font-size: 0.8rem;
+  color: #7a6b5a;
+}
+
+.subtituloInterno {
+  font-family: var(--font-classic);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-brand);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1.5px solid #f2ece1;
+}
+
+/* Ranking de Productos */
+.listaRanking {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.itemRanking {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background-color: #f7f2ea;
+  border-radius: 10px;
+  border: 1px solid #e8decb;
+}
+
+.infoRanking {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.posicionRanking {
+  font-weight: 800;
+  color: var(--color-brand);
+  font-size: 0.9rem;
+}
+
+.nombreRanking {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-text-main);
+}
+
+.badgeCantidadRanking {
+  background-color: var(--color-brand);
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+
+/* Tabla de Ventas Recientes */
+.tablaVentas {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.tablaVentas th {
+  text-align: left;
+  padding: 10px 12px;
+  font-weight: 700;
+  color: var(--color-brand);
+  border-bottom: 2px solid #e8decb;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+}
+
+.tablaVentas td {
+  padding: 12px;
+  border-bottom: 1px solid #f2ece1;
+  color: var(--color-text-main);
+}
+
+.badgeIdTabla {
+  background-color: var(--color-amarillo-original);
+  color: var(--color-brand);
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.montoTabla {
+  font-weight: 700;
+  color: var(--color-brand);
+}
+
+/* =================================================================
+   5. OTRAS SECCIONES
+   =================================================================== */
 
 .seccionConsultas {
   scroll-margin-top: 20px;
 }
 
 .tablaConsultas {
-  background-color: var(--color-superficie);
-  border: 1px solid var(--color-borde);
+  background-color: #ffffff;
   border-radius: 12px;
-  padding: 12px;
+  overflow-x: auto;
+}
+
+.mensajeVacio {
+  background-color: var(--color-amarillo-original) !important;
+  color: var(--color-brand) !important;
+  border: 1px solid #e0d5c1 !important;
+  border-radius: 12px !important;
+  padding: 16px 20px !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+  margin: 0 !important;
+}
+
+a.btnCategoriaAcceso,
+a.btnCategoriaAcceso:link,
+a.btnCategoriaAcceso:visited {
+  display: block !important;
+  text-align: center !important;
+  padding: 14px 20px !important;
+  background-color: #f7f2ea !important;
+  color: var(--color-brand) !important;
+  border: 1.5px solid #e0d5c1 !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  transition: all 0.25s ease !important;
+}
+
+a.btnCategoriaAcceso:hover {
+  background-color: var(--color-brand) !important;
+  color: #ffffff !important;
+  border-color: var(--color-brand) !important;
+  transform: translateY(-2px);
+}
+
+/* =================================================================
+   6. RESPONSIVO
+   =================================================================== */
+
+@media (max-width: 768px) {
+  .tituloHero {
+    font-size: 2.1rem;
+  }
+
+  .bloqueSeccionCafe {
+    padding: 25px 16px;
+  }
+
+  .contenidoSeccionBlanco {
+    padding: 16px;
+  }
+
+  .headerSeccionConBadge {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
 }

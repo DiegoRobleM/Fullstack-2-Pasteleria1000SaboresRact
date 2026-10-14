@@ -25,60 +25,170 @@ export default function Contacto() {
   return (
     <>
       <BarraNavegacion />
-      <main className={"contenedorFormulario " + estilos.pagina}>
-        <div className="tarjetaFormulario">
-          <h2 className="tituloFormulario">Contacto</h2>
-          <p className="text-center text-muted mb-4">Pastelería 1000 Sabores</p>
 
+      <main className={estilos.pagina}>
+        <div className={estilos.tarjetaFormulario}>
+          {/* Encabezado con Ícono Animado de Café */}
+          <div className={estilos.encabezado}>
+            <div className={estilos.iconoCafeWrapper}>
+              <svg
+                className={estilos.iconoCafe}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                <line
+                  x1="6"
+                  y1="2"
+                  x2="6"
+                  y2="5"
+                  className={estilos.humo1}
+                ></line>
+                <line
+                  x1="10"
+                  y1="1"
+                  x2="10"
+                  y2="4"
+                  className={estilos.humo2}
+                ></line>
+                <line
+                  x1="14"
+                  y1="2"
+                  x2="14"
+                  y2="5"
+                  className={estilos.humo3}
+                ></line>
+              </svg>
+            </div>
+            <h2 className={estilos.tituloFormulario}>Contacto</h2>
+            <p className={estilos.subtituloFormulario}>
+              Pastelería 1000 Sabores
+            </p>
+          </div>
+
+          {/* Mensaje de alerta de envío */}
           <AlertaFormulario
             id="mensaje-contacto"
+            className={`${estilos.alerta} ${
+              mensaje?.tipo === "success"
+                ? estilos.alertaExito
+                : estilos.alertaError
+            }`}
             role="alert"
             mensaje={mensaje}
           />
 
           <form id="form-contacto" onSubmit={enviarConsulta}>
-            <div className="grupoCampo">
-              <label
-                htmlFor="correo-contacto"
-                className="form-label etiquetaFormulario"
-              >
-                Dirección Mail
-              </label>
-              <input
-                type="email"
-                id="correo-contacto"
-                name="correo"
-                placeholder="name@example.com"
-                required
-                className="form-control controlFormulario"
-              />
+            {/* Fila en 2 columnas: Email y Nombre (Según imagen de referencia) */}
+            <div className={estilos.filaCampos}>
+              {/* Campo Email */}
+              <div className={estilos.grupoCampo}>
+                <label
+                  htmlFor="correo-contacto"
+                  className={estilos.etiquetaFormulario}
+                >
+                  <svg
+                    className={estilos.iconoInput}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <polyline points="22,6 12,13 2,6" />
+                  </svg>
+                  Dirección Mail
+                </label>
+                <input
+                  type="email"
+                  id="correo-contacto"
+                  name="correo"
+                  placeholder="name@example.com"
+                  required
+                  className={estilos.controlFormulario}
+                />
+              </div>
+
+              {/* Campo Nombre */}
+              <div className={estilos.grupoCampo}>
+                <label
+                  htmlFor="nombre-contacto"
+                  className={estilos.etiquetaFormulario}
+                >
+                  <svg
+                    className={estilos.iconoInput}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                  Nombre (opcional)
+                </label>
+                <input
+                  type="text"
+                  id="nombre-contacto"
+                  name="nombre"
+                  placeholder="Ingrese su nombre"
+                  className={estilos.controlFormulario}
+                />
+              </div>
             </div>
 
-            <div className="grupoCampo">
+            {/* Campo Consulta */}
+            <div className={estilos.grupoCampo}>
               <label
                 htmlFor="consulta-contacto"
-                className="form-label etiquetaFormulario"
+                className={estilos.etiquetaFormulario}
               >
+                <svg
+                  className={estilos.iconoInput}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
                 Ingrese su consulta
               </label>
               <textarea
                 id="consulta-contacto"
                 name="mensaje"
-                rows="6"
+                rows="5"
                 placeholder="Escriba su consulta aquí..."
                 required
-                className="form-control controlFormulario"
+                className={estilos.controlFormulario}
               />
             </div>
 
-            <div className="d-grid gap-2 mt-4">
-              <button type="submit" className="btn botonPasteleria btn-zoom">
-                Enviar consulta
+            {/* Botón de envío */}
+            <div className={estilos.contenedorBoton}>
+              <button type="submit" className={estilos.botonEnviar}>
+                <span>Enviar consulta</span>
+                <svg
+                  className={estilos.iconoBoton}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <line x1="22" y1="2" x2="11" y2="13" />
+                  <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                </svg>
               </button>
             </div>
           </form>
         </div>
       </main>
+
       <PiePagina />
     </>
   );

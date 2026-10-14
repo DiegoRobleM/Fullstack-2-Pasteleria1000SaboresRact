@@ -82,7 +82,7 @@ const texto = [
   "",
   "La suite unitaria se redujo a diez casos por solicitud del estudiante. La cobertura refleja los módulos importados por esas pruebas y no conserva el alcance de la suite anterior de 47 casos.",
   "",
-  "Las suites de navegador contienen 22 casos: 13 de navegación/sesión, cinco de estilos y cuatro de CRUD/filtros/compra. La suite de estilos abre las 18 pantallas a 1440 y 390 píxeles. También se generaron 20 capturas de diez pantallas y se comprobó ausencia de desbordamiento horizontal y errores JavaScript. Se revisaron visualmente carrito, checkout, perfil y administración.",
+  "Las suites de navegador contienen 22 casos: 13 de navegación/sesión, cinco de estilos y cuatro de CRUD/filtros/compra. La compra aprobada también comprueba ingresos, pedidos, ticket promedio y unidades del panel de ventas. Los selectores de tarjetas usan article y las expectativas de textos y CSS corresponden al rediseño integrado. La suite de estilos abre las 18 pantallas a 1440 y 390 píxeles. La revisión visual genera 20 capturas de diez pantallas y comprueba desbordamiento horizontal y errores JavaScript.",
   "",
   "## Repetir",
   "",

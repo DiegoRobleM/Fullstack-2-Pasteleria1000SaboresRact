@@ -24,6 +24,7 @@ Desarrollar una tienda frontend de demostración con componentes React reutiliza
 | RF-12 | Checkout | Precargar datos de sesión, recoger dirección y seleccionar despacho/retiro. |
 | RF-13 | Resultado de pago | Aprobado guarda pedido y vacía carrito; rechazado conserva carrito y permite reintentar. |
 | RF-14 | Historial | Mostrar pedidos de la cuenta activa y conservar sus precios y datos de entrega. |
+| RF-15 | Panel de ventas | El administrador consulta ingresos, número de pedidos, ticket promedio, unidades vendidas, ranking de productos y últimas ventas sobre los pedidos simulados guardados. |
 
 ## Reglas de negocio
 
@@ -35,6 +36,8 @@ Un producto editado mantiene su ID aunque cambie de categoría. El carrito usa s
 
 El correo del propietario del pedido corresponde a la cuenta activa o al correo informado por el visitante. El historial filtra por ese correo. El pago no solicita datos de tarjeta ni realiza operaciones externas. Los envíos duplicados del mismo formulario se bloquean mientras se procesa la compra.
 
+El panel administrativo suma el total de los pedidos aprobados, incluyendo entrega, cuenta sus pedidos y unidades y calcula el ticket promedio como ingresos divididos por cantidad de pedidos, redondeado al peso. Sin pedidos muestra cero. Dos unidades de $10.000 con descuento de 20% y retiro generan ingresos de $16.000, un pedido, ticket promedio de $16.000 y dos unidades vendidas. El nombre de contacto es opcional y se conserva junto al correo y la consulta.
+
 ## Requisitos de calidad
 
 Componentes con una responsabilidad, propiedades explícitas y estado local junto al JSX. Contexto compartido para los datos de tienda y servicios independientes de React. Bootstrap responsivo y CSS Modules para aislar estilos. Recursos de public desde la raíz. Temporizadores cancelados al desmontar la pantalla o volver a enviar el formulario. Datos previos e identificadores conservados.
@@ -43,7 +46,7 @@ Diez pruebas unitarias simples con Jasmine/Karma para alertas, renderizado, prop
 
 ## Alcance y límites
 
-Incluye frontend y persistencia en localStorage/sessionStorage, sin backend, pasarela real, inventario, reportes comerciales ni boletas tributarias. Las categorías están definidas en datos; las cuentas pueden registrarse y consultarse, pero no hay CRUD administrativo de categorías/usuarios. Estas funciones más amplias del anexo no forman parte del plan implementado.
+Incluye frontend, indicadores de ventas locales y persistencia en localStorage/sessionStorage, sin backend, pasarela real, inventario, reportes contables/exportables ni boletas tributarias. Las categorías están definidas en datos; las cuentas pueden registrarse y consultarse, pero no hay CRUD administrativo de categorías/usuarios. Estas funciones más amplias del anexo no forman parte del plan implementado.
 
 La publicación de GitHub, la configuración de hosting y la presentación oral corresponden a la entrega del equipo y quedan pendientes de revisión en su entorno de destino. El registro de pruebas identifica a Diego Roble, Victoria Arias y Vicente Perez como responsables conjuntos.
 

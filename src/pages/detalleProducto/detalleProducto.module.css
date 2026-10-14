@@ -1,49 +1,323 @@
-.producto {
-  padding: 32px;
-  background-color: var(--color-superficie);
-  border: 1px solid var(--color-borde);
+/* =================================================================
+   ESTILOS DETALLE DE PRODUCTO - PASTELERÍA 1000 SABORES
+   =================================================================== */
+
+.pagina {
+  --color-brand: #5c3d2e; /* Café principal */
+  --color-brand-dark: #2e1f18; /* Café oscuro */
+  --color-amarillo-original: #f1e6c7; /* Amarillo crema de fondo */
+  --color-input-bg: #e2d8c7; /* Beige suave para inputs */
+  --color-text-main: #2b2b2b;
+  --color-text-subtle: #4a3f35;
+  --font-classic: "Playfair Display", Georgia, serif;
+  --font-body: "Lora", Georgia, serif;
+}
+
+.pagina {
+  background-color: var(--color-amarillo-original) !important;
+  color: var(--color-text-main);
+  font-family: var(--font-body);
+  min-height: 80vh;
+}
+
+/* =================================================================
+   1. HERO HEADER SUPERIOR
+   =================================================================== */
+
+.heroDetalle {
+  background-color: var(--color-brand);
+  color: var(--color-amarillo-original);
+  padding: 40px 20px 45px 20px;
+  text-align: center;
+  border-bottom: 4px solid #422b20;
+  box-shadow: 0 8px 20px rgba(46, 31, 24, 0.15);
+}
+
+.heroContenido {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.subtituloBadge {
+  display: inline-block;
+  background-color: var(--color-amarillo-original);
+  color: var(--color-brand);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 5px 16px;
+  border-radius: 30px;
+  margin-bottom: 10px;
+}
+
+.tituloHero {
+  font-family: var(--font-classic);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-amarillo-original);
+}
+
+/* =================================================================
+   2. TARJETA CONTENEDORA DEL DETALLE
+   =================================================================== */
+
+.tarjetaProducto {
+  background-color: #ffffff !important;
+  border: 1px solid #e0d5c1 !important;
+  border-radius: 20px !important;
+  padding: 35px !important;
+  box-shadow: 0 12px 32px rgba(92, 61, 46, 0.12) !important;
+}
+
+/* Columna Imagen */
+.contenedorImagen {
+  position: relative;
+  width: 100%;
   border-radius: 16px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+  background-color: #f7f2ea;
 }
 
 .imagen {
-  display: block;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  background-color: #e9e1d1;
+  display: block !important;
+  width: 100% !important;
+  aspect-ratio: 4 / 3 !important;
+  object-fit: cover !important;
+  border-radius: 16px !important;
+  transition: transform 0.3s ease;
 }
 
-.categoria {
-  color: #8b4513 !important;
-  font-size: 0.85rem;
-  font-weight: bold;
-  letter-spacing: 0.08em;
+.contenedorImagen:hover .imagen {
+  transform: scale(1.02);
+}
+
+/* Columna Información */
+.cuerpoDetalle {
+  display: flex;
+  flex-direction: column;
+}
+
+.badgeCategoria {
+  display: inline-block;
+  background-color: var(--color-amarillo-original);
+  color: var(--color-brand) !important;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  width: fit-content;
+  margin-bottom: 12px;
+  border: 1px solid #e0d5c1;
 }
 
 .titulo {
-  color: var(--color-titulo);
-  font-family: var(--fuente-titulos);
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: bold;
+  color: var(--color-brand) !important;
+  font-family: var(--font-classic) !important;
+  font-size: clamp(2rem, 4vw, 2.7rem) !important;
+  font-weight: 700 !important;
+  margin-bottom: 14px !important;
+  line-height: 1.2;
 }
 
 .descripcion {
-  color: #5d4037;
-  line-height: 1.7;
+  color: var(--color-text-subtle) !important;
+  font-size: 1.05rem !important;
+  line-height: 1.7 !important;
+  margin-bottom: 24px !important;
+}
+
+/* Precio */
+.contenedorPrecio {
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px dashed #e0d5c1;
 }
 
 .precio {
-  color: #8b4513;
+  color: var(--color-brand) !important;
+  font-family: var(--font-classic) !important;
+  font-size: 2.2rem !important;
+  font-weight: 800 !important;
 }
 
-.cantidad {
-  width: 100%;
-  max-width: 120px;
-  background-color: white;
-  border-color: var(--color-borde);
+/* Campo Cantidad */
+.grupoCantidad {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.etiquetaCantidad {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-brand);
+}
+
+.controlCantidad {
+  width: 100px !important;
+  background-color: var(--color-input-bg) !important;
+  border: 1.5px solid transparent !important;
+  border-radius: 10px !important;
+  padding: 8px 14px !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  color: var(--color-text-main) !important;
+  outline: none;
+  transition: all 0.3s ease !important;
+  text-align: center;
+}
+
+.controlCantidad:focus {
+  background-color: #f7f2ea !important;
+  border-color: var(--color-brand) !important;
+  box-shadow: 0 0 0 3px rgba(92, 61, 46, 0.18) !important;
+}
+
+/* Botones de Acción */
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+}
+
+button.btnAgregar {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  background-color: var(--color-brand) !important;
+  color: #ffffff !important;
+  border: 2px solid var(--color-brand) !important;
+  border-radius: 12px !important;
+  padding: 13px 28px !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 6px 16px rgba(92, 61, 46, 0.2) !important;
+  flex-grow: 1;
+}
+
+button.btnAgregar:hover {
+  background-color: var(--color-brand-dark) !important;
+  border-color: var(--color-brand-dark) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(92, 61, 46, 0.3) !important;
+}
+
+.iconoBoton {
+  width: 18px;
+  height: 18px;
+}
+
+button.btnVolver {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background-color: transparent !important;
+  color: var(--color-brand) !important;
+  border: 2px solid var(--color-brand) !important;
+  border-radius: 12px !important;
+  padding: 13px 24px !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+}
+
+button.btnVolver:hover {
+  background-color: #f7f2ea !important;
+  transform: translateY(-2px);
+}
+
+/* =================================================================
+   3. ESTADO PRODUCTO NO ENCONTRADO
+   =================================================================== */
+
+.tarjetaNoEncontrado {
+  background-color: #ffffff !important;
+  border: 1px solid #e0d5c1;
+  border-radius: 20px;
+  padding: 50px 30px;
+  text-align: center;
+  max-width: 580px;
+  margin: 20px auto;
+  box-shadow: 0 10px 30px rgba(92, 61, 46, 0.1);
+}
+
+.iconoNoEncontrado {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: 70px;
+  background-color: var(--color-amarillo-original);
+  color: var(--color-brand);
+  border-radius: 50%;
+  margin-bottom: 18px;
+}
+
+.iconoNoEncontrado svg {
+  width: 36px;
+  height: 36px;
+}
+
+.textoNoEncontrado {
+  font-size: 1.1rem;
+  color: var(--color-text-subtle);
+  margin-bottom: 24px;
+}
+
+a.btnVolverCatalogo,
+a.btnVolverCatalogo:link,
+a.btnVolverCatalogo:visited {
+  display: inline-block !important;
+  padding: 12px 30px !important;
+  background-color: var(--color-brand) !important;
+  color: #ffffff !important;
+  border-radius: 30px !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  transition: all 0.3s ease !important;
+}
+
+a.btnVolverCatalogo:hover {
+  background-color: var(--color-brand-dark) !important;
+  transform: translateY(-2px);
 }
 
 .mensajeCarrito {
   margin-bottom: 0;
+}
+
+/* =================================================================
+   4. ADAPTACIÓN RESPONSIVA
+   =================================================================== */
+
+@media (max-width: 768px) {
+  .tarjetaProducto {
+    padding: 24px 18px !important;
+  }
+
+  .tituloHero {
+    font-size: 2rem;
+  }
+
+  .acciones {
+    flex-direction: column;
+  }
+
+  button.btnAgregar,
+  button.btnVolver {
+    width: 100% !important;
+  }
 }

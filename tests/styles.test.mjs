@@ -54,7 +54,7 @@ for (const width of [1440, 390]) {
         );
         await expect(page.locator("body")).toHaveCSS(
           "background-color",
-          "rgb(255, 245, 225)",
+          "rgb(241, 230, 199)",
         );
       } finally {
         await context.close();
@@ -117,9 +117,9 @@ test("Los módulos no modifican tarjetas, párrafos ni contenedores ajenos", asy
 test("Las notificaciones conservan posición y estilos cuando cambia su visibilidad", async () => {
   const { context, page } = await open("/pasteleria");
   try {
-    await expect(page.locator("#productos .card").first()).toHaveCSS(
+    await expect(page.locator("#productos article").first()).toHaveCSS(
       "width",
-      "320px",
+      "352px",
     );
     await expect(page.locator("#toast-notificacion")).toHaveCSS("opacity", "0");
     await page
@@ -138,7 +138,7 @@ test("Las notificaciones conservan posición y estilos cuando cambia su visibili
     await page.waitForURL("**/producto/pasteleria-1");
     await expect(page.locator("#detalle-producto")).toHaveCSS(
       "padding-top",
-      "32px",
+      "35px",
     );
     await page.locator("#btn-agregar-detalle").click();
     await expect(page.locator("#mensaje-carrito")).toHaveCSS("opacity", "1");
@@ -164,7 +164,7 @@ test("Los mensajes de registro y el detalle vacío conservan sus estilos", async
     await expect(page.locator("#mensaje-registro")).toBeVisible();
     await expect(page.locator("#mensaje-registro")).toHaveCSS(
       "border-radius",
-      "8px",
+      "12px",
     );
     await expect(page.locator("#mensaje-registro")).toHaveCSS(
       "font-weight",

@@ -14,8 +14,11 @@ El estudiante solicitó explícitamente implementar todo el plan y realizar comm
 6. Checkout simulado, opciones de entrega, resultados aprobado/rechazado, confirmación persistida e historial de la cuenta activa.
 7. Jasmine/Karma con diez pruebas unitarias simples de componentes, cobertura, pruebas de navegador y registro de resultados reales. Consultar docs/TESTING.md para la última ejecución; no extrapolar resultados de otra versión.
 8. Bootstrap, CSS Modules y comprobaciones de escritorio y móvil.
+9. Rediseño remoto de las pantallas integrado con las funciones locales y las alertas reutilizables. Panel de ventas con indicadores obtenidos de los pedidos simulados. Las variables de cada CSS Module están limitadas a su pantalla; el fondo global se define una vez.
 
 Por solicitud del estudiante se simplificó la suite a diez casos PU-001 a PU-010. Alerta centraliza los avisos Bootstrap y AlertaFormulario presenta los mensajes de los formularios, incluidos varios errores. Notificacion conserva los avisos temporales del carrito. Las pantallas usan estos componentes en lugar de repetir su marcado.
+
+La integración del pull del 14 de octubre resuelve siete archivos JSX que conservaban marcadores de conflicto aun estando preparados para commit. Se conserva el diseño entrante y se actualizan los selectores y expectativas visuales de las pruebas. Karma 6.4.4 y karma-jasmine 5.1.0 mantienen la configuración ya utilizada; package.json, package-lock.json y las dependencias instaladas coinciden. Los resultados actuales se documentan en TESTING.md y en el registro de diez casos.
 
 ## Próxima etapa de aprendizaje
 
@@ -56,6 +59,6 @@ El plan funcional acordado está implementado: router, lógica local, nombres en
 2. Comparación histórica: test:parity aún no está verificada contra el HTML original. Requiere disponer de ese proyecto y python3 y revisar las diferencias intencionales de las funciones nuevas. Las suites actuales de router, estilos y tienda cubren la implementación vigente.
 3. Dependencias de pruebas: dar seguimiento a las tres alertas altas de desarrollo de Karma/braces documentadas en TESTING.md. La actualización automática propone cambios incompatibles; no se aplicó una degradación de versiones.
 
-Backend, pago real, inventario, reportes comerciales y CRUD administrativo de usuarios/categorías son ampliaciones de alcance. Si la entrega académica exige alguna de ellas, deben incorporarse a un plan nuevo antes de implementarlas. Este documento registra los pendientes; su implementación queda detenida por instrucción del estudiante.
+Backend, pago real, inventario, reportes contables/exportables y CRUD administrativo de usuarios/categorías son ampliaciones de alcance. El panel de ventas incluido presenta indicadores locales de los pedidos simulados. Si la entrega académica exige funciones adicionales, deben incorporarse a un plan nuevo antes de implementarlas. Este documento registra los pendientes; su implementación queda detenida por instrucción del estudiante.
 
 La comparación histórica test:parity corresponde al diseño HTML anterior y conserva diferencias intencionales por funcionalidades nuevas; no equivale a las pruebas actuales ni se registra como aprobada sin ejecutarla.

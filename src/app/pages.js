@@ -5,19 +5,19 @@ export const paginas = {
   },
   Pasteleria: {
     path: "/pasteleria",
-    title: "Productos",
+    title: "Pastelería Tradicional - Pastelería 1000 Sabores",
   },
   Panaderia: {
     path: "/panaderia",
-    title: "Productos",
+    title: "Panadería Artesanal - Pastelería 1000 Sabores",
   },
   Salados: {
     path: "/salados",
-    title: "Productos",
+    title: "Especialidades Saladas - Pastelería 1000 Sabores",
   },
   SinAzucar: {
     path: "/sin-azucar",
-    title: "Productos",
+    title: "Productos Sin Azúcar - Pastelería 1000 Sabores",
   },
   DetalleProducto: {
     path: "/producto/:idProducto",

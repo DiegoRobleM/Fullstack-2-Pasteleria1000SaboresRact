@@ -1,364 +1,209 @@
-import { combinarClases } from "../../utils/combinarClases.js";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import estilos from "./administrador.module.css";
-import { Navbar } from "../../components/layout/Navbar.jsx";
-import { Footer } from "../../components/layout/Footer.jsx";
-
-// Estructura y textos de la pantalla original, conservados en JSX.
-export default function Administrador({ props = {}, content = {} }) {
+import { BarraNavegacion } from "../../components/estructura/barraNavegacion.jsx";
+import { PiePagina } from "../../components/estructura/piePagina.jsx";
+import FormularioProducto from "../../components/administracion/FormularioProducto.jsx";
+import TablaProductos from "../../components/administracion/TablaProductos.jsx";
+import TablaConsultas from "../../components/administracion/TablaConsultas.jsx";
+import TablaUsuarios from "../../components/administracion/TablaUsuarios.jsx";
+import { useTienda } from "../../context/ContextoTienda.jsx";
+import { useTituloPagina } from "../../hooks/useTituloPagina.js";
+import {
+  crearProducto,
+  editarProducto,
+  eliminarProducto,
+} from "../../services/productos.js";
+import {
+  obtenerConsultas,
+  cambiarEstadoConsulta,
+} from "../../services/consultas.js";
+import { leerArreglo } from "../../utils/almacenamiento.js";
+import { categorias } from "../../data/categorias.js";
+import { paginas } from "../../app/pages.js";
+export default function Administrador() {
+  const { usuario, productos, refrescarProductos } = useTienda();
+  const [secciones, establecerSecciones] = useState({});
+  const [consultas, establecerConsultas] = useState([]);
+  const [usuarios, establecerUsuarios] = useState([]);
+  const [productoEnEdicion, establecerProductoEnEdicion] = useState(null);
+  const [mensaje, establecerMensaje] = useState(null);
+  useTituloPagina(paginas.Administrador.title);
+  function mostrarSeccion(seccion) {
+    if (seccion === "consultas") establecerConsultas(obtenerConsultas());
+    if (seccion === "usuarios")
+      establecerUsuarios(leerArreglo("usuariosRegistrados"));
+    establecerSecciones((actuales) => ({ ...actuales, [seccion]: true }));
+  }
+  function guardarProducto(datos) {
+    if (productoEnEdicion) {
+      editarProducto(productoEnEdicion.id, datos);
+      establecerProductoEnEdicion(null);
+      establecerMensaje({
+        tipo: "success",
+        texto: "Producto actualizado correctamente.",
+      });
+    } else {
+      crearProducto(datos);
+      establecerMensaje(null);
+    }
+    refrescarProductos();
+  }
+  function borrarProducto(id) {
+    try {
+      eliminarProducto(id);
+      refrescarProductos();
+      if (productoEnEdicion?.id === id) establecerProductoEnEdicion(null);
+      establecerMensaje({
+        tipo: "success",
+        texto: "Producto eliminado correctamente.",
+      });
+    } catch (error) {
+      establecerMensaje({ tipo: "danger", texto: error.message });
+    }
+  }
+  function actualizarConsulta(id, estado) {
+    try {
+      establecerConsultas(cambiarEstadoConsulta(id, estado));
+    } catch (error) {
+      establecerMensaje({ tipo: "danger", texto: error.message });
+    }
+  }
   return (
     <>
-      {"\n    "}
-      <Navbar />
-      {"\n\n    "}
-      <main
-        id="panel-admin"
-        className="container py-5 d-none"
-        {...props["panel-admin"]}
-      >
-        {content["panel-admin"] ?? (
-          <>
-            {"\n      "}
-            <div className="mb-5">
-              {"\n        "}
-              <h1 className={estilos.titulo}>{"Panel de administración"}</h1>
-              {"\n\n        "}
-              <p
-                id="saludo-admin"
-                className="text-muted"
-                {...props["saludo-admin"]}
+      <BarraNavegacion />
+      <main id="panel-admin" className="container py-5">
+        <div className="mb-5">
+          <h1 className={estilos.titulo}>Panel de administración</h1>
+          <p id="saludo-admin" className="text-muted">
+            Sesión iniciada como {usuario?.nombre} {usuario?.apellido}.
+          </p>
+        </div>
+        <div className="row g-4">
+          {[
+            {
+              id: "consultas",
+              titulo: "Consultas",
+              icono: "chat-left-text",
+              texto: "Revisar las consultas enviadas por los usuarios.",
+            },
+            {
+              id: "productos",
+              titulo: "Productos",
+              icono: "cake2",
+              texto: "Crear, editar y eliminar los productos publicados.",
+            },
+            {
+              id: "usuarios",
+              titulo: "Usuarios",
+              icono: "people",
+              texto: "Ver las cuentas registradas en este navegador.",
+            },
+          ].map((seccion) => (
+            <div key={seccion.id} className="col-12 col-md-4">
+              <article className={"card h-100 " + estilos.tarjeta}>
+                <div className="card-body">
+                  <i
+                    className={"bi bi-" + seccion.icono + " " + estilos.icono}
+                  ></i>
+                  <h2 className="card-title h4 mt-3">{seccion.titulo}</h2>
+                  <p className="card-text">{seccion.texto}</p>
+                  <button
+                    type="button"
+                    id={"btn-ver-" + seccion.id}
+                    className="btn btn-outline-dark"
+                    onClick={() => mostrarSeccion(seccion.id)}
+                  >
+                    Ver {seccion.id}
+                  </button>
+                </div>
+              </article>
+            </div>
+          ))}
+        </div>
+        {mensaje && (
+          <p
+            className={"alert alert-" + mensaje.tipo + " mt-4"}
+            role={mensaje.tipo === "danger" ? "alert" : "status"}
+          >
+            {mensaje.texto}
+          </p>
+        )}
+        {secciones.productos && (
+          <section id="seccion-productos" className="mt-5">
+            <h2 className="h3 mb-3">Catálogos publicados</h2>
+            <FormularioProducto
+              key={productoEnEdicion?.id || "nuevo"}
+              producto={productoEnEdicion}
+              onGuardar={guardarProducto}
+              onCancelar={() => establecerProductoEnEdicion(null)}
+            />
+            <TablaProductos
+              productos={productos}
+              onEditar={establecerProductoEnEdicion}
+              onEliminar={borrarProducto}
+            />
+            <div className="row g-3">
+              {categorias.map((categoria) => (
+                <div key={categoria.id} className="col-12 col-md-6">
+                  <Link
+                    to={"/" + categoria.id}
+                    className="btn btn-outline-dark w-100 py-3"
+                  >
+                    {categoria.nombre}
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+        {secciones.consultas && (
+          <section
+            id="seccion-consultas"
+            className={"mt-5 " + estilos.seccionConsultas}
+          >
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <h2 className="h3 mb-0">Consultas recibidas</h2>
+              <span id="total-consultas" className="badge text-bg-dark">
+                {consultas.length}
+              </span>
+            </div>
+            {consultas.length ? (
+              <div
+                id="contenedor-tabla-consultas"
+                className={estilos.tablaConsultas}
               >
-                {content["saludo-admin"] ?? <></>}
+                <TablaConsultas
+                  consultas={consultas}
+                  onCambiarEstado={actualizarConsulta}
+                />
+              </div>
+            ) : (
+              <p id="sin-consultas" className="alert alert-info" role="status">
+                Todavía no se han recibido consultas.
               </p>
-              {"\n      "}
+            )}
+          </section>
+        )}
+        {secciones.usuarios && (
+          <section id="seccion-usuarios" className="mt-5">
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <h2 className="h3 mb-0">Usuarios registrados</h2>
+              <span id="total-usuarios" className="badge text-bg-dark">
+                {usuarios.length}
+              </span>
             </div>
-            {"\n\n      "}
-            <div className="row g-4">
-              {"\n        "}
-              <div className="col-12 col-md-4">
-                {"\n          "}
-                <article className={combinarClases("card", estilos.tarjeta, "h-100")}>
-                  {"\n            "}
-                  <div className="card-body">
-                    {"\n              "}
-                    <i className={combinarClases("bi bi-chat-left-text", estilos.icono)}></i>
-                    {"\n\n              "}
-                    <h2 className="card-title h4 mt-3">{"Consultas"}</h2>
-                    {"\n\n              "}
-                    <p className="card-text">
-                      {
-                        "\n                Revisar las consultas enviadas por los usuarios.\n              "
-                      }
-                    </p>
-                    {"\n\n              "}
-                    <button
-                      type="button"
-                      id="btn-ver-consultas"
-                      className="btn btn-outline-dark"
-                      {...props["btn-ver-consultas"]}
-                    >
-                      {content["btn-ver-consultas"] ?? (
-                        <>{"\n                Ver consultas\n              "}</>
-                      )}
-                    </button>
-                    {"\n            "}
-                  </div>
-                  {"\n          "}
-                </article>
-                {"\n        "}
-              </div>
-              {"\n\n        "}
-              <div className="col-12 col-md-4">
-                {"\n          "}
-                <article className={combinarClases("card", estilos.tarjeta, "h-100")}>
-                  {"\n            "}
-                  <div className="card-body">
-                    {"\n              "}
-                    <i className={combinarClases("bi bi-cake2", estilos.icono)}></i>
-                    {"\n\n              "}
-                    <h2 className="card-title h4 mt-3">{"Productos"}</h2>
-                    {"\n\n              "}
-                    <p className="card-text">
-                      {
-                        "\n                Revisar los productos publicados en cada categoría.\n              "
-                      }
-                    </p>
-                    {"\n\n              "}
-                    <button
-                      type="button"
-                      id="btn-ver-productos"
-                      className="btn btn-outline-dark"
-                      {...props["btn-ver-productos"]}
-                    >
-                      {content["btn-ver-productos"] ?? (
-                        <>{"\n                Ver productos\n              "}</>
-                      )}
-                    </button>
-                    {"\n            "}
-                  </div>
-                  {"\n          "}
-                </article>
-                {"\n        "}
-              </div>
-              {"\n\n        "}
-              <div className="col-12 col-md-4">
-                {"\n          "}
-                <article className={combinarClases("card", estilos.tarjeta, "h-100")}>
-                  {"\n            "}
-                  <div className="card-body">
-                    {"\n              "}
-                    <i className={combinarClases("bi bi-people", estilos.icono)}></i>
-                    {"\n\n              "}
-                    <h2 className="card-title h4 mt-3">{"Usuarios"}</h2>
-                    {"\n\n              "}
-                    <p className="card-text">
-                      {
-                        "\n                Ver las cuentas registradas en este navegador.\n              "
-                      }
-                    </p>
-                    {"\n\n              "}
-                    <button
-                      type="button"
-                      id="btn-ver-usuarios"
-                      className="btn btn-outline-dark"
-                      {...props["btn-ver-usuarios"]}
-                    >
-                      {content["btn-ver-usuarios"] ?? (
-                        <>{"\n                Ver usuarios\n              "}</>
-                      )}
-                    </button>
-                    {"\n            "}
-                  </div>
-                  {"\n          "}
-                </article>
-                {"\n        "}
-              </div>
-              {"\n      "}
-            </div>
-            {"\n      "}
-            <section
-              id="seccion-productos"
-              className="mt-5 d-none"
-              {...props["seccion-productos"]}
-            >
-              {content["seccion-productos"] ?? (
-                <>
-                  {"\n        "}
-                  <h2 className="h3 mb-3">{"Catálogos publicados"}</h2>
-                  {content["formulario-producto"]}
-                  {content["tabla-productos"]}
-                  {"\n\n        "}
-                  <div className="row g-3">
-                    {"\n          "}
-                    <div className="col-12 col-md-6">
-                      {"\n            "}
-                      <a
-                        href="../Pasteleria/pasteleria.html"
-                        className="btn btn-outline-dark w-100 py-3"
-                      >
-                        {"\n              Pastelería\n            "}
-                      </a>
-                      {"\n          "}
-                    </div>
-                    {"\n\n          "}
-                    <div className="col-12 col-md-6">
-                      {"\n            "}
-                      <a
-                        href="../Panaderia/index.html"
-                        className="btn btn-outline-dark w-100 py-3"
-                      >
-                        {"\n              Panadería\n            "}
-                      </a>
-                      {"\n          "}
-                    </div>
-                    {"\n\n          "}
-                    <div className="col-12 col-md-6">
-                      {"\n            "}
-                      <a
-                        href="../Salados/index.html"
-                        className="btn btn-outline-dark w-100 py-3"
-                      >
-                        {"\n              Productos salados\n            "}
-                      </a>
-                      {"\n          "}
-                    </div>
-                    {"\n\n          "}
-                    <div className="col-12 col-md-6">
-                      {"\n            "}
-                      <a
-                        href="../SinAzucar/sugar.html"
-                        className="btn btn-outline-dark w-100 py-3"
-                      >
-                        {"\n              Productos sin azúcar\n            "}
-                      </a>
-                      {"\n          "}
-                    </div>
-                    {"\n        "}
-                  </div>
-                  {"\n      "}
-                </>
-              )}
-            </section>
-            {"\n      "}
-            <section
-              id="seccion-consultas"
-              {...props["seccion-consultas"]}
-              className={combinarClases(estilos.seccionConsultas, props["seccion-consultas"]?.className ?? "mt-5 d-none")}
-            >
-              {content["seccion-consultas"] ?? (
-                <>
-                  {"\n        "}
-                  <div className="d-flex justify-content-between align-items-center mb-3">
-                    {"\n          "}
-                    <h2 className="h3 mb-0">{"Consultas recibidas"}</h2>
-                    {"\n\n          "}
-                    <span
-                      id="total-consultas"
-                      className="badge text-bg-dark"
-                      {...props["total-consultas"]}
-                    >
-                      {content["total-consultas"] ?? <>{" 0 "}</>}
-                    </span>
-                    {"\n        "}
-                  </div>
-                  {"\n\n        "}
-                  <div
-                    id="sin-consultas"
-                    className="alert alert-info d-none"
-                    role="status"
-                    {...props["sin-consultas"]}
-                  >
-                    {content["sin-consultas"] ?? (
-                      <>
-                        {
-                          "\n          Todavía no se han recibido consultas.\n        "
-                        }
-                      </>
-                    )}
-                  </div>
-                  {"\n\n        "}
-                  <div
-                    id="contenedor-tabla-consultas"
-                    {...props["contenedor-tabla-consultas"]}
-                    className={combinarClases(estilos.tablaConsultas, props["contenedor-tabla-consultas"]?.className ?? "table-responsive")}
-                  >
-                    {content["contenedor-tabla-consultas"] ?? (
-                      <>
-                        {"\n          "}
-                        <table className="table table-striped table-hover align-middle">
-                          <thead>
-                            <tr>
-                              <th scope="col">{"Fecha"}</th>
-
-                              <th scope="col">{"Correo"}</th>
-
-                              <th scope="col">{"Consulta"}</th>
-
-                              <th scope="col">{"Estado"}</th>
-                            </tr>
-                          </thead>
-
-                          <tbody
-                            id="tabla-consultas"
-                            {...props["tabla-consultas"]}
-                          >
-                            {content["tabla-consultas"] ?? <></>}
-                          </tbody>
-                        </table>
-                        {"\n        "}
-                      </>
-                    )}
-                  </div>
-                  {"\n      "}
-                </>
-              )}
-            </section>
-            {"\n\n      "}
-            <section
-              id="seccion-usuarios"
-              className="mt-5 d-none"
-              {...props["seccion-usuarios"]}
-            >
-              {content["seccion-usuarios"] ?? (
-                <>
-                  {"\n        "}
-                  <div className="d-flex justify-content-between align-items-center mb-3">
-                    {"\n          "}
-                    <h2 className="h3 mb-0">{"Usuarios registrados"}</h2>
-                    {"\n\n          "}
-                    <span
-                      id="total-usuarios"
-                      className="badge text-bg-dark"
-                      {...props["total-usuarios"]}
-                    >
-                      {content["total-usuarios"] ?? <>{" 0 "}</>}
-                    </span>
-                    {"\n        "}
-                  </div>
-                  {"\n\n        "}
-                  <div
-                    id="sin-usuarios"
-                    className="alert alert-info d-none"
-                    role="status"
-                    {...props["sin-usuarios"]}
-                  >
-                    {content["sin-usuarios"] ?? (
-                      <>
-                        {
-                          "\n          Todavía no existen usuarios registrados.\n        "
-                        }
-                      </>
-                    )}
-                  </div>
-                  {"\n\n        "}
-                  <div
-                    id="contenedor-tabla-usuarios"
-                    className="table-responsive"
-                    {...props["contenedor-tabla-usuarios"]}
-                  >
-                    {content["contenedor-tabla-usuarios"] ?? (
-                      <>
-                        {"\n          "}
-                        <table className="table table-striped table-hover align-middle">
-                          <thead>
-                            <tr>
-                              <th scope="col">{"Nombre"}</th>
-
-                              <th scope="col">{"Correo"}</th>
-
-                              <th scope="col">{"Región"}</th>
-
-                              <th scope="col">{"Comuna"}</th>
-
-                              <th scope="col">{"Tipo de propiedad"}</th>
-
-                              <th scope="col">{"Rol"}</th>
-                            </tr>
-                          </thead>
-
-                          <tbody
-                            id="tabla-usuarios"
-                            {...props["tabla-usuarios"]}
-                          >
-                            {content["tabla-usuarios"] ?? <></>}
-                          </tbody>
-                        </table>
-                        {"\n        "}
-                      </>
-                    )}
-                  </div>
-                  {"\n      "}
-                </>
-              )}
-            </section>
-            {"\n    "}
-          </>
+            {usuarios.length ? (
+              <TablaUsuarios usuarios={usuarios} />
+            ) : (
+              <p id="sin-usuarios" className="alert alert-info" role="status">
+                Todavía no existen usuarios registrados.
+              </p>
+            )}
+          </section>
         )}
       </main>
-      {"\n\n    "}
-      <Footer />
-      {"\n\n    "}
-      {"\n    "}
-      {"\n  "}
+      <PiePagina />
     </>
   );
 }

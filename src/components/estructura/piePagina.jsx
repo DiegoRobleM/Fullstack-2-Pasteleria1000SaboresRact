@@ -1,11 +1,10 @@
-import estilos from "./layout.module.css";
-export function Footer() {
+import { Link } from "react-router-dom";
+import estilos from "./estructura.module.css";
+export function PiePagina() {
   return (
     <mi-footer>
       {"\n        "}
-      <footer
-        className={`text-white py-3 ${estilos.piePagina}`}
-      >
+      <footer className={`text-white py-3 ${estilos.piePagina}`}>
         {"\n            "}
         <div className="container d-flex justify-content-center align-items-center gap-4">
           {"\n\n                "}
@@ -27,12 +26,9 @@ export function Footer() {
               }
             </a>
             {"\n\n                    "}
-            <a
-              href="../Contacto/contacto.html"
-              className="text-decoration-none text-white"
-            >
+            <Link to="/contacto" className="text-decoration-none text-white">
               {"\n                        Contacto\n                    "}
-            </a>
+            </Link>
             {"\n                "}
           </nav>
           {"\n\n            "}

@@ -1,9 +1,4 @@
-import {
-  Pasteleria,
-  Panaderia,
-  Salados,
-  SinAzucar,
-} from "./catalogo.js";
+import { Pasteleria, Panaderia, Salados, SinAzucar } from "./catalogo.js";
 
 function prepararProductos(productos, categoria) {
   return productos.map((producto) => ({

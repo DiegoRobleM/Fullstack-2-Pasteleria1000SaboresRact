@@ -49,3 +49,17 @@
   background-color: #dae2ec;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+@media (max-width: 575px) {
+  .tarjetaPerfil .contenidoPerfil {
+    flex-direction: column;
+    padding: 24px 16px;
+  }
+  .tarjetaDatos {
+    width: 100%;
+    max-width: 300px;
+  }
+  .tarjetaPerfil .contenidoPerfil .imagenPerfil {
+    margin-right: 0;
+  }
+}

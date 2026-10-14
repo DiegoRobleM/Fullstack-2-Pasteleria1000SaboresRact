@@ -1,49 +1,46 @@
-import { Navbar } from "../../components/layout/Navbar.jsx";
-import { Footer } from "../../components/layout/Footer.jsx";
-
-// Estructura y textos de la pantalla original, conservados en JSX.
-export default function Carrito({ props = {}, content = {} }) {
+import { Link } from "react-router-dom";
+import { BarraNavegacion } from "../../components/estructura/barraNavegacion.jsx";
+import { PiePagina } from "../../components/estructura/piePagina.jsx";
+import { FilasCarrito } from "../../components/carrito/filasCarrito.jsx";
+import { useTienda } from "../../context/ContextoTienda.jsx";
+import { useTituloPagina } from "../../hooks/useTituloPagina.js";
+import { paginas } from "../../app/pages.js";
+import { formatearPrecio } from "../../utils/formatoPrecio.js";
+import { totalCarrito } from "../../utils/precios.js";
+export default function Carrito() {
+  const { carrito, vaciarCarrito } = useTienda();
+  useTituloPagina(paginas.Carrito.title);
   return (
     <>
-      {"\n    "}
-      <Navbar />
-      {"\n\n    "}
+      <BarraNavegacion />
       <main className="container my-5">
-        {"\n      "}
-        <h1 className="text-center mb-4">{"Carrito de compras"}</h1>
-        {"\n\n      "}
-        <section id="carrito" {...props["carrito"]}>
-          {content["carrito"] ?? <></>}
+        <h1 className="text-center mb-4">Carrito de compras</h1>
+        <section id="carrito">
+          <FilasCarrito />
         </section>
-        {"\n\n      "}
         <section className="text-end mt-4">
-          {"\n        "}
           <h3>
-            {"Total: "}
-            <span id="total" {...props["total"]}>
-              {content["total"] ?? <>{"$0"}</>}
-            </span>
+            Total:{" "}
+            <span id="total">{formatearPrecio(totalCarrito(carrito))}</span>
           </h3>
-          {"\n        "}
-          <button
-            type="button"
-            id="btn-vaciar"
-            className="btn btn-outline-secondary mt-3"
-            {...props["btn-vaciar"]}
-          >
-            {content["btn-vaciar"] ?? (
-              <>{"\n          Vaciar carrito\n        "}</>
-            )}
-          </button>
-          {"\n      "}
+          {carrito.length > 0 && (
+            <div className="d-flex flex-wrap justify-content-end gap-3 mt-3">
+              <button
+                type="button"
+                id="btn-vaciar"
+                className="btn btn-outline-secondary"
+                onClick={vaciarCarrito}
+              >
+                Vaciar carrito
+              </button>
+              <Link className="btn botonPasteleria" to="/checkout">
+                Continuar con la compra
+              </Link>
+            </div>
+          )}
         </section>
-        {"\n    "}
       </main>
-      {"\n\n    "}
-      <Footer />
-      {"\n\n    "}
-      {"\n    "}
-      {"\n  "}
+      <PiePagina />
     </>
   );
 }

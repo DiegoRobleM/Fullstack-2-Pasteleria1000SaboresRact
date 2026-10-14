@@ -1,152 +1,165 @@
-import { combinarClases } from "../../utils/combinarClases.js";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useRef, useState } from "react";
 import estilos from "./detalleProducto.module.css";
+import { combinarClases } from "../../utils/combinarClases.js";
+import { BarraNavegacion } from "../../components/estructura/barraNavegacion.jsx";
+import { PiePagina } from "../../components/estructura/piePagina.jsx";
 import Notificacion from "../../components/notificacion/notificacion.jsx";
-import { Navbar } from "../../components/layout/Navbar.jsx";
-import { Footer } from "../../components/layout/Footer.jsx";
-
-// Estructura y textos de la pantalla original, conservados en JSX.
-export default function DetalleProducto({ props = {}, content = {} }) {
+import notificacion from "../../components/notificacion/notificacion.module.css";
+import { PrecioProducto } from "../../components/productos/precioProducto.jsx";
+import { useTienda } from "../../context/ContextoTienda.jsx";
+import { useNotificacion } from "../../hooks/useNotificacion.js";
+import { useTituloPagina } from "../../hooks/useTituloPagina.js";
+import { nombreCategoria } from "../../data/categorias.js";
+import { rutaImagen } from "../../utils/rutaImagen.js";
+import { paginas } from "../../app/pages.js";
+export default function DetalleProducto() {
+  const { idProducto } = useParams();
+  const { productos, agregarProducto } = useTienda();
+  const producto = productos.find((actual) => actual.id === idProducto);
+  const [cantidad, establecerCantidad] = useState("1");
+  const entradaCantidad = useRef(null);
+  const { visible, notificar } = useNotificacion();
+  const navigate = useNavigate();
+  useTituloPagina(
+    producto
+      ? producto.titulo + " | Pastelería 1000 Sabores"
+      : paginas.DetalleProducto.title,
+  );
+  function agregar() {
+    const numero = Number(cantidad);
+    if (!Number.isSafeInteger(numero) || numero < 1) {
+      establecerCantidad("1");
+      entradaCantidad.current?.focus();
+      return;
+    }
+    agregarProducto(producto, numero);
+    notificar();
+  }
   return (
     <>
-      {"\n    "}
-      <Navbar />
-      {"\n\n    "}
+      <BarraNavegacion />
       <main className="container my-5">
-        {"\n      "}
         <div
           id="mensaje-detalle"
-          className="alert alert-warning d-none"
           role="alert"
-          {...props["mensaje-detalle"]}
+          className={"alert alert-warning" + (producto ? " d-none" : "")}
         >
-          {content["mensaje-detalle"] ?? <></>}
+          {!producto && (
+            <>
+              {idProducto === "sin-seleccion"
+                ? "No hay un producto seleccionado."
+                : "El producto solicitado no existe o ya no está disponible."}{" "}
+              <Link to="/pasteleria" className="alert-link">
+                Volver al catálogo
+              </Link>
+            </>
+          )}
         </div>
-        {"\n\n      "}
         <section
           id="detalle-producto"
           aria-labelledby="detalle-titulo"
-          {...props["detalle-producto"]}
-          className={combinarClases(estilos.producto, props["detalle-producto"]?.className ?? "row g-4 align-items-center")}
+          className={combinarClases(
+            estilos.producto,
+            "row g-4 align-items-center",
+            !producto && "d-none",
+          )}
         >
-          {content["detalle-producto"] ?? (
+          {producto && (
             <>
-              {"\n        "}
               <div className="col-12 col-lg-6">
-                {"\n          "}
                 <img
                   id="detalle-imagen"
-                  alt=""
-                  {...props["detalle-imagen"]}
-                  className={combinarClases(estilos.imagen, props["detalle-imagen"]?.className ?? "img-fluid rounded shadow-sm")}
+                  src={rutaImagen(producto.imagen)}
+                  alt={producto.titulo}
+                  className={combinarClases(
+                    estilos.imagen,
+                    "img-fluid rounded shadow-sm",
+                  )}
                 />
-                {"\n        "}
               </div>
-              {"\n\n        "}
               <div className="col-12 col-lg-6">
-                {"\n          "}
                 <p
                   id="detalle-categoria"
-                  {...props["detalle-categoria"]}
-                  className={combinarClases(estilos.categoria, props["detalle-categoria"]?.className ?? "text-uppercase text-muted mb-2")}
+                  className={combinarClases(
+                    estilos.categoria,
+                    "text-uppercase text-muted mb-2",
+                  )}
                 >
-                  {content["detalle-categoria"] ?? (
-                    <>{"\n            Categoría por cargar\n          "}</>
-                  )}
+                  {nombreCategoria(producto.categoria)}
                 </p>
-                {"\n\n          "}
-                <h1 id="detalle-titulo" {...props["detalle-titulo"]} className={estilos.titulo}>
-                  {content["detalle-titulo"] ?? (
-                    <>{"\n            Cargando producto...\n          "}</>
-                  )}
+                <h1 id="detalle-titulo" className={estilos.titulo}>
+                  {producto.titulo}
                 </h1>
-                {"\n\n          "}
                 <p
                   id="detalle-descripcion"
-                  {...props["detalle-descripcion"]}
-                  className={combinarClases(estilos.descripcion, props["detalle-descripcion"]?.className ?? "lead mt-3")}
+                  className={combinarClases(estilos.descripcion, "lead mt-3")}
                 >
-                  {content["detalle-descripcion"] ?? (
-                    <>{"\n            Cargando descripción...\n          "}</>
-                  )}
+                  {producto.descripcion}
                 </p>
-                {"\n\n          "}
                 <p className="fs-3 fw-bold mt-4">
-                  {"\n            "}
-                  <span id="detalle-precio" {...props["detalle-precio"]} className={estilos.precio}>
-                    {content["detalle-precio"] ?? <>{"—"}</>}
+                  <span id="detalle-precio" className={estilos.precio}>
+                    <PrecioProducto producto={producto} />
                   </span>
-                  {"\n          "}
                 </p>
-                {"\n\n          "}
                 <div className="mb-4">
-                  {"\n            "}
                   <label
                     htmlFor="detalle-cantidad"
                     className="form-label fw-semibold"
                   >
-                    {"\n              Cantidad\n            "}
+                    Cantidad
                   </label>
-                  {"\n\n            "}
                   <input
                     type="number"
                     id="detalle-cantidad"
                     min="1"
-                    defaultValue="1"
-                    {...props["detalle-cantidad"]}
-                    className={combinarClases(estilos.cantidad, props["detalle-cantidad"]?.className ?? "form-control")}
+                    step="1"
+                    value={cantidad}
+                    onChange={(evento) =>
+                      establecerCantidad(evento.target.value)
+                    }
+                    ref={entradaCantidad}
+                    className={combinarClases(estilos.cantidad, "form-control")}
                   />
-                  {"\n          "}
                 </div>
-                {"\n\n          "}
                 <div className="d-flex flex-wrap gap-3">
-                  {"\n            "}
                   <button
                     type="button"
                     id="btn-agregar-detalle"
                     className="btn btn-outline-success"
-                    disabled={true}
-                    {...props["btn-agregar-detalle"]}
+                    onClick={agregar}
                   >
-                    {content["btn-agregar-detalle"] ?? (
-                      <>{"\n              Agregar al carrito\n            "}</>
-                    )}
+                    Agregar al carrito
                   </button>
-                  {"\n\n            "}
                   <button
                     type="button"
                     id="btn-volver-catalogo"
                     className="btn btn-outline-secondary"
-                    {...props["btn-volver-catalogo"]}
+                    onClick={() => navigate("/" + producto.categoria)}
                   >
-                    {content["btn-volver-catalogo"] ?? (
-                      <>{"\n              Volver al catálogo\n            "}</>
-                    )}
+                    Volver al catálogo
                   </button>
-                  {"\n          "}
                 </div>
-                {"\n\n          "}
-                <Notificacion
-                  id="mensaje-carrito"
-                  role="status"
-                  aria-live="polite"
-                  {...props["mensaje-carrito"]}
-                  className={combinarClases(estilos.mensajeCarrito, props["mensaje-carrito"]?.className ?? "alert alert-success d-none mt-4")}
-                >
-                  {content["mensaje-carrito"] ?? <></>}
-                </Notificacion>
-                {"\n        "}
               </div>
-              {"\n      "}
             </>
           )}
         </section>
-        {"\n    "}
+        <Notificacion
+          id="mensaje-carrito"
+          role="status"
+          className={combinarClases(
+            estilos.mensajeCarrito,
+            visible === null
+              ? "alert alert-success d-none mt-4"
+              : visible
+                ? notificacion.visible
+                : notificacion.oculta,
+          )}
+        >
+          🍰 ¡PRODUCTO AGREGADO A TU CARRITO!
+        </Notificacion>
       </main>
-      {"\n\n    "}
-      <Footer />
-      {"\n\n    "}
-      {"\n    "}
-      {"\n  "}
+      <PiePagina />
     </>
   );
 }

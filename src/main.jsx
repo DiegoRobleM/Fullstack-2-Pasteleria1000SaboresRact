@@ -5,16 +5,12 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./styles/global.css";
 import "./styles/botones.css";
 import "./styles/formularios.css";
-import App from "./app/App.jsx";
-import { setupPage } from "./app/setupPage.js";
-import { StoreProvider } from "./context/StoreContext.jsx";
+import { RouterProvider } from "react-router-dom";
+import { routes } from "./routes.jsx";
+import { ProveedorTienda } from "./context/ContextoTienda.jsx";
 
-const page = setupPage();
-if (page) {
-  // Montar sobre body mantiene body > main y los custom tags del CSS original.
-  createRoot(document.body).render(
-    <StoreProvider>
-      <App page={page} />
-    </StoreProvider>,
-  );
-}
+createRoot(document.getElementById("root")).render(
+  <ProveedorTienda>
+    <RouterProvider router={routes} />
+  </ProveedorTienda>,
+);

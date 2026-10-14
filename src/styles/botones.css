@@ -12,5 +12,7 @@
 .botonPasteleria:hover {
   background-color: var(--color-principal-hover);
   color: #ffffff;
-  transition: background-color 1s ease, color 0.3s ease;
+  transition:
+    background-color 1s ease,
+    color 0.3s ease;
 }

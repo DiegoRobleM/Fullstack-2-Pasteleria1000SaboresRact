@@ -1,14 +1,18 @@
+import { useTituloPagina } from "../../hooks/useTituloPagina.js";
+import { paginas } from "../../app/pages.js";
+import { Link } from "react-router-dom";
 import { combinarClases } from "../../utils/combinarClases.js";
 import estilos from "./inicio.module.css";
-import { Navbar } from "../../components/layout/Navbar.jsx";
-import { Footer } from "../../components/layout/Footer.jsx";
+import { BarraNavegacion } from "../../components/estructura/barraNavegacion.jsx";
+import { PiePagina } from "../../components/estructura/piePagina.jsx";
 
 // Estructura y textos de la pantalla original, conservados en JSX.
-export default function Inicio({ props = {}, content = {} }) {
+export default function Inicio() {
+  useTituloPagina(paginas.Inicio.title);
   return (
     <>
       {"\n\n  "}
-      <Navbar />
+      <BarraNavegacion />
       {"\n\n  "}
       <main className={combinarClases("container my-5", estilos.pagina)}>
         {"\n    "}
@@ -17,7 +21,7 @@ export default function Inicio({ props = {}, content = {} }) {
           <div className={estilos.imagenCentral}>
             {"\n            "}
             <img
-              src="img/Pasteleria.jpg.jpeg"
+              src="/Inicio/img/Pasteleria.jpg.jpeg"
               className="img-thumbnail shadow-sm p-2 bg-white"
               alt="Pasteleria"
             />
@@ -36,15 +40,23 @@ export default function Inicio({ props = {}, content = {} }) {
             {"\n            "}
             <div className={estilos.botonesCentrales}>
               {"\n              "}
-              <a
-                href="../Pasteleria/pasteleria.html" className={combinarClases("botonPasteleria text-decoration-none")}>
+              <Link
+                to="/pasteleria"
+                className={combinarClases(
+                  "botonPasteleria text-decoration-none",
+                )}
+              >
                 {"Productos"}
-              </a>
+              </Link>
               {"\n              "}
-              <a
-                href="../SobreNosotros/sobrenosotros.html" className={combinarClases("botonPasteleria text-decoration-none")}>
+              <Link
+                to="/sobre-nosotros"
+                className={combinarClases(
+                  "botonPasteleria text-decoration-none",
+                )}
+              >
                 {"Nosotros"}
-              </a>
+              </Link>
               {"\n            "}
             </div>
             {"\n          "}
@@ -60,16 +72,23 @@ export default function Inicio({ props = {}, content = {} }) {
             {"\n          "}
           </div>
           {"\n\n          "}
-          <div className={combinarClases("row g-4", estilos.contenedorProductos)}>
+          <div
+            className={combinarClases("row g-4", estilos.contenedorProductos)}
+          >
             {"\n\n            "}
             <div className="col-12 col-md-4">
               {"\n              "}
-              <a
-                href="../Pasteleria/pasteleria.html"
-                className="text-decoration-none text-dark"
-              >
+              <Link to="/pasteleria" className="text-decoration-none text-dark">
                 {"\n                "}
-                <div className={combinarClases("card", estilos.tarjetaProducto, "h-100", "shadow-sm", "text-center")}>
+                <div
+                  className={combinarClases(
+                    "card",
+                    estilos.tarjetaProducto,
+                    "h-100",
+                    "shadow-sm",
+                    "text-center",
+                  )}
+                >
                   {"\n                  "}
                   <div className="card-body py-3">
                     {"\n                    "}
@@ -78,25 +97,33 @@ export default function Inicio({ props = {}, content = {} }) {
                   </div>
                   {"\n                  "}
                   <img
-                    src="img/pasteles.jpg"
+                    src="/Inicio/img/pasteles.jpg"
                     alt="Pastel de Chocolate"
-                    className={combinarClases("card-img-bottom", estilos.imagenProducto)}
+                    className={combinarClases(
+                      "card-img-bottom",
+                      estilos.imagenProducto,
+                    )}
                   />
                   {"\n                "}
                 </div>
                 {"\n              "}
-              </a>
+              </Link>
               {"\n            "}
             </div>
             {"\n\n             "}
             <div className="col-12 col-md-4">
               {"\n              "}
-              <a
-                href="../Panaderia/index.html"
-                className="text-decoration-none text-dark"
-              >
+              <Link to="/panaderia" className="text-decoration-none text-dark">
                 {"\n                "}
-                <div className={combinarClases("card", estilos.tarjetaProducto, "h-100", "shadow-sm", "text-center")}>
+                <div
+                  className={combinarClases(
+                    "card",
+                    estilos.tarjetaProducto,
+                    "h-100",
+                    "shadow-sm",
+                    "text-center",
+                  )}
+                >
                   {"\n                  "}
                   <div className="card-body py-3">
                     {"\n                    "}
@@ -105,25 +132,33 @@ export default function Inicio({ props = {}, content = {} }) {
                   </div>
                   {"\n                  "}
                   <img
-                    src="img/panes.jpg"
+                    src="/Inicio/img/panes.jpg"
                     alt="Pan Ciabatta"
-                    className={combinarClases("card-img-bottom", estilos.imagenProducto)}
+                    className={combinarClases(
+                      "card-img-bottom",
+                      estilos.imagenProducto,
+                    )}
                   />
                   {"\n                "}
                 </div>
                 {"\n              "}
-              </a>
+              </Link>
               {"\n            "}
             </div>
             {" \n\n            "}
             <div className="col-12 col-md-4">
               {"\n              "}
-              <a
-                href="../Salados/index.html"
-                className="text-decoration-none text-dark"
-              >
+              <Link to="/salados" className="text-decoration-none text-dark">
                 {"\n                "}
-                <div className={combinarClases("card", estilos.tarjetaProducto, "h-100", "shadow-sm", "text-center")}>
+                <div
+                  className={combinarClases(
+                    "card",
+                    estilos.tarjetaProducto,
+                    "h-100",
+                    "shadow-sm",
+                    "text-center",
+                  )}
+                >
                   {"\n                  "}
                   <div className="card-body py-3">
                     {"\n                    "}
@@ -132,14 +167,17 @@ export default function Inicio({ props = {}, content = {} }) {
                   </div>
                   {"\n                  "}
                   <img
-                    src="img/salados.jpg"
+                    src="/Inicio/img/salados.jpg"
                     alt="Salados"
-                    className={combinarClases("card-img-bottom", estilos.imagenProducto)}
+                    className={combinarClases(
+                      "card-img-bottom",
+                      estilos.imagenProducto,
+                    )}
                   />
                   {"\n                "}
                 </div>
                 {"\n              "}
-              </a>
+              </Link>
               {"\n            "}
             </div>
             {"\n          "}
@@ -164,12 +202,23 @@ export default function Inicio({ props = {}, content = {} }) {
                 className="text-decoration-none text-dark"
               >
                 {"\n                "}
-                <div className={combinarClases("card", estilos.tarjetaLocal, "h-100", "shadow-sm", "text-center")}>
+                <div
+                  className={combinarClases(
+                    "card",
+                    estilos.tarjetaLocal,
+                    "h-100",
+                    "shadow-sm",
+                    "text-center",
+                  )}
+                >
                   {"\n                  "}
                   <img
-                    src="img/Pasteleria.jpg.jpeg"
+                    src="/Inicio/img/Pasteleria.jpg.jpeg"
                     alt="PasteleriaLocal"
-                    className={combinarClases("card-img-bottom", estilos.imagenLocal)}
+                    className={combinarClases(
+                      "card-img-bottom",
+                      estilos.imagenLocal,
+                    )}
                   />
                   {"\n                "}
                 </div>
@@ -180,7 +229,15 @@ export default function Inicio({ props = {}, content = {} }) {
             {"\n\n            "}
             <div className="col-12 col-md-4">
               {"\n                "}
-              <div className={combinarClases("card", estilos.tarjetaHistoria, "h-100", "shadow-sm", "text-center")}>
+              <div
+                className={combinarClases(
+                  "card",
+                  estilos.tarjetaHistoria,
+                  "h-100",
+                  "shadow-sm",
+                  "text-center",
+                )}
+              >
                 {"\n                  "}
                 <div className="card-body py-3">
                   {"\n                    "}
@@ -215,7 +272,7 @@ export default function Inicio({ props = {}, content = {} }) {
         {"\n\n  "}
       </main>
       {"\n\n  "}
-      <Footer />
+      <PiePagina />
       {"\n  "}
       {"\n  "}
       {"\n"}

@@ -1,14 +1,17 @@
+import { useTituloPagina } from "../../hooks/useTituloPagina.js";
+import { paginas } from "../../app/pages.js";
 import { combinarClases } from "../../utils/combinarClases.js";
 import estilos from "./sobreNosotros.module.css";
-import { Navbar } from "../../components/layout/Navbar.jsx";
-import { Footer } from "../../components/layout/Footer.jsx";
+import { BarraNavegacion } from "../../components/estructura/barraNavegacion.jsx";
+import { PiePagina } from "../../components/estructura/piePagina.jsx";
 
 // Estructura y textos de la pantalla original, conservados en JSX.
-export default function SobreNosotros({ props = {}, content = {} }) {
+export default function SobreNosotros() {
+  useTituloPagina(paginas.SobreNosotros.title);
   return (
     <>
       {"\n    "}
-      <Navbar />
+      <BarraNavegacion />
       {"\n\n    "}
       <main className={combinarClases("container my-3", estilos.pagina)}>
         {"\n      "}
@@ -18,7 +21,13 @@ export default function SobreNosotros({ props = {}, content = {} }) {
             {"\n          "}
             <h1>{"Nuestra Misión"}</h1>
             {"\n          "}
-            <p className={combinarClases("lead text-muted", "mx-auto", estilos.fraseMision)}>
+            <p
+              className={combinarClases(
+                "lead text-muted",
+                "mx-auto",
+                estilos.fraseMision,
+              )}
+            >
               {
                 '\n            "Ofrecer una experiencia dulce y memorable a nuestros clientes,\n            proporcionando tortas y productos de repostería de alta calidad para\n            todas las ocasiones."\n          '
               }
@@ -32,10 +41,12 @@ export default function SobreNosotros({ props = {}, content = {} }) {
           {"\n        "}
           <section className="d-flex flex-wrap justify-content-center align-items-stretch gap-4 mb-4">
             {"\n          "}
-            <div className={combinarClases(`card ${estilos.tarjeta}`, "shadow-sm")}>
+            <div
+              className={combinarClases(`card ${estilos.tarjeta}`, "shadow-sm")}
+            >
               {"\n            "}
               <img
-                src="img/fotoPasteleria.jpeg"
+                src="/SobreNosotros/img/fotoPasteleria.jpeg"
                 alt="Historia de la pastelería"
                 className={`card-img-top ${estilos.imagenTarjeta}`}
               />
@@ -55,7 +66,7 @@ export default function SobreNosotros({ props = {}, content = {} }) {
             <div className={`card ${estilos.tarjeta}`}>
               {"\n            "}
               <img
-                src="img/quequedrillo.webp"
+                src="/SobreNosotros/img/quequedrillo.webp"
                 alt="Quequedrilo"
                 className={`card-img-top ${estilos.imagenTarjeta}`}
               />
@@ -78,7 +89,11 @@ export default function SobreNosotros({ props = {}, content = {} }) {
             {"\n\n          "}
             <div className={`card ${estilos.tarjeta}`}>
               {"\n            "}
-              <img src="img/images.jpeg"  alt="Chefs" className={`card-img-top ${estilos.imagenTarjeta}`}/>
+              <img
+                src="/SobreNosotros/img/images.jpeg"
+                alt="Chefs"
+                className={`card-img-top ${estilos.imagenTarjeta}`}
+              />
               {"\n\n            "}
               <div className="card-body">
                 {"\n              "}
@@ -102,7 +117,13 @@ export default function SobreNosotros({ props = {}, content = {} }) {
           {"\n        "}
           <h2 className="fw-bold mb-3">{"Nuestra Visión"}</h2>
           {"\n        "}
-          <p className={combinarClases("lead text-muted", "mx-auto", estilos.fraseVision)}>
+          <p
+            className={combinarClases(
+              "lead text-muted",
+              "mx-auto",
+              estilos.fraseVision,
+            )}
+          >
             {
               '\n          "Ser la pastelería líder en ventas online a nivel nacional, reconocida\n          por nuestra innovación, sabor tradicional y el compromiso constante\n          con la calidad de nuestros productos."\n        '
             }
@@ -112,7 +133,7 @@ export default function SobreNosotros({ props = {}, content = {} }) {
         {"\n    "}
       </main>
       {"\n\n    "}
-      <Footer />
+      <PiePagina />
       {"\n\n    "}
       {"\n    "}
       {"\n  "}

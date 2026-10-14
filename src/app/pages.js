@@ -1,54 +1,98 @@
-export const pages = {
-  "/Administrador/index.html": {
-    name: "Administrador",
-    title: "Administración - Pastelería 1000 Sabores",
+export const paginas = {
+  Inicio: {
+    path: "/",
+    title: "Pastelería 1000 Sabores",
   },
-  "/Carrito/carrito.html": {
-    name: "Carrito",
-    title: "Carrito | Pastelería 1000 Sabores",
+  Pasteleria: {
+    path: "/pasteleria",
+    title: "Productos",
   },
-  "/Contacto/contacto.html": {
-    name: "Contacto",
-    title: "Contacto - Pastelería 1000 Sabores",
+  Panaderia: {
+    path: "/panaderia",
+    title: "Productos",
   },
-  "/DetalleProducto/index.html": {
-    name: "DetalleProducto",
+  Salados: {
+    path: "/salados",
+    title: "Productos",
+  },
+  SinAzucar: {
+    path: "/sin-azucar",
+    title: "Productos",
+  },
+  DetalleProducto: {
+    path: "/producto/:idProducto",
     title: "Detalle de producto | Pastelería 1000 Sabores",
   },
-  "/Inicio/index.html": {
-    name: "Inicio",
-    title: "Pastelería 1000 Sabores",
+  Carrito: {
+    path: "/carrito",
+    title: "Carrito | Pastelería 1000 Sabores",
   },
-  "/InicioSesion/iniciosesion.html": {
-    name: "InicioSesion",
-    title: "Iniciar Sesión - Pastelería 1000 Sabores",
-  },
-  "/Panaderia/index.html": {
-    name: "Panaderia",
-    title: "Productos",
-  },
-  "/Pasteleria/pasteleria.html": {
-    name: "Pasteleria",
-    title: "Productos",
-  },
-  "/PerfilUsuario/index.html": {
-    name: "PerfilUsuario",
-    title: "Perfil de Usuario - Pastelería 1000 Sabores",
-  },
-  "/RegistroUsuario/registro.html": {
-    name: "RegistroUsuario",
+  RegistroUsuario: {
+    path: "/registro",
     title: "Registro - Pastelería 1000 Sabores",
   },
-  "/Salados/index.html": {
-    name: "Salados",
-    title: "Productos",
+  InicioSesion: {
+    path: "/inicio-sesion",
+    title: "Iniciar Sesión - Pastelería 1000 Sabores",
   },
-  "/SinAzucar/sugar.html": {
-    name: "SinAzucar",
-    title: "Productos",
+  PerfilUsuario: {
+    path: "/perfil",
+    title: "Perfil de Usuario - Pastelería 1000 Sabores",
   },
-  "/SobreNosotros/sobrenosotros.html": {
-    name: "SobreNosotros",
+  Contacto: {
+    path: "/contacto",
+    title: "Contacto - Pastelería 1000 Sabores",
+  },
+  SobreNosotros: {
+    path: "/sobre-nosotros",
     title: "Pastelería 1000 Sabores",
   },
+  Administrador: {
+    path: "/administrador",
+    title: "Administración - Pastelería 1000 Sabores",
+  },
+  Checkout: {
+    path: "/checkout",
+    title: "Checkout - Pastelería 1000 Sabores",
+  },
+  Compra: {
+    path: "/compra/:idPedido",
+    title: "Compra confirmada - Pastelería 1000 Sabores",
+  },
+  CompraFallida: {
+    path: "/compra-fallida",
+    title: "Pago rechazado - Pastelería 1000 Sabores",
+  },
+  Categorias: {
+    path: "/categorias",
+    title: "Categorías - Pastelería 1000 Sabores",
+  },
+  Ofertas: {
+    path: "/ofertas",
+    title: "Ofertas - Pastelería 1000 Sabores",
+  },
 };
+
+export const rutasAnteriores = {
+  "/Administrador/index.html": "Administrador",
+  "/Carrito/carrito.html": "Carrito",
+  "/Contacto/contacto.html": "Contacto",
+  "/DetalleProducto/index.html": "DetalleProducto",
+  "/Inicio/index.html": "Inicio",
+  "/InicioSesion/iniciosesion.html": "InicioSesion",
+  "/Panaderia/index.html": "Panaderia",
+  "/Pasteleria/pasteleria.html": "Pasteleria",
+  "/PerfilUsuario/index.html": "PerfilUsuario",
+  "/RegistroUsuario/registro.html": "RegistroUsuario",
+  "/Salados/index.html": "Salados",
+  "/SinAzucar/sugar.html": "SinAzucar",
+  "/SobreNosotros/sobrenosotros.html": "SobreNosotros",
+};
+
+// Correspondencia utilizada por las pruebas de comparación con el original.
+export const pages = Object.fromEntries(
+  Object.entries(rutasAnteriores).map(([ruta, name]) => [
+    ruta,
+    { ...paginas[name], name },
+  ]),
+);

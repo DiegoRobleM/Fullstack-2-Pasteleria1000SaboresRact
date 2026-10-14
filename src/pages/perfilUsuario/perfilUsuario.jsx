@@ -1,106 +1,116 @@
-import { combinarClases } from "../../utils/combinarClases.js";
+import { Link, useNavigate } from "react-router-dom";
 import estilos from "./perfilUsuario.module.css";
-import { Navbar } from "../../components/layout/Navbar.jsx";
-import { Footer } from "../../components/layout/Footer.jsx";
-
-// Estructura y textos de la pantalla original, conservados en JSX.
-export default function PerfilUsuario({ props = {}, content = {} }) {
+import { BarraNavegacion } from "../../components/estructura/barraNavegacion.jsx";
+import { PiePagina } from "../../components/estructura/piePagina.jsx";
+import { useTienda } from "../../context/ContextoTienda.jsx";
+import { useTituloPagina } from "../../hooks/useTituloPagina.js";
+import { paginas } from "../../app/pages.js";
+import { formatearPrecio } from "../../utils/formatoPrecio.js";
+export default function PerfilUsuario() {
+  const { usuario, pedidos, cerrarSesion } = useTienda();
+  const navigate = useNavigate();
+  useTituloPagina(paginas.PerfilUsuario.title);
+  const propios = pedidos
+    .filter((pedido) => pedido.correoCliente === usuario?.email?.toLowerCase())
+    .sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+  function salir() {
+    cerrarSesion();
+    navigate("/inicio-sesion", { replace: true });
+  }
   return (
     <>
-      {"\n    "}
-      <Navbar />
-      {"\n    "}
+      <BarraNavegacion />
       <main className={estilos.contenedorPerfil}>
-        {"\n      "}
-        <div className={combinarClases(estilos.tarjetaPerfil, "text-center")}>
-          {"\n        "}
+        <div className={estilos.tarjetaPerfil + " text-center"}>
           <h1 className={estilos.tituloPerfil}>
-            {"\n          Perfil de usuario "}
-            <i className="bi bi-cup-hot-fill"></i>
-            {"\n        "}
+            Perfil de usuario <i className="bi bi-cup-hot-fill"></i>
           </h1>
-          {"\n\n        "}
           <div className={estilos.contenidoPerfil}>
-            {"\n          "}
             <div className="mt-4">
-              {"\n            "}
               <img
-                src="img/perfil.JPG"
+                src="/PerfilUsuario/img/perfil.JPG"
                 alt="Imagen de usuario"
                 className={estilos.imagenPerfil}
               />
-              {"\n          "}
             </div>
-            {"\n          "}
-            <div style={{ width: "18rem" }} className={`card ${estilos.tarjetaDatos}`}>
-              {"\n            "}
-              <div
-                className="card-header"
-                id="perfil-nombre"
-                {...props["perfil-nombre"]}
-              >
-                {content["perfil-nombre"] ?? (
-                  <>{"\n              Cargando usuario...\n            "}</>
-                )}
+            <div className={"card " + estilos.tarjetaDatos}>
+              <div className="card-header" id="perfil-nombre">
+                {[usuario?.nombre, usuario?.apellido].filter(Boolean).join(" ")}
               </div>
-              {"\n\n            "}
               <ul className="list-group list-group-flush">
-                {"\n              "}
                 <li className="list-group-item">
-                  {"\n                "}
-                  <strong>{"Correo:"}</strong>
-                  {"\n                "}
-                  <span id="perfil-email" {...props["perfil-email"]}>
-                    {content["perfil-email"] ?? <></>}
+                  <strong>Correo: </strong>
+                  <span id="perfil-email">{usuario?.email}</span>
+                </li>
+                <li className="list-group-item">
+                  <strong>Dirección: </strong>
+                  <span id="perfil-direccion">
+                    {[
+                      usuario?.direccion,
+                      usuario?.tipoPropiedad,
+                      usuario?.comuna,
+                    ]
+                      .filter(Boolean)
+                      .join(", ")}
                   </span>
-                  {"\n              "}
                 </li>
-                {"\n\n              "}
                 <li className="list-group-item">
-                  {"\n                "}
-                  <strong>{"Dirección:"}</strong>
-                  {"\n                "}
-                  <span id="perfil-direccion" {...props["perfil-direccion"]}>
-                    {content["perfil-direccion"] ?? <></>}
-                  </span>
-                  {"\n              "}
+                  <strong>Último pedido: </strong>
+                  {propios.length
+                    ? new Date(propios[0].fecha).toLocaleDateString("es-CL")
+                    : "Sin pedidos registrados"}
                 </li>
-                {"\n\n              "}
-                <li className="list-group-item">
-                  {"\n                "}
-                  <strong>{"Último pedido:"}</strong>
-                  {"\n                Sin pedidos registrados\n              "}
-                </li>
-                {"\n            "}
               </ul>
-              {"\n\n            "}
               <div className="card-body">
-                {"\n              "}
                 <button
                   type="button"
                   id="btn-cerrar-sesion"
                   className="btn btn-outline-danger w-100"
-                  {...props["btn-cerrar-sesion"]}
+                  onClick={salir}
                 >
-                  {content["btn-cerrar-sesion"] ?? (
-                    <>{"\n                Cerrar sesión\n              "}</>
-                  )}
+                  Cerrar sesión
                 </button>
-                {"\n            "}
               </div>
-              {"\n          "}
             </div>
-            {"\n        "}
           </div>
-          {"\n      "}
+          <section id="historial-pedidos" className="mt-4 text-start">
+            <h2 className="h4">Historial de pedidos</h2>
+            {propios.length ? (
+              propios.map((pedido) => (
+                <article key={pedido.id} className="card mb-3">
+                  <div className="card-body">
+                    <h3 className="h5">
+                      Pedido del{" "}
+                      {new Date(pedido.fecha).toLocaleString("es-CL")}
+                    </h3>
+                    <p>
+                      {pedido.productos
+                        .map(
+                          (producto) =>
+                            producto.cantidad + " × " + producto.titulo,
+                        )
+                        .join(", ")}
+                    </p>
+                    <p>
+                      {pedido.entrega.nombre} · Total:{" "}
+                      {formatearPrecio(pedido.total)}
+                    </p>
+                    <Link
+                      className="btn btn-outline-dark"
+                      to={"/compra/" + pedido.id}
+                    >
+                      Ver pedido
+                    </Link>
+                  </div>
+                </article>
+              ))
+            ) : (
+              <p>Sin pedidos registrados.</p>
+            )}
+          </section>
         </div>
-        {"\n    "}
       </main>
-      {"\n\n    "}
-      <Footer />
-      {"\n\n    "}
-      {"\n    "}
-      {"\n  "}
+      <PiePagina />
     </>
   );
 }

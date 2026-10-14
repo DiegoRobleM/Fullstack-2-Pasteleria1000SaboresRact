@@ -4,6 +4,7 @@ test-results/
 playwright-report/
 *.log
 .pnpm-store/
+.tests/
 
 node_modules/
 dist/

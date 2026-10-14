@@ -7,19 +7,37 @@
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1",
-    "test": "node --test tests/parity.test.mjs",
-    "test:styles": "node --test tests/styles.test.mjs"
+    "test": "node --test --test-concurrency=1 tests/router.test.mjs tests/styles.test.mjs tests/tienda.test.mjs",
+    "test:router": "node --test tests/router.test.mjs",
+    "test:parity": "node --test tests/parity.test.mjs",
+    "test:styles": "node --test tests/styles.test.mjs",
+    "test:tienda": "node --test tests/tienda.test.mjs",
+    "formatear": "prettier --write src tests"
   },
   "dependencies": {
     "bootstrap": "5.3.3",
     "bootstrap-icons": "1.11.3",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "react-router-dom": "^7.18.4"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "6.1.2",
-    "vite": "8.3.3",
     "@playwright/test": "1.58.2",
-    "pngjs": "7.0.0"
+    "@vitejs/plugin-react": "6.1.2",
+    "esbuild": "^0.28.2",
+    "istanbul-lib-instrument": "^6.0.3",
+    "jasmine-core": "^7.0.2",
+    "karma": "^6.4.4",
+    "karma-chrome-launcher": "^3.2.0",
+    "karma-coverage": "^2.2.1",
+    "karma-jasmine": "^5.1.0",
+    "pngjs": "7.0.0",
+    "prettier": "^3.9.10",
+    "vite": "8.3.3"
+  },
+  "overrides": {
+    "karma": {
+      "chokidar": "4.0.3"
+    }
   }
 }

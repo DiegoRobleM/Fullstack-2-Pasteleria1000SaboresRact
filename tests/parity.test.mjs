@@ -225,6 +225,28 @@ async function open(
   return { context, page, errors };
 }
 
+// El original conserva sus URL; React usa las rutas nuevas tras redirigir.
+async function esperarRuta(page, rutaAnterior) {
+  let destino = rutaAnterior;
+  if (new URL(page.url()).origin === reactURL) {
+    destino = pages[rutaAnterior].path;
+    if (destino.includes(":idProducto")) {
+      const id = await page.evaluate(() => {
+        try {
+          return JSON.parse(sessionStorage.getItem("productoSeleccionado"))?.id;
+        } catch {
+          return null;
+        }
+      });
+      destino = destino.replace(
+        ":idProducto",
+        encodeURIComponent(id || "sin-seleccion"),
+      );
+    }
+  }
+  await page.waitForURL((url) => url.pathname === destino);
+}
+
 async function compare(left, right, label) {
   await left.mouse.move(0, 0);
   await right.mouse.move(0, 0);
@@ -312,13 +334,16 @@ test("Catálogo → detalle → carrito: navegación, cantidades, persistencia y
       { seed: false },
     );
     try {
-      assert.equal(
-        await page.locator("#productos .card").count(),
-        3,
-      );
-      await page.getByRole("button", { name: "Agregar al carrito", exact: true }).first().click();
-      await page.getByRole("button", { name: "Ver", exact: true }).first().click();
-      await page.waitForURL("**/DetalleProducto/index.html");
+      assert.equal(await page.locator("#productos .card").count(), 3);
+      await page
+        .getByRole("button", { name: "Agregar al carrito", exact: true })
+        .first()
+        .click();
+      await page
+        .getByRole("button", { name: "Ver", exact: true })
+        .first()
+        .click();
+      await esperarRuta(page, "/DetalleProducto/index.html");
       await page.locator("#detalle-cantidad").fill("3");
       await page.locator("#btn-agregar-detalle").click();
       assert.equal(
@@ -326,9 +351,9 @@ test("Catálogo → detalle → carrito: navegación, cantidades, persistencia y
         4,
       );
       await page.locator("#btn-volver-catalogo").click();
-      await page.waitForURL("**/Pasteleria/pasteleria.html");
+      await esperarRuta(page, "/Pasteleria/pasteleria.html");
       await page.locator("#enlace-carrito-navbar").click();
-      await page.waitForURL("**/Carrito/carrito.html");
+      await esperarRuta(page, "/Carrito/carrito.html");
       assert.equal(
         (await page.locator("#total").innerText()).replace(/\s/g, ""),
         "$100.000",
@@ -345,9 +370,12 @@ test("Catálogo → detalle → carrito: navegación, cantidades, persistencia y
       await page.getByRole("button", { name: "Eliminar", exact: true }).click();
       await page.locator("#carrito .alert").waitFor();
       await page.goto(base + "/Pasteleria/pasteleria.html");
-      await page.getByRole("button", { name: "Agregar al carrito", exact: true }).first().click();
+      await page
+        .getByRole("button", { name: "Agregar al carrito", exact: true })
+        .first()
+        .click();
       await page.locator("#enlace-carrito-navbar").click();
-      await page.waitForURL("**/Carrito/carrito.html");
+      await esperarRuta(page, "/Carrito/carrito.html");
       await page.locator("#btn-vaciar").click();
       assert.equal(await page.evaluate(() => localStorage.carrito), "[]");
       assert.deepEqual(errors, []);
@@ -371,9 +399,9 @@ test("Detalle sin selección y protección de perfil/admin iguales", async () =>
       );
       assert.equal(await page.locator("#detalle-producto").isVisible(), false);
       await page.goto(base + "/PerfilUsuario/index.html");
-      await page.waitForURL("**/InicioSesion/iniciosesion.html");
+      await esperarRuta(page, "/InicioSesion/iniciosesion.html");
       await page.goto(base + "/Administrador/index.html");
-      await page.waitForURL("**/InicioSesion/iniciosesion.html");
+      await esperarRuta(page, "/InicioSesion/iniciosesion.html");
       await page.evaluate(() =>
         sessionStorage.setItem(
           "usuarioActivo",
@@ -381,7 +409,7 @@ test("Detalle sin selección y protección de perfil/admin iguales", async () =>
         ),
       );
       await page.goto(base + "/Administrador/index.html");
-      await page.waitForURL("**/Inicio/index.html");
+      await esperarRuta(page, "/Inicio/index.html");
       assert.deepEqual(errors, []);
     } finally {
       await context.close();
@@ -415,7 +443,7 @@ test("Registro, login, cuenta recordada, perfil y cierre de sesión iguales", as
       await page.locator("[name=region]").selectOption("metropolitana");
       await page.locator("[name=tipoPropiedad]").fill("Casa");
       await page.locator("#form-registro button[type=submit]").click();
-      await page.waitForURL("**/InicioSesion/iniciosesion.html");
+      await esperarRuta(page, "/InicioSesion/iniciosesion.html");
       const users = await page.evaluate(() =>
         JSON.parse(localStorage.usuariosRegistrados),
       );
@@ -432,7 +460,7 @@ test("Registro, login, cuenta recordada, perfil y cierre de sesión iguales", as
       await page.locator("#inputPassword").fill("Prueba123!");
       await page.locator("#gridCheck").check();
       await page.locator("#form-inicio-sesion button[type=submit]").click();
-      await page.waitForURL("**/PerfilUsuario/index.html");
+      await esperarRuta(page, "/PerfilUsuario/index.html");
       assert.equal(
         await page.locator("#perfil-nombre").innerText(),
         "Ana Prueba",
@@ -444,7 +472,7 @@ test("Registro, login, cuenta recordada, perfil y cierre de sesión iguales", as
         undefined,
       );
       await page.locator("#btn-cerrar-sesion").click();
-      await page.waitForURL("**/InicioSesion/iniciosesion.html");
+      await esperarRuta(page, "/InicioSesion/iniciosesion.html");
       assert.equal(
         await page.evaluate(() => localStorage.getItem("usuarioActivo")),
         null,
@@ -541,7 +569,7 @@ for (const width of [1440, 390]) {
           await compare(left.page, right.page, `Menu-sesion-${width}`);
           for (const { page } of [left, right]) {
             await page.locator("#btn-cerrar-sesion-navbar").click();
-            await page.waitForURL("**/InicioSesion/iniciosesion.html");
+            await esperarRuta(page, "/InicioSesion/iniciosesion.html");
             assert.equal(
               await page.evaluate(() =>
                 sessionStorage.getItem("usuarioActivo"),

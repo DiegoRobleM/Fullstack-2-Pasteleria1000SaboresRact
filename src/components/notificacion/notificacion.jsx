@@ -7,7 +7,10 @@ export default function Notificacion({
   ...atributos
 }) {
   return (
-    <div {...atributos} className={combinarClases(estilos.notificacion, className)}>
+    <div
+      {...atributos}
+      className={combinarClases(estilos.notificacion, className)}
+    >
       {children}
     </div>
   );

@@ -1,13 +1,13 @@
-package com.example.frontendPasteleria;
+package com.example.pasteleria;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FrontendPasteleriaApplication {
+public class PasteleriaApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FrontendPasteleriaApplication.class, args);
+		SpringApplication.run(PasteleriaApplication.class, args);
 	}
 
 }

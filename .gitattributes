@@ -1,0 +1,7 @@
+# Normaliza los saltos de línea: en el repositorio siempre LF.
+# Evita que Git marque todos los archivos como modificados por CRLF en Windows.
+* text=auto
+*.cmd text eol=crlf
+*.bat text eol=crlf
+*.sh text eol=lf
+mvnw text eol=lf

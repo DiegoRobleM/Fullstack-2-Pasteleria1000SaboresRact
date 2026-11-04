@@ -4,7 +4,9 @@ import com.example.pasteleria.entity.Producto;
 import com.example.pasteleria.service.ProductoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import java.util.List;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,5 +25,11 @@ public class ProductoController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public Producto crear(@Valid @RequestBody Producto producto) {
 		return servicio.crear(producto);
+	}
+
+	/** Lista todos los productos. */
+	@GetMapping
+	public List<Producto> listar() {
+		return servicio.listar();
 	}
 }

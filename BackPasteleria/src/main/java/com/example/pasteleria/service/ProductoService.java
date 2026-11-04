@@ -3,6 +3,7 @@ package com.example.pasteleria.service;
 import com.example.pasteleria.entity.Producto;
 import com.example.pasteleria.repository.ProductoRepository;
 import lombok.RequiredArgsConstructor;
+import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,5 +18,11 @@ public class ProductoService {
 	public Producto crear(Producto producto) {
 		producto.setId(null);
 		return repositorio.save(producto);
+	}
+
+	/** Devuelve todos los productos guardados. */
+	@Transactional(readOnly = true)
+	public List<Producto> listar() {
+		return repositorio.findAll();
 	}
 }

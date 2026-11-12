@@ -1,16 +1,31 @@
-import { productosIniciales } from "../data/productos.js";
 import { categorias } from "../data/categorias.js";
-export function obtenerProductos() {
+
+// Dirección del backend (Spring Boot).
+const URL_API = "http://localhost:8080/api/productos";
+
+// Hace la petición y convierte los errores HTTP en mensajes para el usuario.
+async function pedir(url, opciones = {}) {
+  let respuesta;
   try {
-    const datos = JSON.parse(localStorage.getItem("productosPasteleria"));
-    return Array.isArray(datos) ? datos : productosIniciales;
+    respuesta = await fetch(url, {
+      headers: { "Content-Type": "application/json" },
+      ...opciones,
+    });
   } catch {
-    return productosIniciales;
+    throw new Error("No se pudo conectar con el servidor.");
   }
+  if (respuesta.status === 404) throw new Error("Producto no encontrado.");
+  if (respuesta.status === 400) throw new Error("Datos del producto inválidos.");
+  if (!respuesta.ok) throw new Error("Error del servidor. Intenta de nuevo.");
+  // DELETE responde 204 sin contenido.
+  return respuesta.status === 204 ? null : respuesta.json();
 }
-export function guardarProductos(productos) {
-  localStorage.setItem("productosPasteleria", JSON.stringify(productos));
+
+export function obtenerProductos() {
+  return pedir(URL_API);
 }
+
+// Se valida también en el front para avisar antes de llamar a la API.
 function validarProducto(datos) {
   const precio = Number(datos.precio);
   const descuento = Number(datos.descuento ?? 0);
@@ -35,27 +50,22 @@ function validarProducto(datos) {
     descuento,
   };
 }
+
+// El ID lo genera la base de datos.
 export function crearProducto(datos) {
-  const producto = {
-    ...validarProducto(datos),
-    id: datos.categoria + "-" + crypto.randomUUID(),
-  };
-  guardarProductos([...obtenerProductos(), producto]);
-  return producto;
+  return pedir(URL_API, {
+    method: "POST",
+    body: JSON.stringify(validarProducto(datos)),
+  });
 }
+
 export function editarProducto(id, datos) {
-  const productos = obtenerProductos();
-  if (!productos.some((producto) => producto.id === id))
-    throw new Error("Producto no encontrado.");
-  const actualizado = { ...validarProducto(datos), id };
-  guardarProductos(
-    productos.map((producto) => (producto.id === id ? actualizado : producto)),
-  );
-  return actualizado;
+  return pedir(`${URL_API}/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(validarProducto(datos)),
+  });
 }
+
 export function eliminarProducto(id) {
-  const productos = obtenerProductos();
-  if (!productos.some((producto) => producto.id === id))
-    throw new Error("Producto no encontrado.");
-  guardarProductos(productos.filter((producto) => producto.id !== id));
+  return pedir(`${URL_API}/${id}`, { method: "DELETE" });
 }

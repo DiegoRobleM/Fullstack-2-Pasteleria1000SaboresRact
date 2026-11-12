@@ -42,25 +42,25 @@ export default function Administrador() {
     establecerSecciones((actuales) => ({ ...actuales, [seccion]: true }));
   }
 
-  function guardarProducto(datos) {
+  async function guardarProducto(datos) {
     if (productoEnEdicion) {
-      editarProducto(productoEnEdicion.id, datos);
+      await editarProducto(productoEnEdicion.id, datos);
       establecerProductoEnEdicion(null);
       establecerMensaje({
         tipo: "success",
         texto: "Producto actualizado correctamente.",
       });
     } else {
-      crearProducto(datos);
+      await crearProducto(datos);
       establecerMensaje(null);
     }
-    refrescarProductos();
+    await refrescarProductos();
   }
 
-  function borrarProducto(id) {
+  async function borrarProducto(id) {
     try {
-      eliminarProducto(id);
-      refrescarProductos();
+      await eliminarProducto(id);
+      await refrescarProductos();
       if (productoEnEdicion?.id === id) establecerProductoEnEdicion(null);
       establecerMensaje({
         tipo: "success",

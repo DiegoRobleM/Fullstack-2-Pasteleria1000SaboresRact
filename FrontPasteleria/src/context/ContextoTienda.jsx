@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { obtenerProductos } from "../services/productos.js";
 import { leerArreglo } from "../utils/almacenamiento.js";
 import { obtenerUsuarioActivo } from "../services/autenticacion.js";
@@ -10,21 +10,30 @@ import {
 import { crearPedido, obtenerPedidos } from "../services/pedidos.js";
 const ContextoTienda = createContext(null);
 export function ProveedorTienda({ children }) {
-  const [productos, establecerProductos] = useState(obtenerProductos);
-  const [carrito, establecerCarrito] = useState(() =>
-    normalizarCarrito(leerArreglo("carrito"), productos),
-  );
+  // Los productos llegan desde la API, así que parten vacíos.
+  const [productos, establecerProductos] = useState([]);
+  // El carrito se ajusta al catálogo recién cuando llegan los productos.
+  const [carrito, establecerCarrito] = useState(() => leerArreglo("carrito"));
   const [usuario, establecerUsuario] = useState(obtenerUsuarioActivo);
   const [pedidos, establecerPedidos] = useState(obtenerPedidos);
   function guardarCarrito(nuevoCarrito) {
     localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
     establecerCarrito(nuevoCarrito);
   }
-  function refrescarProductos() {
-    const nuevosProductos = obtenerProductos();
-    guardarCarrito(normalizarCarrito(carrito, nuevosProductos));
-    establecerProductos(nuevosProductos);
+  async function refrescarProductos() {
+    try {
+      const nuevosProductos = await obtenerProductos();
+      guardarCarrito(normalizarCarrito(carrito, nuevosProductos));
+      establecerProductos(nuevosProductos);
+    } catch (error) {
+      console.error(error.message);
+    }
   }
+  // Carga los productos una sola vez, al abrir la tienda.
+  useEffect(() => {
+    refrescarProductos();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   function refrescarUsuario() {
     establecerUsuario(obtenerUsuarioActivo());
   }

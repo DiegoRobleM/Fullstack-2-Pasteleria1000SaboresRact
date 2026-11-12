@@ -18,7 +18,7 @@ import { paginas } from "../../app/pages.js";
 export default function DetalleProducto() {
   const { idProducto } = useParams();
   const { productos, agregarProducto } = useTienda();
-  const producto = productos.find((actual) => actual.id === idProducto);
+  const producto = productos.find((actual) => String(actual.id) === idProducto);
   const [cantidad, establecerCantidad] = useState("1");
   const entradaCantidad = useRef(null);
   const { visible, notificar } = useNotificacion();

@@ -24,11 +24,11 @@ export default function FormularioProducto({
   onCancelar,
 }) {
   const [mensaje, establecerMensaje] = useState(null);
-  function enviar(evento) {
+  async function enviar(evento) {
     evento.preventDefault();
     const formulario = evento.currentTarget;
     try {
-      onGuardar(Object.fromEntries(new FormData(formulario)));
+      await onGuardar(Object.fromEntries(new FormData(formulario)));
       if (!producto) formulario.reset();
       establecerMensaje({
         tipo: "success",

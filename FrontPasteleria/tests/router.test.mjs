@@ -3,6 +3,20 @@ import assert from "node:assert/strict";
 import { expect } from "@playwright/test";
 import { paginas } from "../src/app/pages.js";
 import { iniciarSitio } from "./helpers/sitio.mjs";
+import {
+  ADMIN,
+  URL_API,
+  crearApiSimulada,
+  idDe,
+  sesion,
+} from "./helpers/apiSimulada.mjs";
+
+const clientePrueba = {
+  nombre: "Cliente",
+  apellido: "Prueba",
+  email: "cliente@example.test",
+  rol: "cliente",
+};
 
 let sitio, browser, base;
 before(async () => {
@@ -13,34 +27,45 @@ after(async () => {
   await sitio?.cerrar();
 });
 
-async function abrir(ruta, { usuario, ancho = 1440, productos } = {}) {
+/**
+ * Abre una página con la API simulada (ver helpers/apiSimulada.mjs).
+ * - usuario: sesión inicial (con token, ver sesion()).
+ * - errores: errores de la página y recursos que fallan. Las respuestas de
+ *   error de la API van aparte, en erroresApi, porque algunas pruebas las provocan.
+ */
+async function abrir(
+  ruta,
+  { usuario, ancho = 1440, api = crearApiSimulada() } = {},
+) {
   const context = await browser.newContext({
     viewport: { width: ancho, height: 1000 },
     locale: "es-CL",
   });
+  await api.instalar(context);
   await context.addInitScript(
-    ({ usuario, productos }) => {
+    ({ usuario }) => {
       if (sessionStorage.getItem("datos-prueba")) return;
       if (usuario)
         sessionStorage.setItem("usuarioActivo", JSON.stringify(usuario));
-      if (productos)
-        localStorage.setItem("productosPasteleria", JSON.stringify(productos));
       sessionStorage.setItem("datos-prueba", "true");
     },
-    { usuario, productos },
+    { usuario },
   );
   const page = await context.newPage();
   const errores = [];
+  const erroresApi = [];
   page.on("pageerror", (error) => errores.push(error.message));
   page.on("response", (response) => {
     if (response.status() >= 400)
-      errores.push(`${response.status()}: ${response.url()}`);
+      (response.url().startsWith(URL_API) ? erroresApi : errores).push(
+        `${response.status()}: ${response.url()}`,
+      );
   });
   await page.goto(base + ruta, { waitUntil: "networkidle" });
   await page.evaluate(() => {
     window.documentoPrueba = "sin-recarga";
   });
-  return { context, page, errores };
+  return { context, page, errores, erroresApi, api };
 }
 
 async function comprobarSinRecarga(page, errores) {
@@ -68,7 +93,7 @@ async function completarRegistro(page, correo = "ANA@example.test") {
 
 test("La raíz y las rutas desconocidas abren Inicio", async () => {
   const { context, page, errores } = await abrir("/", {
-    usuario: { nombre: "Admin", rol: "admin" },
+    usuario: sesion(ADMIN),
   });
   try {
     for (const ruta of ["/", "/direccion-desconocida"]) {
@@ -93,14 +118,14 @@ test("Catálogo, detalle, carrito y Atrás/Adelante conservan el documento y el 
       .getByRole("button", { name: "Ver", exact: true })
       .first()
       .click();
-    await page.waitForURL(base + "/producto/pasteleria-1");
+    await page.waitForURL(base + "/producto/" + idDe("pasteleria-1"));
     await page.locator("#detalle-cantidad").fill("3");
     await page.locator("#btn-agregar-detalle").click();
     await page.goBack();
     await page.waitForURL(base + "/pasteleria");
     await expect(page.locator("#toast-notificacion")).toHaveCSS("opacity", "0");
     await page.getByRole("button", { name: "Ver", exact: true }).nth(1).click();
-    await page.waitForURL(base + "/producto/pasteleria-2");
+    await page.waitForURL(base + "/producto/" + idDe("pasteleria-2"));
     await expect(page.locator("#detalle-cantidad")).toHaveValue("1");
     await expect(page.locator("#mensaje-carrito")).toBeHidden();
     await page.goBack();
@@ -136,7 +161,9 @@ test("Detalle directo y recarga funcionan sin selección previa en las cuatro ca
     "salados",
     "sin-azucar",
   ]) {
-    const { context, page, errores } = await abrir(`/producto/${categoria}-1`);
+    const { context, page, errores } = await abrir(
+      "/producto/" + idDe(`${categoria}-1`),
+    );
     try {
       await expect(page.locator("#detalle-producto")).toBeVisible();
       assert.equal(
@@ -157,19 +184,18 @@ test("Detalle directo y recarga funcionan sin selección previa en las cuatro ca
   }
 });
 
-test("Detalle usa el producto persistido e interpreta su imagen antigua desde la raíz", async () => {
+test("Detalle usa el producto de la API e interpreta su imagen antigua desde la raíz", async () => {
   const producto = {
-    id: "panaderia-personalizado",
     categoria: "panaderia",
     titulo: "Pan nuevo",
     descripcion: "Prueba de producto guardado",
     precio: 3000,
     imagen: "../Panaderia/img/pan.JPG",
   };
-  const { context, page, errores } = await abrir(
-    "/producto/panaderia-personalizado",
-    { productos: [producto] },
-  );
+  // Es el único producto, así que la API simulada le asigna el ID 1.
+  const { context, page, errores } = await abrir("/producto/1", {
+    api: crearApiSimulada({ productos: [producto] }),
+  });
   try {
     await expect(page.locator("#detalle-titulo")).toHaveText("Pan nuevo");
     await expect(page.locator("#detalle-imagen")).toHaveAttribute(
@@ -221,13 +247,16 @@ for (const recordar of [false, true]) {
       await expect(page.locator("#perfil-nombre")).toHaveText(
         "Administrador Demo",
       );
+      // Se guarda el usuario con su token, nunca la contraseña.
       assert.equal(
         await page.evaluate((recordar) => {
           const guardado = JSON.parse(
             (recordar ? localStorage : sessionStorage).getItem("usuarioActivo"),
           );
           return (
-            guardado.email === "admin@pasteleria.test" && !guardado.password
+            guardado.email === "admin@pasteleria.test" &&
+            !guardado.password &&
+            typeof guardado.token === "string"
           );
         }, recordar),
         true,
@@ -277,7 +306,8 @@ test("Perfil y administración protegen el acceso de visitantes y clientes", asy
     }
   }
   const { context, page, errores } = await abrir("/administrador", {
-    usuario: { nombre: "Cliente", rol: "cliente" },
+    usuario: sesion(clientePrueba),
+    api: crearApiSimulada({ usuarios: [clientePrueba] }),
   });
   try {
     await page.waitForURL(base + "/");
@@ -316,7 +346,7 @@ test("Abandonar login tras el éxito cancela su redirección sin perder la sesi�
 });
 
 test("Registro, redirección y cierre de sesión desde perfil funcionan con el router", async () => {
-  const { context, page, errores } = await abrir("/registro");
+  const { context, page, errores, erroresApi, api } = await abrir("/registro");
   try {
     await page.locator("#form-registro button[type=submit]").click();
     await expect(page.locator("#mensaje-registro")).toContainText(
@@ -325,13 +355,14 @@ test("Registro, redirección y cierre de sesión desde perfil funcionan con el r
     await expect(page.locator("#mensaje-registro")).toContainText(
       "Debes seleccionar una región.",
     );
-    assert.equal(
-      await page.evaluate(() => localStorage.getItem("usuariosRegistrados")),
-      null,
-    );
+    // Con errores de validación no se llama a la API: solo existe el admin.
+    assert.equal(api.estado.usuarios.length, 1);
     await completarRegistro(page);
     await page.locator("#form-registro button[type=submit]").click();
     await page.waitForURL(base + "/inicio-sesion");
+    const registrado = api.estado.usuarios.at(-1);
+    assert.equal(registrado.email, "ana@example.test");
+    assert.equal(registrado.rol, "cliente");
     await page.locator("#inputEmail").fill("ana@example.test");
     await page.locator("#inputPassword").fill("Prueba123!");
     await page.locator("#form-inicio-sesion button[type=submit]").click();
@@ -340,20 +371,20 @@ test("Registro, redirección y cierre de sesión desde perfil funcionan con el r
     await page.locator("#btn-cerrar-sesion").click();
     await page.waitForURL(base + "/inicio-sesion");
     await comprobarSinRecarga(page, errores);
+    assert.deepEqual(erroresApi, []);
   } finally {
     await context.close();
   }
 });
 
 test("Registro conserva campos ante correo duplicado y cancela la redirección al salir", async () => {
-  const { context, page, errores } = await abrir("/registro");
+  // Ana ya tiene cuenta: el backend responde 409 al registrarla de nuevo.
+  const { context, page, errores, api } = await abrir("/registro", {
+    api: crearApiSimulada({
+      usuarios: [{ nombre: "Ana", apellido: "Prueba", email: "ana@example.test" }],
+    }),
+  });
   try {
-    await page.evaluate(() =>
-      localStorage.setItem(
-        "usuariosRegistrados",
-        JSON.stringify([{ nombre: "Ana", email: "ana@example.test" }]),
-      ),
-    );
     await completarRegistro(page);
     await page.locator("#form-registro button[type=submit]").click();
     await expect(page.locator("#mensaje-registro")).toHaveText(
@@ -361,12 +392,7 @@ test("Registro conserva campos ante correo duplicado y cancela la redirección a
     );
     await expect(page.locator("#inputEmail")).toBeFocused();
     await expect(page.locator("#nombre")).toHaveValue("Ana");
-    assert.equal(
-      await page.evaluate(
-        () => JSON.parse(localStorage.getItem("usuariosRegistrados")).length,
-      ),
-      1,
-    );
+    assert.equal(api.estado.usuarios.length, 2);
     await page.locator("#inputEmail").fill("nueva@example.test");
     await page.locator("#form-registro button[type=submit]").click();
     await expect(page.locator("#mensaje-registro")).toContainText(
@@ -388,12 +414,7 @@ test("Registro conserva campos ante correo duplicado y cancela la redirección a
     await page.waitForURL(base + "/registro");
     await expect(page.locator("#mensaje-registro")).toBeHidden();
     await expect(page.locator("#inputEmail")).toHaveValue("");
-    assert.equal(
-      await page.evaluate(
-        () => JSON.parse(localStorage.getItem("usuariosRegistrados")).length,
-      ),
-      2,
-    );
+    assert.equal(api.estado.usuarios.length, 3);
     await comprobarSinRecarga(page, errores);
   } finally {
     await context.close();
@@ -401,8 +422,8 @@ test("Registro conserva campos ante correo duplicado y cancela la redirección a
 });
 
 test("Contacto y creación administrativa siguen funcionando durante la navegación", async () => {
-  const { context, page, errores } = await abrir("/contacto", {
-    usuario: { nombre: "Admin", apellido: "Prueba", rol: "admin" },
+  const { context, page, errores, erroresApi, api } = await abrir("/contacto", {
+    usuario: sesion(ADMIN),
   });
   try {
     await expect(page.locator("#mensaje-contacto")).toBeHidden();
@@ -415,10 +436,8 @@ test("Contacto y creación administrativa siguen funcionando durante la navegaci
     await expect(page.locator("#correo-contacto")).toHaveValue(
       "CLIENTE@example.test",
     );
-    assert.equal(
-      await page.evaluate(() => localStorage.getItem("consultasContacto")),
-      null,
-    );
+    // La validación del front evita llamar a la API.
+    assert.equal(api.estado.consultas.length, 0);
     await page
       .locator("#consulta-contacto")
       .fill("Consulta con navegación React");
@@ -428,9 +447,7 @@ test("Contacto y creación administrativa siguen funcionando durante la navegaci
     );
     await expect(page.locator("#correo-contacto")).toHaveValue("");
     await expect(page.locator("#consulta-contacto")).toHaveValue("");
-    const consultas = await page.evaluate(() =>
-      JSON.parse(localStorage.getItem("consultasContacto")),
-    );
+    const consultas = api.estado.consultas;
     assert.equal(consultas.length, 1);
     assert.equal(consultas[0].correo, "cliente@example.test");
     assert.equal(consultas[0].mensaje, "Consulta con navegación React");
@@ -479,13 +496,13 @@ test("Contacto y creación administrativa siguen funcionando durante la navegaci
     await expect(page.locator("#mensaje-contacto")).toBeHidden();
     await expect(page.locator("#correo-contacto")).toHaveValue("");
     await expect(page.locator("#consulta-contacto")).toHaveValue("");
-    assert.equal(
-      await page.evaluate(
-        () => JSON.parse(localStorage.getItem("consultasContacto"))[0].estado,
-      ),
-      "resuelta",
+    await expect.poll(() => api.estado.consultas[0].estado).toBe("resuelta");
+    assert.ok(
+      api.estado.productos.some((p) => p.titulo === "Producto React"),
+      "El producto se creó en la API.",
     );
     await comprobarSinRecarga(page, errores);
+    assert.deepEqual(erroresApi, []);
   } finally {
     await context.close();
   }

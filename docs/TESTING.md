@@ -33,7 +33,7 @@ PU-006 a PU-010: datos y descuento de una tarjeta, callback al agregar al carrit
 
 La suite unitaria se redujo a diez casos por solicitud del estudiante. La cobertura refleja los módulos importados por esas pruebas y no conserva el alcance de la suite anterior de 47 casos.
 
-Las suites de navegador contienen 22 casos: 13 de navegación/sesión, cinco de estilos y cuatro de CRUD/filtros/compra. La compra aprobada también comprueba ingresos, pedidos, ticket promedio y unidades del panel de ventas. Los selectores de tarjetas usan article y las expectativas de textos y CSS corresponden al rediseño integrado. La suite de estilos abre las 18 pantallas a 1440 y 390 píxeles. La revisión visual genera 20 capturas de diez pantallas y comprueba desbordamiento horizontal y errores JavaScript.
+Las suites de navegador contienen 23 casos: 13 de navegación/sesión, cinco de estilos y cinco de CRUD/filtros/compra. No necesitan el backend: tests/helpers/apiSimulada.mjs intercepta las peticiones a la API con Playwright y responde como Spring Boot (IDs numéricos, token, roles y códigos 401, 403, 404 y 409), y las pruebas revisan el estado de esa API simulada. Un caso comprueba la compra de un visitante y que un token vencido cierre la sesión sin bloquear la tienda. La compra aprobada también comprueba ingresos, pedidos, ticket promedio y unidades del panel de ventas. Los selectores de tarjetas usan article y las expectativas de textos y CSS corresponden al rediseño integrado. La suite de estilos abre las 18 pantallas a 1440 y 390 píxeles. La revisión visual genera 20 capturas de diez pantallas y comprueba desbordamiento horizontal y errores JavaScript.
 
 ## Repetir
 
@@ -43,7 +43,7 @@ El reporte HTML reproducible queda en test-results/coverage/index.html. docs/res
 
 ## Límites y seguimiento
 
-No se prueban backend, pasarela real, autorización de servidor, logística ni navegadores distintos de Chrome.
+Las suites de navegador no ejecutan el backend real: usan la API simulada, así que no prueban la base de datos ni la autorización del servidor. Tampoco se prueban la pasarela real, la logística ni navegadores distintos de Chrome. scripts/revision-visual.mjs todavía prepara datos en localStorage y debe adaptarse a la API.
 
 La instalación de Karma conserva tres alertas altas de desarrollo vinculadas a braces (GHSA-vfj7-8cjw-p6xm). La versión publicada consultada es 3.0.3, también afectada; la solución automática propuesta cambia a versiones anteriores de Karma/karma-jasmine. La configuración ejecuta pruebas únicas con patrones locales definidos por el proyecto. Revisar la actualización del proveedor antes de ampliar la herramienta a entradas no confiables. Esta dependencia no se importa en el frontend de producción.
 

@@ -3,6 +3,12 @@ import assert from "node:assert/strict";
 import { expect } from "@playwright/test";
 import { paginas } from "../src/app/pages.js";
 import { iniciarSitio } from "./helpers/sitio.mjs";
+import {
+  ADMIN,
+  crearApiSimulada,
+  idDe,
+  sesion,
+} from "./helpers/apiSimulada.mjs";
 
 let sitio, browser, base;
 before(async () => {
@@ -18,12 +24,10 @@ async function open(route, { width = 1440 } = {}) {
     viewport: { width, height: 1000 },
     locale: "es-CL",
   });
-  await context.addInitScript(() => {
-    sessionStorage.setItem(
-      "usuarioActivo",
-      JSON.stringify({ nombre: "Admin", apellido: "Prueba", rol: "admin" }),
-    );
-  });
+  await crearApiSimulada().instalar(context);
+  await context.addInitScript((usuario) => {
+    sessionStorage.setItem("usuarioActivo", JSON.stringify(usuario));
+  }, sesion(ADMIN));
   const page = await context.newPage();
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
@@ -40,7 +44,7 @@ for (const width of [1440, 390]) {
     for (const [nombre, config] of Object.entries(paginas)) {
       const { context, page, errors } = await open(
         config.path
-          .replace(":idProducto", "pasteleria-1")
+          .replace(":idProducto", String(idDe("pasteleria-1")))
           .replace(":idPedido", "no-existe"),
         { width },
       );
@@ -135,7 +139,7 @@ test("Las notificaciones conservan posición y estilos cuando cambia su visibili
       .getByRole("button", { name: "Ver", exact: true })
       .first()
       .click();
-    await page.waitForURL("**/producto/pasteleria-1");
+    await page.waitForURL("**/producto/" + idDe("pasteleria-1"));
     await expect(page.locator("#detalle-producto")).toHaveCSS(
       "padding-top",
       "35px",

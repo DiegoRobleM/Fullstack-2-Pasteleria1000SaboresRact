@@ -25,9 +25,10 @@ function RegistroReporter() {
     });
   };
   this.onRunComplete = (_, resultado) => {
-    fs.mkdirSync("docs", { recursive: true });
+    // Los informes van a la carpeta docs de la raíz del repositorio.
+    fs.mkdirSync("../docs", { recursive: true });
     fs.writeFileSync(
-      "docs/resultados-pruebas.json",
+      "../docs/resultados-pruebas.json",
       JSON.stringify(
         {
           fecha: new Date().toISOString(),

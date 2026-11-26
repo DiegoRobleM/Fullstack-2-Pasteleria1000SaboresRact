@@ -72,7 +72,7 @@ npm test ejecuta Jasmine/Karma y después las suites de navegador en serie. Requ
 - npm run test:visual: capturas de diez pantallas en escritorio y móvil y comprobación de desbordamiento horizontal.
 - npm run formatear: formato de código con Prettier.
 
-La configuración de Karma usa ejecución única, sin vigilancia automática de archivos. El informe y el registro real están en docs/TESTING.md, docs/resultados-pruebas.json y docs/Registro_Pruebas_Unitarias.xlsx. Las métricas se generan en test-results/coverage y sus archivos temporales están ignorados por Git.
+La configuración de Karma usa ejecución única, sin vigilancia automática de archivos. El informe y el registro real se generan en la carpeta docs de la raíz del repositorio: docs/TESTING.md, docs/resultados-pruebas.json y docs/cobertura.json. Las métricas se generan en test-results/coverage y sus archivos temporales están ignorados por Git.
 
 ## Documentación
 

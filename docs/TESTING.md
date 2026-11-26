@@ -1,27 +1,23 @@
 # Informe de pruebas y cobertura
 
-<<<<<<< HEAD
-Ejecución: 14-10-2026, 3:56:25 p. m. (America/Santiago).
-=======
-Ejecución: 14-10-2026, 4:00:03 p. m. (America/Santiago).
->>>>>>> a5b886d30fe25a7d5096f79de946e29be859314f
+Ejecución: 26-11-2026, 4:18:01 a. m. (America/Santiago).
 
 ## Resultado unitario verificado
 
 **10 casos ejecutados, 10 aprobados y 0 fallidos.**
 
-Herramientas: Jasmine y Karma 6.4.4. Navegador: Chrome Headless 153.0.0.0 (Windows 10).
+Herramientas: Jasmine y Karma 6.4.4. Navegador: Chrome Headless 158.0.0.0 (Windows 10).
 
 | Métrica | Cobertura | Cubierto / total |
 | --- | --- | --- |
-| Sentencias | 36,90% | 100 / 271 |
-| Ramas | 32,12% | 71 / 221 |
-| Funciones | 43,87% | 43 / 98 |
-| Líneas | 39,74% | 93 / 234 |
+| Sentencias | 43,37% | 144 / 332 |
+| Ramas | 34,81% | 86 / 247 |
+| Funciones | 50,94% | 54 / 106 |
+| Líneas | 45,05% | 132 / 293 |
 
 ## Método y proceso
 
-La suite contiene diez pruebas unitarias simples de componentes. Cada caso declara ID, entrada y resultado esperado. Se monta un root React dentro de MemoryRouter y ProveedorTienda, con almacenamiento limpio por caso. act espera los cambios y el root se desmonta al terminar. Los eventos de clic, input y submit verifican el DOM y jasmine.createSpy comprueba los callbacks.
+La suite contiene diez pruebas unitarias simples de componentes. Cada caso declara ID, entrada y resultado esperado. Se monta un root React dentro de MemoryRouter y ProveedorTienda, con almacenamiento limpio por caso. fetch se reemplaza con un espía que entrega el catálogo inicial con IDs numéricos, así las pruebas no dependen del backend. act espera los cambios y el root se desmonta al terminar. Los eventos de clic, input y submit verifican el DOM y jasmine.createSpy comprueba los callbacks.
 
 El bundle JSX se genera con esbuild. Istanbul instrumenta los módulos de src importados por la suite y karma-coverage produce HTML y JSON. main.jsx y la creación del navegador en routes.jsx no están instrumentados; las rutas y el arranque se comprueban con las suites de navegador. Las posiciones del HTML de cobertura corresponden al JavaScript transformado desde JSX. Estas métricas no equivalen a cobertura completa del sistema.
 
@@ -39,11 +35,11 @@ Las suites de navegador contienen 24 casos: 13 de navegación/sesión, cinco de 
 
 Ejecutar npm run build y npm test. Para aislar suites: npm run test:unitarias, npm run test:e2e y npm run test:visual. Chrome o Edge son necesarios; CHROME_BIN permite seleccionar el ejecutable.
 
-El reporte HTML reproducible queda en test-results/coverage/index.html. docs/resultados-pruebas.json conserva entradas, expectativas, estados y duración de cada caso. docs/Registro_Pruebas_Unitarias.xlsx traslada esos resultados al formato de la plantilla académica; la plantilla original se conserva.
+El reporte HTML reproducible queda en test-results/coverage/index.html. docs/resultados-pruebas.json conserva entradas, expectativas, estados y duración de cada caso, y docs/cobertura.json las métricas de cobertura.
 
 ## Límites y seguimiento
 
-Las suites de navegador no ejecutan el backend real: usan la API simulada, así que no prueban la base de datos ni la autorización del servidor. Tampoco se prueban la pasarela real, la logística ni navegadores distintos de Chrome. scripts/revision-visual.mjs todavía prepara datos en localStorage y debe adaptarse a la API.
+Las suites de navegador no ejecutan el backend real: usan la API simulada, así que no prueban la base de datos ni la autorización del servidor; esas se verificaron con curl contra el backend (ver docs/INTEGRACION.md). Tampoco se prueban la pasarela real, la logística ni navegadores distintos de Chrome. scripts/revision-visual.mjs todavía prepara datos en localStorage y debe adaptarse a la API; las capturas del manual (scripts/capturas-manual.mjs) sí recorren la aplicación real.
 
 La instalación de Karma conserva tres alertas altas de desarrollo vinculadas a braces (GHSA-vfj7-8cjw-p6xm). La versión publicada consultada es 3.0.3, también afectada; la solución automática propuesta cambia a versiones anteriores de Karma/karma-jasmine. La configuración ejecuta pruebas únicas con patrones locales definidos por el proyecto. Revisar la actualización del proveedor antes de ampliar la herramienta a entradas no confiables. Esta dependencia no se importa en el frontend de producción.
 

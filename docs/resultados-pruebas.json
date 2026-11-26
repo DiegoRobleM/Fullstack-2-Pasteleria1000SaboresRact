@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-  "fecha": "2026-10-14T18:56:25.560Z",
-=======
-  "fecha": "2026-10-14T19:00:03.315Z",
->>>>>>> a5b886d30fe25a7d5096f79de946e29be859314f
+  "fecha": "2026-11-26T07:18:01.613Z",
   "zonaHoraria": "America/Santiago",
   "herramienta": "Jasmine y Karma",
   "total": 10,
@@ -17,13 +13,9 @@
       "entrada": "Texto Guardado y tipo success",
       "esperado": "Texto, color success y role status",
       "estado": "Aprobada",
-<<<<<<< HEAD
-      "duracionMs": 19,
-=======
       "duracionMs": 16,
->>>>>>> a5b886d30fe25a7d5096f79de946e29be859314f
       "errores": [],
-      "navegador": "Chrome Headless 153.0.0.0 (Windows 10)"
+      "navegador": "Chrome Headless 158.0.0.0 (Windows 10)"
     },
     {
       "id": "PU-002",
@@ -33,7 +25,7 @@
       "estado": "Aprobada",
       "duracionMs": 2,
       "errores": [],
-      "navegador": "Chrome Headless 153.0.0.0 (Windows 10)"
+      "navegador": "Chrome Headless 158.0.0.0 (Windows 10)"
     },
     {
       "id": "PU-003",
@@ -41,9 +33,9 @@
       "entrada": "mensaje null",
       "esperado": "Alerta vacía y oculta",
       "estado": "Aprobada",
-      "duracionMs": 1,
+      "duracionMs": 2,
       "errores": [],
-      "navegador": "Chrome Headless 153.0.0.0 (Windows 10)"
+      "navegador": "Chrome Headless 158.0.0.0 (Windows 10)"
     },
     {
       "id": "PU-004",
@@ -51,9 +43,9 @@
       "entrada": "Dos errores y una referencia React",
       "esperado": "Dos textos separados por br, role alert y ref al elemento",
       "estado": "Aprobada",
-      "duracionMs": 4,
+      "duracionMs": 2,
       "errores": [],
-      "navegador": "Chrome Headless 153.0.0.0 (Windows 10)"
+      "navegador": "Chrome Headless 158.0.0.0 (Windows 10)"
     },
     {
       "id": "PU-005",
@@ -61,13 +53,9 @@
       "entrada": "Texto Producto agregado",
       "esperado": "Texto recibido y role status",
       "estado": "Aprobada",
-<<<<<<< HEAD
       "duracionMs": 2,
-=======
-      "duracionMs": 1,
->>>>>>> a5b886d30fe25a7d5096f79de946e29be859314f
       "errores": [],
-      "navegador": "Chrome Headless 153.0.0.0 (Windows 10)"
+      "navegador": "Chrome Headless 158.0.0.0 (Windows 10)"
     },
     {
       "id": "PU-006",
@@ -75,13 +63,9 @@
       "entrada": "Producto de 10000 con descuento 20%",
       "esperado": "Nombre y precio final 8000",
       "estado": "Aprobada",
-<<<<<<< HEAD
-      "duracionMs": 11,
-=======
-      "duracionMs": 28,
->>>>>>> a5b886d30fe25a7d5096f79de946e29be859314f
+      "duracionMs": 13,
       "errores": [],
-      "navegador": "Chrome Headless 153.0.0.0 (Windows 10)"
+      "navegador": "Chrome Headless 158.0.0.0 (Windows 10)"
     },
     {
       "id": "PU-007",
@@ -89,13 +73,9 @@
       "entrada": "Clic Agregar al carrito y callback spy",
       "esperado": "Una llamada y producto guardado",
       "estado": "Aprobada",
-<<<<<<< HEAD
-      "duracionMs": 6,
-=======
-      "duracionMs": 7,
->>>>>>> a5b886d30fe25a7d5096f79de946e29be859314f
+      "duracionMs": 14,
       "errores": [],
-      "navegador": "Chrome Headless 153.0.0.0 (Windows 10)"
+      "navegador": "Chrome Headless 158.0.0.0 (Windows 10)"
     },
     {
       "id": "PU-008",
@@ -103,13 +83,9 @@
       "entrada": "Escribir FRUTILLA",
       "esperado": "Una tarjeta de Pastel de Frutilla",
       "estado": "Aprobada",
-<<<<<<< HEAD
-      "duracionMs": 58,
-=======
-      "duracionMs": 48,
->>>>>>> a5b886d30fe25a7d5096f79de946e29be859314f
+      "duracionMs": 39,
       "errores": [],
-      "navegador": "Chrome Headless 153.0.0.0 (Windows 10)"
+      "navegador": "Chrome Headless 158.0.0.0 (Windows 10)"
     },
     {
       "id": "PU-009",
@@ -117,13 +93,9 @@
       "entrada": "Carrito sin productos",
       "esperado": "Mensaje informativo de carrito vacío",
       "estado": "Aprobada",
-<<<<<<< HEAD
-      "duracionMs": 4,
-=======
-      "duracionMs": 1,
->>>>>>> a5b886d30fe25a7d5096f79de946e29be859314f
+      "duracionMs": 2,
       "errores": [],
-      "navegador": "Chrome Headless 153.0.0.0 (Windows 10)"
+      "navegador": "Chrome Headless 158.0.0.0 (Windows 10)"
     },
     {
       "id": "PU-010",
@@ -131,9 +103,9 @@
       "entrada": "Producto recibido por props y precio 15000",
       "esperado": "Nombre precargado y callback con precio 15000",
       "estado": "Aprobada",
-      "duracionMs": 11,
+      "duracionMs": 3,
       "errores": [],
-      "navegador": "Chrome Headless 153.0.0.0 (Windows 10)"
+      "navegador": "Chrome Headless 158.0.0.0 (Windows 10)"
     }
   ]
 }

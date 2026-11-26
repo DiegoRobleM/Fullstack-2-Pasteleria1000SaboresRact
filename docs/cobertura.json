@@ -1,33 +1,29 @@
 {
-<<<<<<< HEAD
-  "fecha": "2026-10-14T18:56:25.560Z",
-=======
-  "fecha": "2026-10-14T19:00:03.315Z",
->>>>>>> a5b886d30fe25a7d5096f79de946e29be859314f
+  "fecha": "2026-11-26T07:18:01.613Z",
   "total": {
     "lines": {
-      "total": 234,
-      "covered": 93,
+      "total": 293,
+      "covered": 132,
       "skipped": 0,
-      "pct": 39.74
+      "pct": 45.05
     },
     "statements": {
-      "total": 271,
-      "covered": 100,
+      "total": 332,
+      "covered": 144,
       "skipped": 0,
-      "pct": 36.9
+      "pct": 43.37
     },
     "functions": {
-      "total": 98,
-      "covered": 43,
+      "total": 106,
+      "covered": 54,
       "skipped": 0,
-      "pct": 43.87
+      "pct": 50.94
     },
     "branches": {
-      "total": 221,
-      "covered": 71,
+      "total": 247,
+      "covered": 86,
       "skipped": 0,
-      "pct": 32.12
+      "pct": 34.81
     },
     "branchesTrue": {
       "total": 0,

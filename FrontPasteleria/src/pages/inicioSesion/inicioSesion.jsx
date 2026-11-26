@@ -1,8 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  crearAdministradorDemo,
-  iniciarSesion as validarInicioSesion,
-} from "../../services/autenticacion.js";
+import { iniciarSesion as validarInicioSesion } from "../../services/autenticacion.js";
 import { useTienda } from "../../context/ContextoTienda.jsx";
 import { paginas } from "../../app/pages.js";
 import { Link, useNavigate } from "react-router-dom";
@@ -19,15 +16,14 @@ export default function InicioSesion() {
 
   useEffect(() => {
     document.title = paginas.InicioSesion.title;
-    crearAdministradorDemo();
     return () => clearTimeout(temporizador.current);
   }, []);
 
-  function iniciarSesion(evento) {
+  async function iniciarSesion(evento) {
     evento.preventDefault();
     clearTimeout(temporizador.current);
     const formulario = evento.currentTarget;
-    const resultado = validarInicioSesion(new FormData(formulario));
+    const resultado = await validarInicioSesion(new FormData(formulario));
 
     establecerMensaje(resultado);
     if (resultado.limpiarContrasena) formulario.elements.password.value = "";

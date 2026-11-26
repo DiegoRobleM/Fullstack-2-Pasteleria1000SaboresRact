@@ -13,10 +13,10 @@ export default function Contacto() {
     document.title = paginas.Contacto.title;
   }, []);
 
-  function enviarConsulta(evento) {
+  async function enviarConsulta(evento) {
     evento.preventDefault();
     const formulario = evento.currentTarget;
-    const resultado = registrarConsulta(new FormData(formulario));
+    const resultado = await registrarConsulta(new FormData(formulario));
 
     establecerMensaje(resultado);
     if (resultado.tipo === "success") formulario.reset();

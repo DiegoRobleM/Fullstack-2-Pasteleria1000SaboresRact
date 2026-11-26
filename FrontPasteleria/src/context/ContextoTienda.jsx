@@ -1,7 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { obtenerProductos } from "../services/productos.js";
+import { EVENTO_SESION_EXPIRADA } from "../services/api.js";
 import { leerArreglo } from "../utils/almacenamiento.js";
-import { obtenerUsuarioActivo } from "../services/autenticacion.js";
+import {
+  cerrarSesionGuardada,
+  obtenerUsuarioActivo,
+} from "../services/autenticacion.js";
 import {
   agregarAlCarrito,
   cambiarCantidadCarrito,
@@ -15,7 +19,8 @@ export function ProveedorTienda({ children }) {
   // El carrito se ajusta al catálogo recién cuando llegan los productos.
   const [carrito, establecerCarrito] = useState(() => leerArreglo("carrito"));
   const [usuario, establecerUsuario] = useState(obtenerUsuarioActivo);
-  const [pedidos, establecerPedidos] = useState(obtenerPedidos);
+  // Los pedidos vienen del backend según la sesión (admin: todos; cliente: los suyos).
+  const [pedidos, establecerPedidos] = useState([]);
   function guardarCarrito(nuevoCarrito) {
     localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
     establecerCarrito(nuevoCarrito);
@@ -37,6 +42,24 @@ export function ProveedorTienda({ children }) {
   function refrescarUsuario() {
     establecerUsuario(obtenerUsuarioActivo());
   }
+  async function refrescarPedidos(usuarioActual = usuario) {
+    try {
+      establecerPedidos(await obtenerPedidos(usuarioActual));
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+  // Si el token venció, api.js avisa y se cierra la sesión en pantalla.
+  useEffect(() => {
+    window.addEventListener(EVENTO_SESION_EXPIRADA, cerrarSesion);
+    return () => window.removeEventListener(EVENTO_SESION_EXPIRADA, cerrarSesion);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  // Recarga los pedidos cada vez que cambia la sesión.
+  useEffect(() => {
+    refrescarPedidos(usuario);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [usuario?.token]);
   function agregarProducto(producto, cantidad = 1) {
     guardarCarrito(agregarAlCarrito(carrito, producto, cantidad));
   }
@@ -50,14 +73,16 @@ export function ProveedorTienda({ children }) {
     guardarCarrito([]);
   }
   function cerrarSesion() {
-    sessionStorage.removeItem("usuarioActivo");
-    localStorage.removeItem("usuarioActivo");
+    cerrarSesionGuardada();
     establecerUsuario(null);
+    establecerPedidos([]);
   }
-  function confirmarCompra(datos) {
-    const resultado = crearPedido({ carrito, productos, datos, usuario });
+  async function confirmarCompra(datos) {
+    const resultado = await crearPedido({ carrito, productos, datos });
     if (resultado.aprobado) {
-      establecerPedidos(obtenerPedidos());
+      // Se agrega al estado para que la página de compra lo muestre de inmediato,
+      // también cuando compra un visitante sin sesión.
+      establecerPedidos((actuales) => [resultado.pedido, ...actuales]);
       vaciarCarrito();
     }
     return resultado;
@@ -71,6 +96,7 @@ export function ProveedorTienda({ children }) {
         pedidos,
         refrescarProductos,
         refrescarUsuario,
+        refrescarPedidos,
         agregarProducto,
         cambiarCantidad,
         quitarProducto,

@@ -1,4 +1,4 @@
-import { leerArreglo } from "../utils/almacenamiento.js";
+import { pedirApi } from "./api.js";
 
 export function obtenerUsuarioActivo() {
   const texto =
@@ -7,37 +7,18 @@ export function obtenerUsuarioActivo() {
   try {
     return texto ? JSON.parse(texto) : null;
   } catch {
-    sessionStorage.removeItem("usuarioActivo");
-    localStorage.removeItem("usuarioActivo");
+    cerrarSesionGuardada();
     return null;
   }
 }
 
-export function crearAdministradorDemo() {
-  const usuarios = leerArreglo("usuariosRegistrados");
-  if (
-    usuarios.some(
-      (usuario) => usuario && usuario.email === "admin@pasteleria.test",
-    )
-  )
-    return;
-  usuarios.push({
-    nombre: "Administrador",
-    apellido: "Demo",
-    email: "admin@pasteleria.test",
-    password: "AdminDemo123!",
-    rol: "admin",
-    direccion: "Dirección ficticia",
-    tipoPropiedad: "Local",
-    region: "metropolitana",
-    comuna: "santiago",
-    guardarDatos: false,
-  });
-  localStorage.setItem("usuariosRegistrados", JSON.stringify(usuarios));
+export function cerrarSesionGuardada() {
+  sessionStorage.removeItem("usuarioActivo");
+  localStorage.removeItem("usuarioActivo");
 }
 
-// Se conservan las validaciones, mensajes y datos del JavaScript original.
-export function registrarUsuario(formulario) {
+// Se validan los datos antes de llamar a la API, con los mismos mensajes de siempre.
+export async function registrarUsuario(formulario) {
   const campos = [
     "nombre",
     "apellido",
@@ -69,19 +50,16 @@ export function registrarUsuario(formulario) {
   if (!usuario.region) errores.push("Debes seleccionar una región.");
   if (!usuario.comuna) errores.push("La comuna es obligatoria.");
   if (errores.length) return { texto: errores, tipo: "danger" };
-  const usuarios = leerArreglo("usuariosRegistrados");
-  if (usuarios.some((guardado) => guardado && guardado.email === usuario.email))
+
+  try {
+    await pedirApi("/auth/registro", { metodo: "POST", cuerpo: usuario });
+  } catch (error) {
     return {
-      texto: "Ya existe una cuenta asociada a ese correo.",
+      texto: error.message,
       tipo: "danger",
-      enfocar: "inputEmail",
+      enfocar: error.estado === 409 ? "inputEmail" : undefined,
     };
-  usuarios.push({
-    ...usuario,
-    rol: "cliente",
-    guardarDatos: formulario.has("guardarDatos"),
-  });
-  localStorage.setItem("usuariosRegistrados", JSON.stringify(usuarios));
+  }
   return {
     texto:
       "Registro realizado correctamente. Serás redirigido al inicio de sesión.",
@@ -91,36 +69,44 @@ export function registrarUsuario(formulario) {
   };
 }
 
-export function iniciarSesion(formulario) {
+// Pide el token al backend y guarda { ...usuario, token } como sesión activa.
+export async function iniciarSesion(formulario) {
   const email = String(formulario.get("email") ?? "")
     .trim()
     .toLowerCase();
   const password = String(formulario.get("password") ?? "");
-  const encontrado = leerArreglo("usuariosRegistrados").find(
-    (usuario) =>
-      usuario && usuario.email === email && usuario.password === password,
-  );
-  if (!encontrado)
+  let respuesta;
+  try {
+    respuesta = await pedirApi("/auth/login", {
+      metodo: "POST",
+      cuerpo: { email, password },
+    });
+  } catch (error) {
     return {
-      texto: "El correo o la contraseña son incorrectos.",
+      texto:
+        error.estado === 401 || error.estado === 400
+          ? "El correo o la contraseña son incorrectos."
+          : error.message,
       tipo: "danger",
       enfocar: "inputPassword",
       limpiarContrasena: true,
     };
+  }
   const { nombre, apellido, rol, direccion, tipoPropiedad, region, comuna } =
-    encontrado;
+    respuesta.usuario;
   const usuario = {
+    id: respuesta.usuario.id,
     nombre,
     apellido,
-    email: encontrado.email,
+    email: respuesta.usuario.email,
     rol: rol || "cliente",
     direccion,
     tipoPropiedad,
     region,
     comuna,
+    token: respuesta.token,
   };
-  sessionStorage.removeItem("usuarioActivo");
-  localStorage.removeItem("usuarioActivo");
+  cerrarSesionGuardada();
   (formulario.has("recordarCuenta") ? localStorage : sessionStorage).setItem(
     "usuarioActivo",
     JSON.stringify(usuario),
@@ -131,4 +117,9 @@ export function iniciarSesion(formulario) {
     redirigir: "/perfil",
     demora: 1500,
   };
+}
+
+// Solo administradores.
+export function obtenerUsuarios() {
+  return pedirApi("/usuarios");
 }

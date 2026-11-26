@@ -1,28 +1,9 @@
 import { categorias } from "../data/categorias.js";
+import { pedirApi } from "./api.js";
 
-// Dirección del backend (Spring Boot).
-const URL_API = "http://localhost:8080/api/productos";
-
-// Hace la petición y convierte los errores HTTP en mensajes para el usuario.
-async function pedir(url, opciones = {}) {
-  let respuesta;
-  try {
-    respuesta = await fetch(url, {
-      headers: { "Content-Type": "application/json" },
-      ...opciones,
-    });
-  } catch {
-    throw new Error("No se pudo conectar con el servidor.");
-  }
-  if (respuesta.status === 404) throw new Error("Producto no encontrado.");
-  if (respuesta.status === 400) throw new Error("Datos del producto inválidos.");
-  if (!respuesta.ok) throw new Error("Error del servidor. Intenta de nuevo.");
-  // DELETE responde 204 sin contenido.
-  return respuesta.status === 204 ? null : respuesta.json();
-}
-
+// Ver es público; crear, editar y eliminar requieren token de administrador.
 export function obtenerProductos() {
-  return pedir(URL_API);
+  return pedirApi("/productos");
 }
 
 // Se valida también en el front para avisar antes de llamar a la API.
@@ -53,19 +34,19 @@ function validarProducto(datos) {
 
 // El ID lo genera la base de datos.
 export function crearProducto(datos) {
-  return pedir(URL_API, {
-    method: "POST",
-    body: JSON.stringify(validarProducto(datos)),
+  return pedirApi("/productos", {
+    metodo: "POST",
+    cuerpo: validarProducto(datos),
   });
 }
 
 export function editarProducto(id, datos) {
-  return pedir(`${URL_API}/${id}`, {
-    method: "PUT",
-    body: JSON.stringify(validarProducto(datos)),
+  return pedirApi(`/productos/${id}`, {
+    metodo: "PUT",
+    cuerpo: validarProducto(datos),
   });
 }
 
 export function eliminarProducto(id) {
-  return pedir(`${URL_API}/${id}`, { method: "DELETE" });
+  return pedirApi(`/productos/${id}`, { metodo: "DELETE" });
 }

@@ -37,13 +37,13 @@ export default function Checkout() {
     }));
   }
 
-  function comprar(evento) {
+  async function comprar(evento) {
     evento.preventDefault();
     if (bloqueado.current) return;
     bloqueado.current = true;
     establecerProcesando(true);
     try {
-      const resultado = confirmarCompra(datos);
+      const resultado = await confirmarCompra(datos);
       navegar(
         resultado.aprobado
           ? "/compra/" + resultado.pedido.id

@@ -9,6 +9,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -39,6 +40,18 @@ public class SecurityConfig {
 				.sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(rutas -> rutas
 						.requestMatchers("/api/usuarios/**").hasRole("admin")
+						// Productos: ver es público; crear, editar y eliminar solo el admin.
+						.requestMatchers(HttpMethod.GET, "/api/productos/**").permitAll()
+						.requestMatchers("/api/productos/**").hasRole("admin")
+						// Consultas: cualquiera envía; solo el admin las ve y gestiona.
+						.requestMatchers(HttpMethod.POST, "/api/consultas").permitAll()
+						.requestMatchers("/api/consultas/**").hasRole("admin")
+						// Pedidos: cualquiera compra; el cliente ve los suyos; el admin gestiona todo.
+						.requestMatchers(HttpMethod.POST, "/api/pedidos").permitAll()
+						.requestMatchers(HttpMethod.GET, "/api/pedidos/mios").authenticated()
+						.requestMatchers(HttpMethod.GET, "/api/pedidos/resumen").hasRole("admin")
+						.requestMatchers(HttpMethod.GET, "/api/pedidos/{id}").authenticated()
+						.requestMatchers("/api/pedidos/**").hasRole("admin")
 						.anyRequest().permitAll())
 				.oauth2ResourceServer(o -> o.jwt(jwt -> jwt.jwtAuthenticationConverter(convertidorDeRoles())));
 		return http.build();

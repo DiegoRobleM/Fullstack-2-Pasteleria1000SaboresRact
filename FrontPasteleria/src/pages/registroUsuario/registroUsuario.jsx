@@ -26,11 +26,11 @@ export default function RegistroUsuario() {
       });
   }, [mensaje]);
 
-  function registrarUsuario(evento) {
+  async function registrarUsuario(evento) {
     evento.preventDefault();
     clearTimeout(temporizador.current);
     const formulario = evento.currentTarget;
-    const resultado = registrarCuenta(new FormData(formulario));
+    const resultado = await registrarCuenta(new FormData(formulario));
 
     establecerMensaje(resultado);
     if (resultado.enfocar)

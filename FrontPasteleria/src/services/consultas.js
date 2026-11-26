@@ -1,6 +1,9 @@
-import { leerArreglo } from "../utils/almacenamiento.js";
+import { pedirApi } from "./api.js";
 
-export function registrarConsulta(formulario) {
+export const estadosConsulta = ["pendiente", "en revisión", "resuelta"];
+
+// Cualquiera puede enviar una consulta. Devuelve el mensaje para mostrar.
+export async function registrarConsulta(formulario) {
   const correo = String(formulario.get("correo") ?? "")
     .trim()
     .toLowerCase();
@@ -8,33 +11,28 @@ export function registrarConsulta(formulario) {
   const nombre = String(formulario.get("nombre") ?? "").trim();
   if (!correo || !mensaje)
     return { texto: "Debes completar todos los campos.", tipo: "warning" };
-  const consultas = leerArreglo("consultasContacto");
-  consultas.push({
-    id: `consulta-${Date.now()}`,
-    correo,
-    nombre,
-    mensaje,
-    fecha: new Date().toISOString(),
-    estado: "pendiente",
-  });
-  localStorage.setItem("consultasContacto", JSON.stringify(consultas));
+  try {
+    await pedirApi("/consultas", {
+      metodo: "POST",
+      cuerpo: { correo, nombre, mensaje },
+    });
+  } catch (error) {
+    return { texto: error.message, tipo: "danger" };
+  }
   return { texto: "Tu consulta fue enviada correctamente.", tipo: "success" };
 }
 
+// Solo administradores. El backend las entrega de la más reciente a la más antigua.
 export function obtenerConsultas() {
-  return leerArreglo("consultasContacto").sort(
-    (a, b) => new Date(b.fecha) - new Date(a.fecha),
-  );
+  return pedirApi("/consultas");
 }
+
+// Solo administradores. Devuelve la consulta actualizada.
 export function cambiarEstadoConsulta(id, estado) {
-  if (!["pendiente", "en revisión", "resuelta"].includes(estado))
-    throw new Error("Estado de consulta inválido.");
-  const consultas = obtenerConsultas();
-  if (!consultas.some((consulta) => consulta.id === id))
-    throw new Error("Consulta no encontrada.");
-  const actualizadas = consultas.map((consulta) =>
-    consulta.id === id ? { ...consulta, estado } : consulta,
-  );
-  localStorage.setItem("consultasContacto", JSON.stringify(actualizadas));
-  return actualizadas;
+  if (!estadosConsulta.includes(estado))
+    return Promise.reject(new Error("Estado de consulta inválido."));
+  return pedirApi(`/consultas/${id}/estado`, {
+    metodo: "PATCH",
+    cuerpo: { estado },
+  });
 }

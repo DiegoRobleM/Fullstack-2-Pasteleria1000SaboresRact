@@ -21,12 +21,13 @@ import {
   obtenerConsultas,
   cambiarEstadoConsulta,
 } from "../../services/consultas.js";
-import { leerArreglo } from "../../utils/almacenamiento.js";
+import { obtenerUsuarios } from "../../services/autenticacion.js";
 import { categorias } from "../../data/categorias.js";
 import { paginas } from "../../app/pages.js";
 
 export default function Administrador() {
-  const { usuario, productos, pedidos, refrescarProductos } = useTienda();
+  const { usuario, productos, pedidos, refrescarProductos, refrescarPedidos } =
+    useTienda();
   const [secciones, establecerSecciones] = useState({ ventas: true }); // Ventas activo por defecto
   const [consultas, establecerConsultas] = useState([]);
   const [usuarios, establecerUsuarios] = useState([]);
@@ -35,11 +36,15 @@ export default function Administrador() {
 
   useTituloPagina(paginas.Administrador.title);
 
-  function mostrarSeccion(seccion) {
-    if (seccion === "consultas") establecerConsultas(obtenerConsultas());
-    if (seccion === "usuarios")
-      establecerUsuarios(leerArreglo("usuariosRegistrados"));
+  async function mostrarSeccion(seccion) {
     establecerSecciones((actuales) => ({ ...actuales, [seccion]: true }));
+    try {
+      if (seccion === "ventas") await refrescarPedidos();
+      if (seccion === "consultas") establecerConsultas(await obtenerConsultas());
+      if (seccion === "usuarios") establecerUsuarios(await obtenerUsuarios());
+    } catch (error) {
+      establecerMensaje({ tipo: "danger", texto: error.message });
+    }
   }
 
   async function guardarProducto(datos) {
@@ -71,9 +76,14 @@ export default function Administrador() {
     }
   }
 
-  function actualizarConsulta(id, estado) {
+  async function actualizarConsulta(id, estado) {
     try {
-      establecerConsultas(cambiarEstadoConsulta(id, estado));
+      const actualizada = await cambiarEstadoConsulta(id, estado);
+      establecerConsultas((actuales) =>
+        actuales.map((consulta) =>
+          consulta.id === id ? actualizada : consulta,
+        ),
+      );
     } catch (error) {
       establecerMensaje({ tipo: "danger", texto: error.message });
     }
@@ -169,7 +179,7 @@ export default function Administrador() {
     {
       id: "usuarios",
       titulo: "Usuarios",
-      texto: "Ver las cuentas registradas en este navegador.",
+      texto: "Ver las cuentas registradas en la tienda.",
       icono: (
         <svg
           viewBox="0 0 24 24"

@@ -10,7 +10,7 @@ Desarrollado en equipo por [DiegoRobleM](https://github.com/DiegoRobleM), [Victo
 
 - **FrontPasteleria**: tienda en React 19 con Vite, React Router y Bootstrap. Catálogo por categorías, búsqueda, carrito, registro e inicio de sesión, checkout con pago simulado, historial de pedidos y panel de administración (productos, consultas, usuarios y ventas). Todos los datos se obtienen de la API. Más detalle en [FrontPasteleria/README.md](FrontPasteleria/README.md).
 - **BackPasteleria**: API REST en Spring Boot (Java 25) con Spring Data JPA, Spring Security (JWT y roles), validación y documentación Swagger con springdoc. Expone `/api/auth`, `/api/productos`, `/api/consultas`, `/api/pedidos` y `/api/usuarios`.
-- **docs**: requisitos (ERS), [documento de integración](docs/INTEGRACION.md) y [documentación de pruebas](docs/TESTING.md).
+- **docs**: requisitos (ERS), [manual de usuario](docs/MANUAL_USUARIO.md), [documento de integración](docs/INTEGRACION.md) y [documentación de pruebas](docs/TESTING.md).
 
 ## Tecnologías
 

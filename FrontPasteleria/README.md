@@ -78,6 +78,7 @@ La configuración de Karma usa ejecución única, sin vigilancia automática de 
 
 - docs/ERS_V2.md: requisitos, reglas y alcance de la versión actual.
 - docs/INTEGRACION.md: integración con el backend, JWT, sesión y restricciones por rol.
+- docs/MANUAL_USUARIO.md: manual de usuario con capturas; se regeneran con node scripts/capturas-manual.mjs (front y backend en ejecución).
 - docs/TESTING.md: método, resultados y cobertura de la última ejecución.
 - docs/Continuar_aprendizaje_React.md: estado del plan y recorrido para estudiar el código.
 

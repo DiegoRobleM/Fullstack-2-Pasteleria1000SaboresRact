@@ -31,15 +31,43 @@ export function idDe(idCatalogo) {
   return indice + 1;
 }
 
-/** Token falso que entiende la API simulada. */
-export function tokenDe(email) {
-  return "token-" + email.toLowerCase();
+const FIRMA = "firma-simulada";
+const base64url = (objeto) =>
+  Buffer.from(JSON.stringify(objeto)).toString("base64url");
+
+/**
+ * Token con forma de JWT (cabecera.datos.firma) que entiende la API simulada.
+ * El front lee su "exp" para decidir cuándo renovarlo.
+ * - segundos: validez desde ahora (negativo = ya vencido). Por defecto, 2 horas.
+ */
+export function tokenDe(email, { segundos = 2 * 60 * 60 } = {}) {
+  const exp = Math.floor(Date.now() / 1000) + segundos;
+  return [
+    base64url({ alg: "HS256" }),
+    base64url({ sub: email.toLowerCase(), exp }),
+    FIRMA,
+  ].join(".");
+}
+
+/** Datos de un token de la API simulada, o null si no tiene su forma o firma. */
+function leerToken(token) {
+  const [, datos, firma] = token.split(".");
+  if (firma !== FIRMA) return null;
+  try {
+    return JSON.parse(Buffer.from(datos, "base64url").toString());
+  } catch {
+    return null;
+  }
 }
 
 /** Usuario activo tal como lo guarda el front después del login. */
-export function sesion(usuario) {
+export function sesion(usuario, opcionesToken) {
   const { password, ...datos } = usuario;
-  return { ...datos, rol: datos.rol || "cliente", token: tokenDe(usuario.email) };
+  return {
+    ...datos,
+    rol: datos.rol || "cliente",
+    token: tokenDe(usuario.email, opcionesToken),
+  };
 }
 
 function precioFinal(precio, descuento) {
@@ -70,15 +98,18 @@ export function crearApiSimulada({ productos, usuarios = [] } = {}) {
     })),
     consultas: [],
     pedidos: [],
+    renovaciones: 0,
   };
 
   const sinPassword = ({ password, ...u }) => u;
 
+  // Igual que Spring: firma válida, sin vencer y de una cuenta que existe.
   function usuarioDelToken(request) {
     const cabecera = request.headers().authorization || "";
     if (!cabecera.startsWith("Bearer ")) return null;
-    const token = cabecera.slice(7);
-    return estado.usuarios.find((u) => tokenDe(u.email) === token) || "invalido";
+    const datos = leerToken(cabecera.slice(7));
+    if (!datos || datos.exp <= Date.now() / 1000) return "invalido";
+    return estado.usuarios.find((u) => u.email === datos.sub) || "invalido";
   }
 
   async function manejar(route) {
@@ -123,6 +154,14 @@ export function crearApiSimulada({ productos, usuarios = [] } = {}) {
       return responder(200, {
         token: tokenDe(encontrado.email),
         usuario: sinPassword(encontrado),
+      });
+    }
+    if (metodo === "POST" && ruta === "/auth/renovar") {
+      if (!usuario) return error(401);
+      estado.renovaciones++;
+      return responder(200, {
+        token: tokenDe(usuario.email),
+        usuario: sinPassword(usuario),
       });
     }
     if (metodo === "POST" && ruta === "/auth/registro") {

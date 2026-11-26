@@ -39,6 +39,8 @@ public class SecurityConfig {
 				.cors(Customizer.withDefaults()) // Usa la configuración de CorsConfig.
 				.sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(rutas -> rutas
+						// Renovar el token exige uno vigente.
+						.requestMatchers("/api/auth/renovar").authenticated()
 						.requestMatchers("/api/usuarios/**").hasRole("admin")
 						// Productos: ver es público; crear, editar y eliminar solo el admin.
 						.requestMatchers(HttpMethod.GET, "/api/productos/**").permitAll()

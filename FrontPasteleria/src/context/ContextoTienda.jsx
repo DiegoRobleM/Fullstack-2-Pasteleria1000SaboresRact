@@ -1,6 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { obtenerProductos } from "../services/productos.js";
-import { EVENTO_SESION_EXPIRADA } from "../services/api.js";
+import {
+  EVENTO_SESION_EXPIRADA,
+  EVENTO_SESION_RENOVADA,
+  renovarSiHaceFalta,
+} from "../services/api.js";
 import { leerArreglo } from "../utils/almacenamiento.js";
 import {
   cerrarSesionGuardada,
@@ -49,17 +53,28 @@ export function ProveedorTienda({ children }) {
       console.error(error.message);
     }
   }
-  // Si el token venció, api.js avisa y se cierra la sesión en pantalla.
+  // api.js avisa cuando el token venció (se cierra la sesión en pantalla) y
+  // cuando se renovó (se vuelve a leer el usuario con el token nuevo).
   useEffect(() => {
     window.addEventListener(EVENTO_SESION_EXPIRADA, cerrarSesion);
-    return () => window.removeEventListener(EVENTO_SESION_EXPIRADA, cerrarSesion);
+    window.addEventListener(EVENTO_SESION_RENOVADA, refrescarUsuario);
+    return () => {
+      window.removeEventListener(EVENTO_SESION_EXPIRADA, cerrarSesion);
+      window.removeEventListener(EVENTO_SESION_RENOVADA, refrescarUsuario);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  // Recarga los pedidos cada vez que cambia la sesión.
+  // Con la pestaña abierta, revisa cada 5 minutos si el token está por vencer.
+  useEffect(() => {
+    if (!usuario) return;
+    const intervalo = setInterval(renovarSiHaceFalta, 5 * 60 * 1000);
+    return () => clearInterval(intervalo);
+  }, [usuario]);
+  // Recarga los pedidos cada vez que cambia la sesión (renovar el token no cuenta).
   useEffect(() => {
     refrescarPedidos(usuario);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [usuario?.token]);
+  }, [usuario?.email, usuario?.rol]);
   function agregarProducto(producto, cantidad = 1) {
     guardarCarrito(agregarAlCarrito(carrito, producto, cantidad));
   }

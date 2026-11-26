@@ -8,6 +8,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -41,6 +42,18 @@ public class UsuarioService {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED,
 						"El correo o la contraseña son incorrectos."));
 		return new LoginRespuesta(tokens.generar(usuario), usuario);
+	}
+
+	/**
+	 * Entrega un token nuevo a partir de uno vigente. Lee el usuario desde la base
+	 * de datos, así un cambio de rol se refleja y una cuenta eliminada no se renueva (401).
+	 */
+	@Transactional(readOnly = true)
+	public LoginRespuesta renovar(Jwt actual) {
+		Usuario usuario = repositorio.findByEmail(actual.getSubject())
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED,
+						"La cuenta ya no existe. Inicia sesión nuevamente."));
+		return new LoginRespuesta(tokens.renovar(usuario, actual), usuario);
 	}
 
 	@Transactional(readOnly = true)

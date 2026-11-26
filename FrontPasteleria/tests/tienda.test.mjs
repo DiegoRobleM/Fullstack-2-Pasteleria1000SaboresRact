@@ -327,8 +327,8 @@ test("Pago rechazado conserva carrito y permite reintentar sin registrar pedidos
 test("Un visitante compra sin sesión y un token vencido no bloquea la tienda", async () => {
   const { context, page, errores, erroresApi, api } = await abrir("/checkout", {
     almacenamiento: {
-      // Sesión con un token que la API ya no acepta.
-      usuarioActivo: { ...sesion(cliente), token: "token-vencido" },
+      // Token sin vencer, pero de una cuenta que la API ya no reconoce (401).
+      usuarioActivo: sesion(cliente),
       carrito: [{ ...productoGuardado, cantidad: 1 }],
     },
     api: crearApiSimulada({ productos: [producto] }),
@@ -362,5 +362,48 @@ test("Un visitante compra sin sesión y un token vencido no bloquea la tienda", 
     assert.ok(erroresApi.every((error) => error.startsWith("401 ")));
   } finally {
     await context.close();
+  }
+});
+test("El token por vencer se renueva y uno vencido se descarta al recargar", async () => {
+  // Token al que le quedan 10 minutos: el front pide uno nuevo antes de usarlo.
+  const api = crearApiSimulada({ usuarios: [cliente] });
+  const porVencer = sesion(cliente, { segundos: 10 * 60 });
+  const { context, page, errores, erroresApi } = await abrir("/perfil", {
+    almacenamiento: { usuarioActivo: porVencer },
+    api,
+  });
+  try {
+    await expect(page.locator("#nombre-usuario-navbar")).toContainText("Ana");
+    await expect.poll(() => api.estado.renovaciones).toBe(1);
+    const guardado = await page.evaluate(() =>
+      JSON.parse(sessionStorage.getItem("usuarioActivo")),
+    );
+    assert.notEqual(guardado.token, porVencer.token);
+    assert.equal(guardado.email, cliente.email);
+    // Al recargar, la sesión renovada sigue activa y no se renueva de nuevo.
+    await page.reload({ waitUntil: "networkidle" });
+    await expect(page.locator("#nombre-usuario-navbar")).toContainText("Ana");
+    assert.equal(api.estado.renovaciones, 1);
+    assert.deepEqual(errores, []);
+    assert.deepEqual(erroresApi, []);
+  } finally {
+    await context.close();
+  }
+
+  // Token ya vencido: se descarta al cargar, sin pedir nada con él.
+  const vencida = await abrir("/perfil", {
+    almacenamiento: { usuarioActivo: sesion(cliente, { segundos: -60 }) },
+    api: crearApiSimulada({ usuarios: [cliente] }),
+  });
+  try {
+    await vencida.page.waitForURL("**/inicio-sesion");
+    assert.equal(
+      await vencida.page.evaluate(() => sessionStorage.getItem("usuarioActivo")),
+      null,
+    );
+    assert.deepEqual(vencida.errores, []);
+    assert.deepEqual(vencida.erroresApi, []);
+  } finally {
+    await vencida.context.close();
   }
 });

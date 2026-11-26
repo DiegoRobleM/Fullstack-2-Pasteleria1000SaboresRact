@@ -1,11 +1,18 @@
-import { pedirApi } from "./api.js";
+import { pedirApi, segundosRestantes } from "./api.js";
 
+// Al recargar la página la sesión se lee del almacenamiento. Si el token ya
+// venció, se descarta en vez de mostrar una sesión que el backend rechazaría.
 export function obtenerUsuarioActivo() {
   const texto =
     sessionStorage.getItem("usuarioActivo") ||
     localStorage.getItem("usuarioActivo");
   try {
-    return texto ? JSON.parse(texto) : null;
+    const usuario = texto ? JSON.parse(texto) : null;
+    if (usuario && segundosRestantes(usuario.token) === 0) {
+      cerrarSesionGuardada();
+      return null;
+    }
+    return usuario;
   } catch {
     cerrarSesionGuardada();
     return null;

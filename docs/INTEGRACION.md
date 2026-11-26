@@ -214,7 +214,7 @@ npm install
 npm run dev
 ```
 
-Abrir `http://localhost:5173`. Swagger queda en `http://localhost:8080/swagger-ui.html`. Al iniciar, el backend crea la cuenta `admin@pasteleria.test` si no existe, con la contraseña de `app.admin.password`. El backend no carga productos de ejemplo: el administrador los crea desde el panel o desde Swagger.
+Abrir `http://localhost:5173`. Swagger queda en `http://localhost:8080/swagger-ui.html`. Al iniciar, el backend crea la cuenta `admin@pasteleria.test` si no existe, con la contraseña de `app.admin.password`. Si la tabla de productos está vacía, también carga el catálogo inicial de 12 productos (`DatosIniciales.cargarCatalogo`); si ya tiene datos, no lo modifica.
 
 ## 11. Pruebas de la integración
 

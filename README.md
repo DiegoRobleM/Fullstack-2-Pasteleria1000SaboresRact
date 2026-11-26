@@ -53,7 +53,7 @@ Sin el perfil `rds`, el backend usa la URL de `DB_URL` junto a `DB_USER` y `DB_P
 - API: `http://localhost:8080/api`
 - Swagger: `http://localhost:8080/swagger-ui.html` (con **Authorize** se pega el token para probar las rutas protegidas).
 - Al arrancar se crea, si no existe, la cuenta administradora `admin@pasteleria.test`, con la contraseña de `ADMIN_PASSWORD`.
-- El backend no carga productos de ejemplo: se crean desde el panel de administración o desde Swagger.
+- Si la tabla de productos está vacía, se carga el catálogo inicial de 12 productos (pastelería, panadería, salados y sin azúcar). Si ya hay productos, no se toca, así no se duplican ni se pierden los cambios del administrador.
 
 ### Frontend (requiere Node.js 20.19 o superior)
 
